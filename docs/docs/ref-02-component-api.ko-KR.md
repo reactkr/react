@@ -76,7 +76,7 @@ bool isMounted()
 setProps(object nextProps[, function callback])
 ```
 
-외부 자바스크립트 애플리케이션과 연동하는 경우 `React.render()`로 렌더링된 React 컴포넌트에 변경을 알려야 할 수 있습니다.
+외부 JavaScript 애플리케이션과 연동하는 경우 `React.render()`로 렌더링된 React 컴포넌트에 변경을 알리고 싶을 때가 있습니다.
 
 최상위 컴포넌트를 업데이트할 때 `React.render()`를 같은 노드에 다시 호출하는 것이 바람직한 방법이지만, `setProps()`를 호출해서 props를 바꾸고 재렌더링을 발생시킬 수 있습니다. 콜백 함수를 추가로 넘기면 `setProps`가 완료되고 컴포넌트가 다시 렌더링된 다음에 한번 호출됩니다.
 
