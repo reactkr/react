@@ -35,7 +35,7 @@ var root = React.createElement('ul', { className: 'my-list' }, child);
 React.render(root, document.body);
 ```
 
-React JSX를 사용하면 `ReactElement`가 알아서 만들어집니다. 따라서 다음 코드는 앞의 코드와 동치입니다:
+React JSX를 사용하면 `ReactElement`가 알아서 만들어집니다. 따라서 다음 코드는 앞의 코드와 같습니다:
 
 ```javascript
 var root = <ul className="my-list">
