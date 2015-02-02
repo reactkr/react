@@ -95,7 +95,7 @@ MyComponent.customMethod('bar');  // true
 string displayName
 ```
 
-`displayName` 문자열은 디버그 메시지에 사용됩니다. JSX는 이 값을 자동으로 설정합니다. [JSX in Depth](/react/docs/jsx-in-depth.html#react-composite-components)를 참고하세요.
+`displayName` 문자열은 디버그 메시지에 사용됩니다. JSX는 이 값을 자동으로 설정합니다. [JSX 깊이 알기](/react/docs/jsx-in-depth.html#react-composite-components)를 참고하세요.
 
 
 ## 생명주기 메소드
@@ -171,7 +171,7 @@ shouldComponentUpdate: function(nextProps, nextState) {
 
 기본적으로 `shouldComponentUpdate`는 항상 true를 리턴합니다. `state`가 제자리에서(in place) 바뀐 경우에 발생하는 파악하기 힘든 버그를 막기 위함입니다. 하지만 `state`가 항상 변경 불가능하도록 주의하고 `render()`에서 `props`와 `state`를 읽기만 하면 이전 props 및 state와 바뀌는 값을 비교하는 `shouldComponentUpdate`를 직접 구현할 수 있습니다.
 
-만약 성능이 병목이라면, 특히 컴포넌트가 매우 많은 경우 `shouldComponentUpdate`를 사용하여 앱을 빠르게 만들 수 있습니다.
+성능에 병목이 있다면, 특히 컴포넌트가 매우 많은 경우 `shouldComponentUpdate`를 사용하여 앱을 빠르게 만들 수 있습니다.
 
 
 ### 업데이트 시: componentWillUpdate
@@ -212,4 +212,4 @@ componentWillUnmount()
 
 컴포넌트가 DOM에서 마운트 해제 되기 직전에 호출됩니다.
 
-이 메소드에서 타이머를 해제하거나 `componentDidMount`에서 만들어진 DOM 요소를 정리하는 등 필요한 정리 작업을 수행할 수 있습니다.
+이 메소드에서 타이머를 무효화하거나 `componentDidMount`에서 만들어진 DOM 요소를 정리하는 등 필요한 정리 작업을 수행할 수 있습니다.
