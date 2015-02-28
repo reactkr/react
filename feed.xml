@@ -662,17 +662,20 @@ Minified build for production: &lt;a href=&quot;http://fb.me/react-with-addons-0
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-coffeescript&quot; data-lang=&quot;coffeescript&quot;&gt;&lt;span class=&quot;nv&quot;&gt;div = &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createFactory&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;div&amp;#39;&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Counter&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;
-  &lt;span class=&quot;vi&quot;&gt;@propTypes =&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;initialCount: &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PropTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;
-  &lt;span class=&quot;vi&quot;&gt;@defaultProps =&lt;/span&gt;
-    &lt;span class=&quot;nv&quot;&gt;initialCount: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;constructor: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;vi&quot;&gt;@state =&lt;/span&gt;
-      &lt;span class=&quot;nv&quot;&gt;count: &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;@props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;initialCount&lt;/span&gt;
+  &lt;span class=&quot;vi&quot;&gt;@propTypes = &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;initialCount: &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PropTypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;
+  &lt;span class=&quot;vi&quot;&gt;@defaultProps = &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;initialCount: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+  &lt;span class=&quot;nv&quot;&gt;constructor: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;(props) -&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@state = &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;count: &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;initialCount&lt;/span&gt;
+
   &lt;span class=&quot;nv&quot;&gt;tick: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;=&amp;gt;&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;@setState&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;count: &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;@state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
   &lt;span class=&quot;nv&quot;&gt;render: &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;onClick: &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;@tick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Clicks: &amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;@state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;onClick: &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;@tick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&amp;#39;Clicks: &amp;#39;&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;@state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;count&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;You can even use the old ES3 module pattern if you want:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MyComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;initialProps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;

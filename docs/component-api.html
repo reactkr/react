@@ -88,6 +88,11 @@
       <ul>
         
           <li>
+            <a href="/react/docs/conferences.html">Conferences</a>
+            
+          </li>
+        
+          <li>
             <a href="/react/docs/videos.html">Videos</a>
             
           </li>
@@ -375,6 +380,10 @@
             <a href="/react/tips/use-react-with-other-libraries.html">Use React with Other Libraries</a>
           </li>
         
+          <li>
+            <a href="/react/tips/dangerously-set-inner-html.html">Dangerously Set innerHTML</a>
+          </li>
+        
       </ul>
     </div>
   
@@ -412,7 +421,7 @@
 </code></pre></div>
 <p>If your <code>render()</code> method reads from something other than <code>this.props</code> or <code>this.state</code>, you&#39;ll need to tell React when it needs to re-run <code>render()</code> by calling <code>forceUpdate()</code>. You&#39;ll also need to call <code>forceUpdate()</code> if you mutate <code>this.state</code> directly.</p>
 
-<p>Calling <code>forceUpdate()</code> will cause <code>render()</code> to be called on the component and its children, but React will still only update the DOM if the markup changes.</p>
+<p>Calling <code>forceUpdate()</code> will cause <code>render()</code> to be called on the component, skipping <code>shouldComponentUpdate()</code>. This will trigger the normal lifecycle methods for child components, including the <code>shouldComponentUpdate()</code> method of each child. React will still only update the DOM if the markup changes.</p>
 
 <p>Normally you should try to avoid all uses of <code>forceUpdate()</code> and only read from <code>this.props</code> and <code>this.state</code> in <code>render()</code>. This makes your application much simpler and more efficient.</p>
 <h3><a class="anchor" name="getdomnode"></a>getDOMNode <a class="hash-link" href="#getdomnode">#</a></h3><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">DOMElement</span> <span class="nx">getDOMNode</span><span class="p">()</span>
