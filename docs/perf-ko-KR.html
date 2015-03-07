@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Add-ons | React</title>
+  <title>성능 도구 | React</title>
   <meta name="viewport" content="width=device-width">
-  <meta property="og:title" content="Add-ons | React">
+  <meta property="og:title" content="성능 도구 | React">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://facebook.github.io/react/docs/addons.html">
+  <meta property="og:url" content="http://facebook.github.io/react/docs/perf-ko-KR.html">
   <meta property="og:image" content="http://facebook.github.io/react/img/logo_og.png">
   <meta property="og:description" content="A JavaScript library for building user interfaces">
   <meta property="fb:app_id" content="623268441017527">
@@ -217,7 +217,7 @@
                   </li>
                 
                   <li>
-                    <a href="/react/docs/perf-ko-KR.html">성능 도구</a>
+                    <a href="/react/docs/perf-ko-KR.html" class="active">성능 도구</a>
                   </li>
                 
               </ul>
@@ -392,40 +392,71 @@
 
   <div class="inner-content">
     <h1>
-      Add-ons
-      <a class="edit-page-link" href="https://github.com/reactkr/react/blob/translation/docs/docs/10-addons.md" target="_blank">Edit on GitHub</a>
+      성능 도구
+      <a class="edit-page-link" href="https://github.com/reactkr/react/blob/translation/docs/docs/10.8-perf.ko-KR.md" target="_blank">Edit on GitHub</a>
     </h1>
     <div class="subHeader"></div>
 
-    <p><code>React.addons</code> is where we park some useful utilities for building React apps. <strong>These should be considered experimental</strong> but will eventually be rolled into core or a blessed utilities library:</p>
+    <p>React는 보통 처음에는 꽤 빠릅니다. 하지만 모든 성능을 짜내야 하는 상황일 때를 위해, React는 <a href="/react/docs/component-specs.html#updating-shouldcomponentupdate">shouldComponentUpdate</a> 훅을 제공해 React의 diff 알고리즘을 위한 최적화 힌트를 추가할 수 있습니다.</p>
 
-<ul>
-<li><a href="animation.html"><code>TransitionGroup</code> and <code>CSSTransitionGroup</code></a>, for dealing with animations and transitions that are usually not simple to implement, such as before a component&#39;s removal.</li>
-<li><a href="two-way-binding-helpers.html"><code>LinkedStateMixin</code></a>, to simplify the coordination between user&#39;s form input data and the component&#39;s state.</li>
-<li><a href="class-name-manipulation.html"><code>classSet</code></a>, for manipulating the DOM <code>class</code> string a bit more cleanly.</li>
-<li><a href="clone-with-props.html"><code>cloneWithProps</code></a>, to make shallow copies of React components and change their props.</li>
-<li><a href="update.html"><code>update</code></a>, a helper function that makes dealing with immutable data in JavaScript easier.</li>
-<li><a href="pure-render-mixin.html"><code>PureRenderMixin</code></a>, a performance booster under certain situations.</li>
-</ul>
+<p>덧붙여 앱의 전반적인 성능의 개요도 제공합니다. ReactPerf는 프로파일링 도구로 정확히 어디에 훅이 필요한지 알려줍니다.</p>
 
-<p>The add-ons below are in the development (unminified) version of React only:</p>
+<blockquote>
+<p>주의:</p>
 
-<ul>
-<li><a href="test-utils.html"><code>TestUtils</code></a>, simple helpers for writing test cases (unminified build only).</li>
-<li><a href="perf.html"><code>Perf</code></a>, for measuring performance and giving you hint where to optimize.</li>
-</ul>
+<p>React의 개발 빌드는 제공되는 추가 기능으로 인해 프로덕션 빌드보다 느립니다. 추가 기능에는 React의 친절한 콘솔 경고같은 것이 있습니다.(이는 프로덕션 빌드에서는 제거 됩니다) 따라서, 프로파일러는 앱의 <em>상대적으로</em> 비싼 부분만 표시하도록 합니다.</p>
+</blockquote>
+<h2><a class="anchor" name="-api"></a>일반 API <a class="hash-link" href="#-api">#</a></h2>
+<p>여기에서 설명하는 <code>Perf</code> 객체는 <code>react-with-addons.js</code>를 사용해 개발 모드에서 빌드될 때 <code>React.addons.Perf</code>로 노출됩니다.</p>
+<h3><a class="anchor" name="perf.start-perf.stop"></a><code>Perf.start()</code>와 <code>Perf.stop()</code> <a class="hash-link" href="#perf.start-perf.stop">#</a></h3>
+<p>측정을 시작/정지합니다. 그 사이의 React 연산은 밑에 있는 분석을 하기위해 기록됩니다. 미미한 양의 연산은 무시됩니다.</p>
+<h3><a class="anchor" name="perf.printinclusivemeasurements"></a><code>Perf.printInclusive(measurements)</code> <a class="hash-link" href="#perf.printinclusivemeasurements">#</a></h3>
+<p>전 수행 시간을 출력합니다. 인자가 넘겨지지 않으면, 기본값은 지난 기록부터의 모든 측정이 됩니다. 이 출력은 밑에 있는 것처럼 콘솔에서 깔끔한 테이블로 그려집니다.</p>
 
-<p>To get the add-ons, use <code>react-with-addons.js</code> (and its minified counterpart) rather than the common <code>react.js</code>.</p>
+<p><img src="/react/img/docs/perf-inclusive.png" alt=""></p>
+<h3><a class="anchor" name="perf.printexclusivemeasurements"></a><code>Perf.printExclusive(measurements)</code> <a class="hash-link" href="#perf.printexclusivemeasurements">#</a></h3>
+<p>컴포넌트를 마운트하는 시간을 포함하지 않은 &quot;exclusive&quot; 시간입니다. 여기에는 props 연산, <code>getInitialState</code>, <code>componentWillMount</code> 호출, <code>componentDidMount</code>등이 포함됩니다.</p>
 
-<p>When using the react package from npm, just simply <code>require(&#39;react/addons&#39;)</code> instead of <code>require(&#39;react&#39;)</code> to get React with all of the addons.</p>
+<p><img src="/react/img/docs/perf-exclusive.png" alt=""></p>
+<h3><a class="anchor" name="perf.printwastedmeasurements"></a><code>Perf.printWasted(measurements)</code> <a class="hash-link" href="#perf.printwastedmeasurements">#</a></h3>
+<p><strong>프로파일러에서 가장 유용한 부분입니다</strong>.</p>
 
+<p>렌더가 같아서, DOM을 변경(touch)하지 않는 경우같은 실제로는 아무것도 렌더하지 않는 컴포넌트가 사용하는 &quot;낭비되는&quot; 시간을 출력합니다.</p>
+
+<p><img src="/react/img/docs/perf-wasted.png" alt=""></p>
+<h3><a class="anchor" name="perf.printdommeasurements"></a><code>Perf.printDOM(measurements)</code> <a class="hash-link" href="#perf.printdommeasurements">#</a></h3>
+<p>&quot;set innerHTML&quot;이나 &quot;remove&quot;같은 기저의 DOM 조작을 출력합니다.</p>
+
+<p><img src="/react/img/docs/perf-dom.png" alt=""></p>
+<h2><a class="anchor" name="-api"></a>고급 API <a class="hash-link" href="#-api">#</a></h2>
+<p>위의 출력 메소드에 <code>Perf.getLastMeasurements()</code>를 사용해 결과를 이쁘게 출력합니다.</p>
+<h3><a class="anchor" name="perf.getlastmeasurements"></a><code>Perf.getLastMeasurements()</code> <a class="hash-link" href="#perf.getlastmeasurements">#</a></h3>
+<p>마지막 start-stop 세션에서 측정들의 배열을 가져옵니다. 이 배열은 이런 객체들을 가지고 있습니다.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="c1">// 용어 &quot;inclusive&quot;와 &quot;exclusive&quot;는 위에서 설명했음</span>
+  <span class="s2">&quot;exclusive&quot;</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="c1">// &#39;.0.0&#39;는 노드의 React ID</span>
+  <span class="s2">&quot;inclusive&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;.0.0&quot;</span><span class="o">:</span> <span class="mf">0.0670000008540228</span><span class="p">,</span> <span class="s2">&quot;.0&quot;</span><span class="o">:</span> <span class="mf">0.3259999939473346</span><span class="p">},</span>
+  <span class="s2">&quot;render&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;.0&quot;</span><span class="o">:</span> <span class="mf">0.036999990697950125</span><span class="p">,</span> <span class="s2">&quot;.0.0&quot;</span><span class="o">:</span> <span class="mf">0.010000003385357559</span><span class="p">},</span>
+  <span class="c1">// 인스턴스의 수</span>
+  <span class="s2">&quot;counts&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;.0&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;.0.0&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span>
+  <span class="c1">// DOM 변경(touch)</span>
+  <span class="s2">&quot;writes&quot;</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="c1">// 추가 디버깅 정보</span>
+  <span class="s2">&quot;displayNames&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;.0&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;current&quot;</span><span class="o">:</span> <span class="s2">&quot;App&quot;</span><span class="p">,</span> <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;root&gt;&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;.0.0&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;current&quot;</span><span class="o">:</span> <span class="s2">&quot;Box&quot;</span><span class="p">,</span> <span class="s2">&quot;owner&quot;</span><span class="o">:</span> <span class="s2">&quot;App&quot;</span><span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;totalTime&quot;</span><span class="o">:</span> <span class="mf">0.48499999684281647</span>
+<span class="p">}</span>
+</code></pre></div>
 
     <div class="docs-prevnext">
       
-        <a class="docs-prev" href="/react/docs/tooling-integration.html">&larr; Prev</a>
+        <a class="docs-prev" href="/react/docs/pure-render-mixin-ko-KR.html">&larr; Prev</a>
       
       
-        <a class="docs-next" href="/react/docs/animation.html">Next &rarr;</a>
+        <a class="docs-next" href="/react/docs/advanced-performance-ko-KR.html">Next &rarr;</a>
       
     </div>
   </div>
