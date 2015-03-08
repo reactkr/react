@@ -193,7 +193,7 @@
                   </li>
                 
                   <li>
-                    <a href="/react/docs/two-way-binding-helpers.html">Two-Way Binding Helpers</a>
+                    <a href="/react/docs/two-way-binding-helpers-ko-KR.html">양방향 바인딩 핼퍼</a>
                   </li>
                 
                   <li>
@@ -405,7 +405,7 @@
 
 <p>호출되면 <code>this.props</code>와 <code>this.state</code>를 토대로 하나의 자식 컴포넌트를 리턴합니다. 이 자식 컴포넌트는 네이티브 DOM 컴포넌트의 가상 표현 (<code>&lt;div /&gt;</code>나 <code>React.DOM.div()</code> 등) 또는 직접 정의한 조합(composite) 컴포넌트가 될 수 있습니다.</p>
 
-<p>아무 것도 렌더링되지 않도록 하려면 <code>null</code>이나 <code>false</code>를 리턴합니다. React는 지금의 차이 비교 알고리즘이 작동할 수 있도록 내부적으로는 <code>&lt;noscript&gt;</code> 태그를 렌더링합니다. <code>null</code>이나 <code>false</code>를 리턴한 경우, <code>this.getDOMNode()</code>는 <code>null</code>을 리턴합니다.</p>
+<p>아무 것도 렌더링되지 않도록 하려면 <code>null</code>이나 <code>false</code>를 리턴합니다. React는 지금의 차이 비교 알고리즘이 작동할 수 있도록 내부적으로는 <code>&lt;noscript&gt;</code> 태그를 렌더링합니다. <code>null</code>이나 <code>false</code>를 리턴한 경우, <code>React.findDOMNode(this)</code>는 <code>null</code>을 리턴합니다.</p>
 
 <p><code>render()</code> 함수는 순수 함수여야 합니다. 즉, 컴포넌트의 상태를 변경하지 않고, 여러번 호출해도 같은 결과를 리턴하며, DOM을 읽고 쓰거나 브라우저와 상호작용(예를 들어 <code>setTimeout</code>를 사용)하지 않아야 합니다. 브라우저와 상호작용해야 한다면 <code>componentDidMount()</code>나 다른 생명주기 메소드에서 수행해야 합니다. <code>render()</code> 함수를 순수 함수로 유지하면 서버 렌더링이 훨씬 쓸만해지고 컴포넌트에 대해 생각하기 쉬워집니다.</p>
 <h3><a class="anchor" name="getinitialstate"></a>getInitialState <a class="hash-link" href="#getinitialstate">#</a></h3><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">object</span> <span class="nx">getInitialState</span><span class="p">()</span>
@@ -448,15 +448,9 @@
 <p>최초 렌더링이 일어나기 직전에 클라이언트 및 서버에서 한번 호출됩니다. 이 메소드 안에서 <code>setState</code>를 호출하면, <code>render()</code>에서 업데이트된 state를 확인할 수 있고 state가 변함에도 불구하고 <code>render()</code>가 한번만 실행됩니다.</p>
 <h3><a class="anchor" name="--componentdidmount"></a>마운트 시: componentDidMount <a class="hash-link" href="#--componentdidmount">#</a></h3><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">componentDidMount</span><span class="p">()</span>
 </code></pre></div>
-<p>최초 렌더링이 일어난 다음 클라이언트에서만 한번 호출됩니다. (서버에서는 호출되지 않습니다.) 이 시점에 컴포넌트는 <code>this.getDOMNode()</code>로 접근 가능한 DOM 표현을 가집니다.</p>
+<p>최초 렌더링이 일어난 다음 클라이언트에서만 한번 호출됩니다. (서버에서는 호출되지 않습니다.) 이 시점에 컴포넌트는 <code>React.findDOMNode(this)</code>로 접근 가능한 DOM 표현을 가집니다.</p>
 
 <p>다른 JavaScript 프레임워크를 연동하거나, <code>setTimeout</code>/<code>setInterval</code>로 타이머를 설정하고 AJAX 요청을 보내는 등의 작업을 이 메소드에서 합니다.</p>
-
-<blockquote>
-<p>주의:</p>
-
-<p>v0.9 이전까지 DOM 노드가 마지막 인자로 넘어왔습니다. 이것을 사용하고 있었다면 이제는 <code>this.getDOMNode()</code>로 DOM 노드에 접근할 수 있습니다.</p>
-</blockquote>
 <h3><a class="anchor" name="--componentwillreceiveprops"></a>업데이트 시: componentWillReceiveProps <a class="hash-link" href="#--componentwillreceiveprops">#</a></h3><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">componentWillReceiveProps</span><span class="p">(</span><span class="nx">object</span> <span class="nx">nextProps</span><span class="p">)</span>
 </code></pre></div>
 <p>컴포넌트가 새로운 props를 받을 때 호출됩니다. 이 메소드는 최초 렌더링 시에는 호출되지 않습니다.</p>
@@ -504,12 +498,6 @@
 <p>컴포넌트의 업데이트가 DOM에 반영된 직후에 호출됩니다. 최초 렌더링 시에는 호출되지 않습니다.</p>
 
 <p>컴포넌트가 업데이트된 뒤 DOM을 조작해야 하는 경우 사용할 수 있습니다.</p>
-
-<blockquote>
-<p>주의:</p>
-
-<p>v0.9 이전까지 DOM 노드가 마지막 인자로 넘어왔습니다. 이것을 사용하고 있었다면 이제는 <code>this.getDOMNode()</code>로 DOM 노드에 접근할 수 있습니다.</p>
-</blockquote>
 <h3><a class="anchor" name="---componentwillunmount"></a>마운트 해제 시: componentWillUnmount <a class="hash-link" href="#---componentwillunmount">#</a></h3><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">componentWillUnmount</span><span class="p">()</span>
 </code></pre></div>
 <p>컴포넌트가 DOM에서 마운트 해제 되기 직전에 호출됩니다.</p>

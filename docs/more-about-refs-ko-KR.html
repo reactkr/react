@@ -193,7 +193,7 @@
                   </li>
                 
                   <li>
-                    <a href="/react/docs/two-way-binding-helpers.html">Two-Way Binding Helpers</a>
+                    <a href="/react/docs/two-way-binding-helpers-ko-KR.html">양방향 바인딩 핼퍼</a>
                   </li>
                 
                   <li>
@@ -465,7 +465,7 @@
 </ol>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">myInput</span>
 </code></pre></div>
-<p><code>this.refs.myInput.getDOMNode()</code>를 호출해 컴포넌트의 DOM 노드에 접근할 수 있습니다.</p>
+<p><code>React.findDOMNode(this.refs.myInput)</code>를 호출해 컴포넌트의 DOM 노드에 접근할 수 있습니다.</p>
 <h2><a class="anchor" name="-"></a>예제 완성하기 <a class="hash-link" href="#-">#</a></h2><div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">var</span> <span class="nx">App</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
     <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">return</span> <span class="p">{</span><span class="nx">userInput</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">};</span>
@@ -477,7 +477,7 @@
       <span class="c1">// input을 비워준다</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">userInput</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
         <span class="c1">// 이 코드는 컴포넌트가 다시 렌더 된 다음 실행됩니다</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">theInput</span><span class="p">.</span><span class="nx">getDOMNode</span><span class="p">().</span><span class="nx">focus</span><span class="p">();</span>   <span class="c1">// 짠! 포커스 됨!</span>
+        <span class="nx">React</span><span class="p">.</span><span class="nx">findDOMNode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">theInput</span><span class="p">).</span><span class="nx">focus</span><span class="p">();</span>   <span class="c1">// 짠! 포커스 됨!</span>
       <span class="p">});</span>
     <span class="p">},</span>
     <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -502,7 +502,7 @@
 <h3><a class="anchor" name=""></a>이점: <a class="hash-link" href="#">#</a></h3>
 <ul>
 <li>컴포넌트 클래스에 public 메소드(ex. Typeahead의 reset)를 선언할 수 있으며 refs를 통해 그를 호출할 수 있습니다. (ex. <code>this.refs.myTypeahead.reset()</code>)</li>
-<li>DOM을 측정하기 위해서는 거의 항상 <code>&lt;input /&gt;</code> 같은 &quot;기본&quot; 컴포넌트를 다루고 <code>this.refs.myInput.getDOMNode()</code>를 통해 그 기저의 DOM 노드에 접근해야 합니다. Refs는 이 일을 확실하게 수행하는 몇 안 되는 실용적인 방법의 하나입니다. </li>
+<li>DOM을 측정하기 위해서는 거의 항상 <code>&lt;input /&gt;</code> 같은 &quot;기본&quot; 컴포넌트를 다루고 <code>React.findDOMNode(this.refs.myInput)</code>를 통해 그 기저의 DOM 노드에 접근해야 합니다. Refs는 이 일을 확실하게 수행하는 몇 안 되는 실용적인 방법의 하나입니다.</li>
 <li>Refs는 자동으로 기록을 관리합니다! 자식이 파괴되면, 그의 ref도 마찬가지로 파괴됩니다. 참조를 유지하기 위해 뭔가 미친 짓을 하지 않는 한, 메모리 걱정은 하지 않아도 됩니다. </li>
 </ul>
 <h3><a class="anchor" name=""></a>주의: <a class="hash-link" href="#">#</a></h3>

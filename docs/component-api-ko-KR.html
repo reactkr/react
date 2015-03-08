@@ -193,7 +193,7 @@
                   </li>
                 
                   <li>
-                    <a href="/react/docs/two-way-binding-helpers.html">Two-Way Binding Helpers</a>
+                    <a href="/react/docs/two-way-binding-helpers-ko-KR.html">양방향 바인딩 핼퍼</a>
                   </li>
                 
                   <li>
@@ -427,6 +427,12 @@
 <h3><a class="anchor" name="getdomnode"></a>getDOMNode <a class="hash-link" href="#getdomnode">#</a></h3><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">DOMElement</span> <span class="nx">getDOMNode</span><span class="p">()</span>
 </code></pre></div>
 <p>이 컴포넌트가 DOM에 마운트된 경우 해당하는 네이티브 브라우저 DOM 엘리먼트를 리턴합니다. 이 메소드는 폼 필드의 값이나 DOM의 크기/위치 등 DOM에서 정보를 읽을 때 유용합니다. <code>render</code>가 <code>null</code>이나 <code>false</code>를 리턴하였다면 <code>this.getDOMNode()</code>는 <code>null</code>을 리턴합니다.</p>
+
+<blockquote>
+<p>주의:</p>
+
+<p>getDOMNode는 비 추천 상태가 되었고 <a href="/react/docs/top-level-api.html#react.finddomnode">React.findDOMNode()</a>로 교체되었습니다.</p>
+</blockquote>
 <h3><a class="anchor" name="ismounted"></a>isMounted <a class="hash-link" href="#ismounted">#</a></h3><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">bool</span> <span class="nx">isMounted</span><span class="p">()</span>
 </code></pre></div>
 <p><code>isMounted()</code>는 컴포넌트가 DOM에 렌더링되었으면 true를, 아니면 false를 리턴합니다. 비동기적으로 <code>setState()</code>나 <code>forceUpdate()</code>를 호출할 때 이 메소드를 사용하여 오류를 방지할 수 있습니다.</p>
