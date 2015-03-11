@@ -209,7 +209,7 @@
                   </li>
                 
                   <li>
-                    <a href="/react/docs/create-fragment.html">키가 할당된 프래그먼트</a>
+                    <a href="/react/docs/create-fragment-ko-KR.html">키가 할당된 프래그먼트</a>
                   </li>
                 
                   <li>
@@ -404,7 +404,7 @@
     <blockquote>
 <p>주의:</p>
 
-<p>이 모듈은 이제 <a href="https://github.com/JedWatson/classnames">JedWatson/classnames</a>에 독립적으로 있고 React와 관련없습니다. 그러므로 이 에드온은 제거될 예정입니다.</p>
+<p>이 모듈은 이제 <a href="https://github.com/JedWatson/classnames">JedWatson/classnames</a>에 독립적으로 있고 React와 관련없습니다. 그러므로 이 애드온은 제거될 예정입니다.</p>
 </blockquote>
 
 <p><code>classSet()</code>은 간단히 DOM <code>class</code> 문자열을 조작하는 편리한 도구입니다.</p>
@@ -420,10 +420,10 @@
     <span class="nx">classString</span> <span class="o">+=</span> <span class="s1">&#39; message-read&#39;</span><span class="p">;</span>
   <span class="p">}</span>
   <span class="c1">// &#39;message message-important message-read&#39;</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classString</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Great</span><span class="p">,</span> <span class="nx">I</span><span class="err">&#39;</span><span class="nx">ll</span> <span class="nx">be</span> <span class="nx">there</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classString</span><span class="p">}</span><span class="o">&gt;</span><span class="err">좋아요</span><span class="p">,</span> <span class="err">거기서</span> <span class="err">봅시다</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>이것은 순식간에 장황해질 수 있습니다. 클래스 이름 문자열은 읽기 어렵고 에러가 발생하기 쉽기도 하죠. <code>classSet()</code>가 이 문제를 해결할 수 있습니다.</p>
+<p>이것은 순식간에 장황해질 수 있습니다. 클래스 이름 문자열은 읽기 어렵고 에러가 발생하기도 쉽죠. <code>classSet()</code>가 이 문제를 해결할 수 있습니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">cx</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">addons</span><span class="p">.</span><span class="nx">classSet</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">classes</span> <span class="o">=</span> <span class="nx">cx</span><span class="p">({</span>
@@ -432,10 +432,10 @@
     <span class="s1">&#39;message-read&#39;</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">isRead</span>
   <span class="p">});</span>
   <span class="c1">// 최종 문자열은 동일하지만, 훨씬 깔끔함</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classes</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Great</span><span class="p">,</span> <span class="nx">I</span><span class="err">&#39;</span><span class="nx">ll</span> <span class="nx">be</span> <span class="nx">there</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classes</span><span class="p">}</span><span class="o">&gt;</span><span class="err">좋아요</span><span class="p">,</span> <span class="err">거기서</span> <span class="err">봅시다</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><code>classSet()</code>을 사용할 때 사용할지 안할지 잘모르는 CSS 클래스 이름 키와 함께 객체를 전달합니다. true로 간주되는(Truthy) 값은 키를 결과 문자열의 일부로 만듭니다.</p>
+<p><code>classSet()</code>을 사용할 때 사용할지 안할지 잘 모르는 CSS 클래스 이름 키와 함께 객체를 전달합니다. true로 간주되는(Truthy) 값은 키를 결과 문자열의 일부로 만듭니다.</p>
 
 <p><code>classSet()</code>은 클래스 이름을 인자로 넘겨 연결되게 할 수도 있습니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -444,7 +444,7 @@
   <span class="kd">var</span> <span class="nx">readModifier</span> <span class="o">=</span> <span class="s1">&#39;message-read&#39;</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">classes</span> <span class="o">=</span> <span class="nx">cx</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nx">importantModifier</span><span class="p">,</span> <span class="nx">readModifier</span><span class="p">);</span>
   <span class="c1">// 최종 문자열은 &#39;message message-important message-read&#39;</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classes</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Great</span><span class="p">,</span> <span class="nx">I</span><span class="err">&#39;</span><span class="nx">ll</span> <span class="nx">be</span> <span class="nx">there</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classes</span><span class="p">}</span><span class="o">&gt;</span><span class="err">좋아요</span><span class="p">,</span> <span class="err">거기서</span> <span class="err">봅시다</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>복잡한 문자열 연결은 이제 안하셔도 됩니다!</p>

@@ -209,7 +209,7 @@
                   </li>
                 
                   <li>
-                    <a href="/react/docs/create-fragment.html">키가 할당된 프래그먼트</a>
+                    <a href="/react/docs/create-fragment-ko-KR.html">키가 할당된 프래그먼트</a>
                   </li>
                 
                   <li>
@@ -401,14 +401,14 @@
     </h1>
     <div class="subHeader"></div>
 
-    <p>드문 경우긴 하지만 엘리먼트에서 소유하지 않은 엘리먼트의 props를 변경하고 싶을 때가 있습니다. (<code>this.props.children</code>로 전달된 엘리먼트의 <code>className</code> 변경 같은 경우) 아니면 전달된 엘리먼트의 복사본을 여럿 만들고 싶을 수도 있습니다. 이는 <code>cloneWithProps()</code>로 할 수 있습니다.</p>
+    <p>드문 경우긴 하지만 엘리먼트에서 소유하지 않은 엘리먼트의 props를 변경하고 싶을 때가 있습니다 (<code>this.props.children</code>로 전달된 엘리먼트의 <code>className</code> 변경 같은 경우). 아니면 전달된 엘리먼트의 복사본 여러 개를 만들고 싶을 수도 있습니다. 이는 <code>cloneWithProps()</code>로 할 수 있습니다.</p>
 <h4><a class="anchor" name="reactelement-react.addons.clonewithpropsreactelement-element-object-extraprops"></a><code>ReactElement React.addons.cloneWithProps(ReactElement element, object? extraProps)</code> <a class="hash-link" href="#reactelement-react.addons.clonewithpropsreactelement-element-object-extraprops">#</a></h4>
-<p><code>element</code>를 얕은 복사하고 <code>extraProps</code>로 넘긴 props를 머지합니다. <code>className</code>과 <code>style</code> props는 지능적으로 머지됩니다.</p>
+<p><code>element</code>를 얕게 복사하고 <code>extraProps</code>로 넘긴 props를 머지합니다. <code>className</code>과 <code>style</code> props는 지능적인 방법으로 머지됩니다.</p>
 
 <blockquote>
 <p>주의:</p>
 
-<p><code>cloneWithProps</code>는 <code>key</code>를 클론된 엘리먼트에 전송하지 않습니다. 키를 보존하고 싶으시면, <code>extraProps</code> 객체에 넣으세요.</p>
+<p><code>cloneWithProps</code>는 <code>key</code>를 클론된 엘리먼트에 전달하지 않습니다. 키를 보존하고 싶으시면, <code>extraProps</code> 객체에 넣으세요.</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">clonedElement</span> <span class="o">=</span> <span class="nx">cloneWithProps</span><span class="p">(</span><span class="nx">originalElement</span><span class="p">,</span> <span class="p">{</span> <span class="nx">key</span> <span class="o">:</span> <span class="nx">originalElement</span><span class="p">.</span><span class="nx">key</span> <span class="p">});</span>
 </code></pre></div>
 <p>비슷하게 <code>ref</code>도 유지되지 않습니다.</p>

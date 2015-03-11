@@ -209,7 +209,7 @@
                   </li>
                 
                   <li>
-                    <a href="/react/docs/create-fragment.html">키가 할당된 프래그먼트</a>
+                    <a href="/react/docs/create-fragment-ko-KR.html">키가 할당된 프래그먼트</a>
                   </li>
                 
                   <li>
@@ -415,7 +415,7 @@
 
 <p>React에서 이는 &quot;change&quot; 이벤트를 감시하고 데이터 소스(보통 DOM)에서 읽어 컴포넌트에서 <code>setState()</code>를 호출하는 식으로 할 수 있습니다. &quot;데이터 흐름 반복을 제한&quot;하면 더 이해하기 편하고, 쉽게 유지보수할 수 있는 프로그램이 만들어지는 것은 명확합니다. 더 자세한 내용은 <a href="/react/docs/forms-ko-KR.html">폼 문서</a>를 확인하세요.</p>
 
-<p>양방향 바인딩(묵시적으로 DOM의 어떤 값은 React <code>state</code>와 일치하도록 강제하는 것)은 간결하기도 하고 다양한 애플리케이션을 지원 할 수 있습니다. React는 <code>ReactLink</code>를 제공합니다. 이는 위에서 설명한 일반적인 데이터 흐름 반복 패턴을 설정하거나, 어떤 데이터 소스를 React <code>state</code>로 &quot;링크하는&quot;  편의 문법입니다.</p>
+<p>양방향 바인딩(묵시적으로 DOM의 어떤 값은 React <code>state</code>와 일치하도록 강제하는 것)은 간결하기도 하고 다양한 애플리케이션을 지원 할 수 있습니다. React는 <code>ReactLink</code>를 제공합니다. 이는 위에서 설명한 일반적인 데이터 흐름 반복 패턴을 설정하거나, 어떤 데이터 소스를 React <code>state</code>로 &quot;링크하는&quot; 편의 문법입니다.</p>
 
 <blockquote>
 <p>주의:</p>
@@ -426,7 +426,7 @@
 <p><code>ReactLink</code>를 사용하지 않는 간단한 폼 예제입니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">NoLink</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">{</span><span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;Hello!&#39;</span><span class="p">};</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;안녕!&#39;</span><span class="p">};</span>
   <span class="p">},</span>
   <span class="nx">handleChange</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">message</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">});</span>
@@ -457,7 +457,7 @@
 &lt;input type=&quot;checkbox&quot; checkedLink={this.linkState(&#39;booleanValue&#39;)} /&gt;
 </code></p>
 <h2><a class="anchor" name="-"></a>내부 구조 <a class="hash-link" href="#-">#</a></h2>
-<p><code>ReactLink</code>에는 크게 인스턴스를 생성하는 면과 사용하는 면이 있습니다. <code>ReactLink</code>가 얼마나 간단한지 확인하기위해, 이 부분들을 보다 명시적으로 고쳐 봅시다.</p>
+<p><code>ReactLink</code>에는 크게 인스턴스를 생성하는 면과 사용하는 면이 있습니다. <code>ReactLink</code>가 얼마나 간단한지 확인하기 위해, 이 부분들을 보다 명시적으로 고쳐 봅시다.</p>
 <h3><a class="anchor" name="linkedstatemixin--reactlink-"></a>LinkedStateMixin 없이 ReactLink 쓰기 <a class="hash-link" href="#linkedstatemixin--reactlink-">#</a></h3><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">WithoutMixin</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span><span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;Hello!&#39;</span><span class="p">};</span>

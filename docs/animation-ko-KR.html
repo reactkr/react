@@ -209,7 +209,7 @@
                   </li>
                 
                   <li>
-                    <a href="/react/docs/create-fragment.html">키가 할당된 프래그먼트</a>
+                    <a href="/react/docs/create-fragment-ko-KR.html">키가 할당된 프래그먼트</a>
                   </li>
                 
                   <li>
@@ -461,7 +461,7 @@
   <span class="k">opacity</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><code>ReactCSSTransitionGroup</code>에서 아이템을 제거하려해도 DOM에는 남게 됩니다. 만약 애드온을 React의 최소화하지 않은 빌드와 사용한다면, 애니메이션이나 트랜지션이 일어나는 것을 예상하고 있었다는 React의 경고를 보게 될 것입니다. 그게 바로 <code>ReactCSSTransitionGroup</code>가 DOM 엘리먼트를 애니메이션이 끝날때 까지 페이지에 남겨두는 이유입니다. 이 CSS를 넣어보세요.</p>
+<p><code>ReactCSSTransitionGroup</code>에서 아이템을 제거하려해도 DOM에는 남게 됩니다. 만약 애드온을 React의 최소화하지 않은 빌드와 사용한다면, 애니메이션이나 트랜지션이 일어나는 것을 예상하고 있었다는 React의 경고를 보게 될 것입니다. 그게 바로 <code>ReactCSSTransitionGroup</code>가 DOM 엘리먼트를 애니메이션이 끝날 때까지 페이지에 남겨두는 이유입니다. 이 CSS를 넣어보세요.</p>
 <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.example-leave</span> <span class="p">{</span>
   <span class="k">opacity</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
   <span class="n">transition</span><span class="o">:</span> <span class="k">opacity</span> <span class="m">.5s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="p">;</span>
@@ -471,7 +471,7 @@
   <span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">01</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><h3><a class="anchor" name="----"></a>애니메이션 그룹이 작동하려면 마운트가 필요 <a class="hash-link" href="#----">#</a></h3>
-<p>자식들에게 트랜지션을 적용하려면 <code>ReactCSSTransitionGroup</code>은 이미 DOM에 마운트되어 있어야 합니다. 예를 들어, 밑의 코드는 동작하지 않을 것입니다. 왜냐하면 <code>ReactCSSTransitionGroup</code> 안에서 새 아이템을 마운트하는 대신 새 아이템과 같이 <code>ReactCSSTransitionGroup</code>를 마운트 했기 때문입니다. 이 것을 위에있는 <a href="#getting-stared">시작하기</a>  항목과 비교해보세요.</p>
+<p>자식들에게 트랜지션을 적용하려면 <code>ReactCSSTransitionGroup</code>은 이미 DOM에 마운트되어 있어야 합니다. 예를 들어, 밑의 코드는 동작하지 않을 것입니다. 왜냐하면 <code>ReactCSSTransitionGroup</code> 안에서 새 아이템을 마운트하는 대신 새 아이템과 같이 <code>ReactCSSTransitionGroup</code>를 마운트했기 때문입니다. 이 것을 위에 있는 <a href="#getting-stared">시작하기</a> 항목과 비교해보세요.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="p">(</span>
@@ -508,7 +508,7 @@
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre></div><h3><a class="anchor" name="-"></a>애니메이션 비활성화 <a class="hash-link" href="#-">#</a></h3>
-<p>원한다면 <code>enter</code>나 <code>leave</code> 애니메이션을 비활성화 할 수 있습니다. 예를 들어, <code>enter</code> 애니메이션만 필요하고 <code>leave</code> 애니메이션은 필요없지만, <code>ReactCSSTransitionGroup</code>이 DOM 노드를 없애기 전 애니메이션이 완료되길 기다리고 있는 경우에 사용할 수 있습니다. <code>ReactCSSTransitionGroup</code>에  <code>transitionEnter={false}</code>나 <code>transitionLeave={false}</code> props를 추가하면 그 애니메이션을 비활성화 할 수 있습니다.</p>
+<p>원한다면 <code>enter</code>나 <code>leave</code> 애니메이션을 비활성화 할 수 있습니다. 예를 들어, <code>enter</code> 애니메이션만 필요하고 <code>leave</code> 애니메이션은 필요없지만, <code>ReactCSSTransitionGroup</code>이 DOM 노드를 없애기 전 애니메이션이 완료되길 기다리고 있는 경우에 사용할 수 있습니다. <code>ReactCSSTransitionGroup</code>에 <code>transitionEnter={false}</code>나 <code>transitionLeave={false}</code> props를 추가하면 그 애니메이션을 비활성화 할 수 있습니다.</p>
 
 <blockquote>
 <p>주의:</p>
@@ -526,7 +526,7 @@
 <h3><a class="anchor" name="componentdidleave"></a><code>componentDidLeave()</code> <a class="hash-link" href="#componentdidleave">#</a></h3>
 <p>이는 <code>willLeave</code> <code>callback</code>이 호출될 때 호출됩니다. (<code>componentWillUnmount</code>와 같은 타이밍)</p>
 <h3><a class="anchor" name="--"></a>다른 컴포넌트 렌더하기 <a class="hash-link" href="#--">#</a></h3>
-<p>기본적으로 <code>ReactTransitionGroup</code>은 <code>span</code>으로 렌더합니다. <code>component</code> prop으로 이 행동을 바꿀 수 있습니다. 예를 들어, <code>&lt;ul&gt;</code>을 렌더하고 싶다면 이렇게 하면됩니다.</p>
+<p>기본적으로 <code>ReactTransitionGroup</code>은 <code>span</code>으로 렌더합니다. <code>component</code> prop으로 이 행동을 바꿀 수 있습니다. 예를 들어, <code>&lt;ul&gt;</code>을 렌더하고 싶다면 이렇게 하면 됩니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="hll"><span class="o">&lt;</span><span class="nx">ReactTransitionGroup</span> <span class="nx">component</span><span class="o">=</span><span class="s2">&quot;ul&quot;</span><span class="o">&gt;</span>
 </span>  <span class="p">...</span>
 <span class="o">&lt;</span><span class="err">/ReactTransitionGroup&gt;</span>
@@ -539,7 +539,7 @@
 <p>v0.12이전에는, DOM 컴포넌트를 사용할 때, <code>component</code> prop은 <code>React.DOM.*</code>로 참조할 필요가 있었습니다. 이제 컴포넌트가 단순히 <code>React.createElement</code>로 전달되기 때문에, <code>component</code> prop은 스트링이어야 합니다. 복합 컴포넌트는 팩토리를 넘겨야 합니다.</p>
 </blockquote>
 
-<p>사용자 정의를 포함한 어떤 프로퍼티도 렌더된 컴포넌트의 프로퍼티가 됩니다. 예를 들어, <code>&lt;ul&gt;</code>에 css 클래스를 넣어서 렌더하려면 이렇게 하면됩니다.</p>
+<p>사용자 정의를 포함한 어떤 프로퍼티도 렌더된 컴포넌트의 프로퍼티가 됩니다. 예를 들어, <code>&lt;ul&gt;</code>에 CSS 클래스를 넣어서 렌더하려면 이렇게 하면 됩니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="hll"><span class="o">&lt;</span><span class="nx">ReactTransitionGroup</span> <span class="nx">component</span><span class="o">=</span><span class="s2">&quot;ul&quot;</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&quot;animated-list&quot;</span><span class="o">&gt;</span>
 </span>  <span class="p">...</span>
 <span class="o">&lt;</span><span class="err">/ReactTransitionGroup&gt;</span>

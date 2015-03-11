@@ -209,7 +209,7 @@
                   </li>
                 
                   <li>
-                    <a href="/react/docs/create-fragment.html">키가 할당된 프래그먼트</a>
+                    <a href="/react/docs/create-fragment-ko-KR.html">키가 할당된 프래그먼트</a>
                   </li>
                 
                   <li>
@@ -405,7 +405,7 @@
 <p>React 컴포넌트의 인스턴스는 React가 렌더링 시에 내부적으로 만듭니다. 이때 만들어진 인스턴스는 이후의 렌더링에서 다시 사용되고 컴포넌트의 메소드들에서 <code>this</code> 변수로 접근할 수 있습니다. React 외부에서 React 컴포넌트의 핸들을 얻는 방법은 <code>React.render</code>의 리턴값을 저장하는 것이 유일합니다. 다른 컴포넌트 안에서 비슷한 결과를 얻으려면 <a href="/react/docs/more-about-refs-ko-KR.html">refs</a>를 사용해야 합니다.</p>
 <h3><a class="anchor" name="setstate"></a>setState <a class="hash-link" href="#setstate">#</a></h3><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">setState</span><span class="p">(</span><span class="kd">function</span><span class="o">|</span><span class="nx">object</span> <span class="nx">nextState</span><span class="p">[,</span> <span class="kd">function</span> <span class="nx">callback</span><span class="p">])</span>
 </code></pre></div>
-<p><code>nextState</code>를 현재 state에 합칩니다. 이벤트 핸들러와 서버 요청 콜백에서 UI 업데이트를 발생시키기 위해 이 메소드를 주로 사용합니다. </p>
+<p><code>nextState</code>를 현재 state에 합칩니다. 이벤트 핸들러와 서버 요청 콜백에서 UI 업데이트를 발생시키기 위해 이 메소드를 주로 사용합니다.</p>
 
 <p>첫번째 인자는 업데이트를 위한 키를 0개 이상 가진 객체이거나 업데이트를 위한 키들을 포함한 객체를 반환하는 함수(의 state나 props)일 수 있습니다.</p>
 
@@ -453,7 +453,7 @@
 <blockquote>
 <p>주의:</p>
 
-<p>getDOMNode는 비 추천 상태가 되었고 <a href="/react/docs/top-level-api.html#react.finddomnode">React.findDOMNode()</a>로 교체되었습니다.</p>
+<p>getDOMNode는 <a href="/react/docs/top-level-api.html#react.finddomnode">React.findDOMNode()</a>로 교체되었습니다.</p>
 
 <p>이 메소드는 <code>React.Component</code>를 확장한 ES6 <code>class</code> 컴포넌트에서는 사용할 수 없습니다. React의 미래 버전에서 이는 완전히 사라지게 될 것입니다.</p>
 </blockquote>
