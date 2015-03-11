@@ -151,12 +151,12 @@
           </li>
         
           <li>
-            <a href="/react/docs/reusable-components.html">Reusable Components</a>
+            <a href="/react/docs/reusable-components-ko-KR.html">재사용가능한 컴포넌트</a>
             
           </li>
         
           <li>
-            <a href="/react/docs/transferring-props.html">Transferring Props</a>
+            <a href="/react/docs/transferring-props-ko-KR.html">Props 전달</a>
             
           </li>
         
@@ -189,7 +189,7 @@
               <ul>
                 
                   <li>
-                    <a href="/react/docs/animation.html">Animation</a>
+                    <a href="/react/docs/animation-ko-KR.html">애니메이션</a>
                   </li>
                 
                   <li>
@@ -225,7 +225,7 @@
           </li>
         
           <li>
-            <a href="/react/docs/advanced-performance.html">Advanced Performance</a>
+            <a href="/react/docs/advanced-performance-ko-KR.html">성능 심화</a>
             
           </li>
         
@@ -471,7 +471,9 @@
   <span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">{{display:</span> <span class="err">&#39;</span><span class="na">none</span><span class="err">&#39;}}</span><span class="nt">&gt;</span>Paragraph 1<span class="nt">&lt;/p&gt;</span>
   <span class="nt">&lt;p&gt;</span>Paragraph 2<span class="nt">&lt;/p&gt;</span>
 <span class="nt">&lt;/Card&gt;</span>
-</code></pre></div><h3><a class="anchor" name="-"></a>동적 자식 <a class="hash-link" href="#-">#</a></h3>
+</code></pre></div>
+<p><a name="dynamic-children"></a></p>
+<h3><a class="anchor" name="-"></a>동적 자식 <a class="hash-link" href="#-">#</a></h3>
 <p>자식들이 섞이거나(검색의 결과같은 경우) 새로운 컴포넌트가 목록의 앞에 추가(스트림같은 경우)된다면 상황은 점점 더 까다로워집니다. 이런 때에의 동일성과 각 자식의 상태는 반드시 랜더 패스 간에 유지돼야 합니다. 각 자식에 <code>key</code>를 할당 함으로써 독자적으로 식별할 수 있습니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">results</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">results</span><span class="p">;</span>

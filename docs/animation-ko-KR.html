@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Animation | React</title>
+  <title>애니메이션 | React</title>
   <meta name="viewport" content="width=device-width">
-  <meta property="og:title" content="Animation | React">
+  <meta property="og:title" content="애니메이션 | React">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://facebook.github.io/react/docs/animation.html">
+  <meta property="og:url" content="http://facebook.github.io/react/docs/animation-ko-KR.html">
   <meta property="og:image" content="http://facebook.github.io/react/img/logo_og.png">
   <meta property="og:description" content="A JavaScript library for building user interfaces">
   <meta property="fb:app_id" content="623268441017527">
@@ -189,7 +189,7 @@
               <ul>
                 
                   <li>
-                    <a href="/react/docs/animation-ko-KR.html">애니메이션</a>
+                    <a href="/react/docs/animation-ko-KR.html" class="active">애니메이션</a>
                   </li>
                 
                   <li>
@@ -392,16 +392,18 @@
 
   <div class="inner-content">
     <h1>
-      Animation
-      <a class="edit-page-link" href="https://github.com/reactkr/react/blob/translation/docs/docs/10.1-animation.md" target="_blank">Edit on GitHub</a>
+      애니메이션
+      <a class="edit-page-link" href="https://github.com/reactkr/react/blob/translation/docs/docs/10.1-animation.ko-KR.md" target="_blank">Edit on GitHub</a>
     </h1>
     <div class="subHeader"></div>
 
-    <p>React provides a <code>ReactTransitionGroup</code> addon component as a low-level API for animation, and a <code>ReactCSSTransitionGroup</code> for easily implementing basic CSS animations and transitions.</p>
-<h2><a class="anchor" name="high-level-api-reactcsstransitiongroup"></a>High-level API: <code>ReactCSSTransitionGroup</code> <a class="hash-link" href="#high-level-api-reactcsstransitiongroup">#</a></h2>
-<p><code>ReactCSSTransitionGroup</code> is based on <code>ReactTransitionGroup</code> and is an easy way to perform CSS transitions and animations when a React component enters or leaves the DOM. It&#39;s inspired by the excellent <a href="http://www.nganimate.org/">ng-animate</a> library.</p>
-<h3><a class="anchor" name="getting-started"></a>Getting Started <a class="hash-link" href="#getting-started">#</a></h3>
-<p><code>ReactCSSTransitionGroup</code> is the interface to <code>ReactTransitions</code>. This is a simple element that wraps all of the components you are interested in animating. Here&#39;s an example where we fade list items in and out.</p>
+    <p>React에는 애니메이션을 위한 저 수준 API로 <code>ReactTransitionGroup</code> 애드온 컴포넌트가 있고 간단히 기초 CSS 애니메이션과 트랜지션을 구현할 수 있는 <code>ReactCSSTransitionGroup</code>가 있습니다.</p>
+<h2><a class="anchor" name="--api-reactcsstransitiongroup"></a>고 레벨 API: <code>ReactCSSTransitionGroup</code> <a class="hash-link" href="#--api-reactcsstransitiongroup">#</a></h2>
+<p><code>ReactCSSTransitionGroup</code>는 <code>ReactTransitionGroup</code>를 기반으로 React 컴포넌트가 DOM에 들어가거나 나올때의 CSS의 트랜지션과 애니메이션을 구현하기 쉽게합니다. 이는 <a href="http://www.nganimate.org/">ng-animate</a> 라이브러리에 영향을 받았습니다.</p>
+
+<p><a name="getting-stared"></a></p>
+<h3><a class="anchor" name=""></a>시작하기 <a class="hash-link" href="#">#</a></h3>
+<p><code>ReactCSSTransitionGroup</code>은 <code>ReactTransitions</code>을 위한 인터페이스입니다. 이는 애니메이션을 제어할 모든 컴포넌트를 감싸는 하나의 엘리먼트 입니다. 아래는 목록의 아이템을 페이드 인/아웃하는 간단한 예제입니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">ReactCSSTransitionGroup</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">addons</span><span class="p">.</span><span class="nx">CSSTransitionGroup</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">TodoList</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
@@ -438,14 +440,14 @@
 <span class="p">});</span>
 </code></pre></div>
 <blockquote>
-<p>Note:</p>
+<p>주의:</p>
 
-<p>You must provide <a href="/react/docs/multiple-components.html#dynamic-children">the <code>key</code> attribute</a> for all children of <code>ReactCSSTransitionGroup</code>, even if rendering a single item. This is how React will determine which children have entered, left, or stayed.</p>
+<p><code>ReactCSSTransitionGroup</code>의 모든 자식은 <a href="/react/docs/multiple-components-ko-KR.html#dynamic-children"><code>key</code> 어트리뷰트</a>를 반드시 만들어야 합니다. 한 아이템을 렌더한다 해도 예외는 아닙니다. 키는 React가 어떤 자식이 들어오고, 나가고, 머무르는지 파악할 때 사용합니다.</p>
 </blockquote>
 
-<p>In this component, when a new item is added to <code>ReactCSSTransitionGroup</code> it will get the <code>example-enter</code> CSS class and the <code>example-enter-active</code> CSS class added in the next tick. This is a convention based on the <code>transitionName</code> prop.</p>
+<p>이 컴포넌트에서 새로운 아이템이 <code>ReactCSSTransitionGroup</code>에 추가되면 <code>example-enter</code> 아이템은 CSS 클래스를 가지게 되고 다음 순간에 <code>example-enter-active</code> CSS 클래스가 추가됩니다. 이는 <code>transitionName</code> prop을 기반으로 한 관례입니다.</p>
 
-<p>You can use these classes to trigger a CSS animation or transition. For example, try adding this CSS and adding a new list item:</p>
+<p>이 클래스들은 CSS 애니메이션이나 트랜지션을 일으키는데 사용할 수 있습니다. 예를 들어, 이 CSS를 넣은 후 아이템을 추가해 보세요.</p>
 <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.example-enter</span> <span class="p">{</span>
   <span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">01</span><span class="p">;</span>
   <span class="n">transition</span><span class="o">:</span> <span class="k">opacity</span> <span class="m">.5s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="p">;</span>
@@ -455,7 +457,7 @@
   <span class="k">opacity</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>You&#39;ll notice that when you try to remove an item <code>ReactCSSTransitionGroup</code> keeps it in the DOM. If you&#39;re using an unminified build of React with add-ons you&#39;ll see a warning that React was expecting an animation or transition to occur. That&#39;s because <code>ReactCSSTransitionGroup</code> keeps your DOM elements on the page until the animation completes. Try adding this CSS:</p>
+<p><code>ReactCSSTransitionGroup</code>에서 아이템을 제거하려해도 DOM에는 남게 됩니다. 만약 애드온을 React의 최소화하지 않은 빌드와 사용한다면, 애니메이션이나 트랜지션이 일어나는 것을 예상하고 있었다는 React의 경고를 보게 될 것입니다. 그게 바로 <code>ReactCSSTransitionGroup</code>가 DOM 엘리먼트를 애니메이션이 끝날때 까지 페이지에 남겨두는 이유입니다. 이 CSS를 넣어보세요.</p>
 <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.example-leave</span> <span class="p">{</span>
   <span class="k">opacity</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
   <span class="n">transition</span><span class="o">:</span> <span class="k">opacity</span> <span class="m">.5s</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="p">;</span>
@@ -464,8 +466,8 @@
 <span class="nc">.example-leave.example-leave-active</span> <span class="p">{</span>
   <span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">01</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div><h3><a class="anchor" name="animation-group-must-be-mounted-to-work"></a>Animation Group Must Be Mounted To Work <a class="hash-link" href="#animation-group-must-be-mounted-to-work">#</a></h3>
-<p>In order for it to apply transitions to its children, the <code>ReactCSSTransitionGroup</code> must already be mounted in the DOM. The example below would not work, because the <code>ReactCSSTransitionGroup</code> is being mounted along with the new item, instead of the new item being mounted within it. Compare this to the <a href="#getting-started">Getting Started</a> section above to see the difference.</p>
+</code></pre></div><h3><a class="anchor" name="----"></a>애니메이션 그룹이 작동하려면 마운트가 필요 <a class="hash-link" href="#----">#</a></h3>
+<p>자식들에게 트랜지션을 적용하려면 <code>ReactCSSTransitionGroup</code>은 이미 DOM에 마운트되어 있어야 합니다. 예를 들어, 밑의 코드는 동작하지 않을 것입니다. 왜냐하면 <code>ReactCSSTransitionGroup</code> 안에서 새 아이템을 마운트하는 대신 새 아이템과 같이 <code>ReactCSSTransitionGroup</code>를 마운트 했기 때문입니다. 이 것을 위에있는 <a href="#getting-stared">시작하기</a>  항목과 비교해보세요.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">return</span> <span class="p">(</span>
@@ -483,8 +485,8 @@
 </span><span class="hll">      <span class="o">&lt;</span><span class="err">/div&gt;</span>
 </span>    <span class="p">);</span>
   <span class="p">}</span>
-</code></pre></div><h3><a class="anchor" name="animating-one-or-zero-items"></a>Animating One or Zero Items <a class="hash-link" href="#animating-one-or-zero-items">#</a></h3>
-<p>Although in the example above we rendered a list of items into <code>ReactCSSTransitionGroup</code>, the children of <code>ReactCSSTransitionGroup</code> can be one or zero items. This makes it possible to animate a single element entering or leaving. Similarly, you can animate a new element replacing the current element, with the new element animating in while the current animates out. For example, we can implement a simple image carousel like this:</p>
+</code></pre></div><h3><a class="anchor" name="----"></a>아이템 하나이거나 없을 때의 애니메이션 <a class="hash-link" href="#----">#</a></h3>
+<p>위의 에제에서 <code>ReactCSSTransitionGroup</code>에 아이템 목록을 렌더했지만, <code>ReactCSSTransitionGroup</code>의 자식은 하나이거나 없을 수도 있습니다. 이는 한 엘리먼트가 들어오고 나가는 것의 애니메이션을 가능하게 합니다. 비슷하게, 현재 엘리먼트가 나가는 동안 새 앨리먼트의 애니메이션을 하면, 새 엘리먼트가 현재 엘리먼트를 교체하는 애니메이션을 만들 수 있습니다. 예를 들어 이렇게 간단한 이미지 회전 베너(carousel)를 구현할 수 있습니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">ReactCSSTransitionGroup</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">addons</span><span class="p">.</span><span class="nx">CSSTransitionGroup</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">ImageCarousel</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
@@ -501,39 +503,39 @@
     <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">});</span>
-</code></pre></div><h3><a class="anchor" name="disabling-animations"></a>Disabling Animations <a class="hash-link" href="#disabling-animations">#</a></h3>
-<p>You can disable animating <code>enter</code> or <code>leave</code> animations if you want. For example, sometimes you may want an <code>enter</code> animation and no <code>leave</code> animation, but <code>ReactCSSTransitionGroup</code> waits for an animation to complete before removing your DOM node. You can add <code>transitionEnter={false}</code> or <code>transitionLeave={false}</code> props to <code>ReactCSSTransitionGroup</code> to disable these animations.</p>
+</code></pre></div><h3><a class="anchor" name="-"></a>애니메이션 비활성화 <a class="hash-link" href="#-">#</a></h3>
+<p>원한다면 <code>enter</code>나 <code>leave</code> 애니메이션을 비활성화 할 수 있습니다. 예를 들어, <code>enter</code> 애니메이션만 필요하고 <code>leave</code> 애니메이션은 필요없지만, <code>ReactCSSTransitionGroup</code>이 DOM 노드를 없애기 전 애니메이션이 완료되길 기다리고 있는 경우에 사용할 수 있습니다. <code>ReactCSSTransitionGroup</code>에  <code>transitionEnter={false}</code>나 <code>transitionLeave={false}</code> props를 추가하면 그 애니메이션을 비활성화 할 수 있습니다.</p>
 
 <blockquote>
-<p>Note:</p>
+<p>주의:</p>
 
-<p>When using <code>ReactCSSTransitionGroup</code>, there&#39;s no way for your components to be notified when a transition has ended or to perform any more complex logic around animation. If you want more fine-grained control, you can use the lower-level <code>ReactTransitionGroup</code> API which provides the hooks you need to do custom transitions.</p>
+<p><code>ReactCSSTransitionGroup</code>를 사용할 때는, 트랜지션이 종료되었을 때나 애니메이션 근처에서 더 복잡한 로직을 실행할 때 컴포넌트에 통지할 방법이 없습니다. 보다 세밀하게 제어하고 싶다면, 커스텀 트랜지션에 필요한 훅을 제공하는 저수준 <code>ReactTransitionGroup</code> API를 이용할 수 있습니다.</p>
 </blockquote>
-<h2><a class="anchor" name="low-level-api-reacttransitiongroup"></a>Low-level API: <code>ReactTransitionGroup</code> <a class="hash-link" href="#low-level-api-reacttransitiongroup">#</a></h2>
-<p><code>ReactTransitionGroup</code> is the basis for animations. It is accessible as <code>React.addons.TransitionGroup</code>. When children are declaratively added or removed from it (as in the example above) special lifecycle hooks are called on them.</p>
+<h2><a class="anchor" name="-api-reacttransitiongroup"></a>저수준 API: <code>ReactTransitionGroup</code> <a class="hash-link" href="#-api-reacttransitiongroup">#</a></h2>
+<p><code>ReactTransitionGroup</code>은 애니메이션의 기초입니다. 이는 <code>React.addons.TransitionGroup</code>으로 접근할 수 있습니다. 위에 있는 예제처럼 자식들이 선언적으로 여기에 추가되거나 삭제되는 경우, 특별한 훅이 이 생명주기에서 호출됩니다.</p>
 <h3><a class="anchor" name="componentwillentercallback"></a><code>componentWillEnter(callback)</code> <a class="hash-link" href="#componentwillentercallback">#</a></h3>
-<p>This is called at the same time as <code>componentDidMount()</code> for components added to an existing <code>TransitionGroup</code>. It will block other animations from occurring until <code>callback</code> is called. It will not be called on the initial render of a <code>TransitionGroup</code>.</p>
+<p>이는 이미 있는 <code>TransitionGroup</code>에 컴포넌트를 추가할 때 호출되는 <code>componentDidMount()</code>와 같이 호출됩니다. 이는 <code>callback</code>이 호출될 때까지 다른 애니메이션을 막습니다. <code>TransitionGroup</code>의 최조 렌더에서는 불려지지 않습니다.</p>
 <h3><a class="anchor" name="componentdidenter"></a><code>componentDidEnter()</code> <a class="hash-link" href="#componentdidenter">#</a></h3>
-<p>This is called after the <code>callback</code> function that was passed to <code>componentWillEnter</code> is called.</p>
+<p>이는 <code>componentWillEnter</code>에 넘겨주었던 <code>callback</code> 함수가 호출된 다음에 호출됩니다.</p>
 <h3><a class="anchor" name="componentwillleavecallback"></a><code>componentWillLeave(callback)</code> <a class="hash-link" href="#componentwillleavecallback">#</a></h3>
-<p>This is called when the child has been removed from the <code>ReactTransitionGroup</code>. Though the child has been removed, <code>ReactTransitionGroup</code> will keep it in the DOM until <code>callback</code> is called.</p>
+<p>이는 <code>ReactTransitionGroup</code>에서 자식이 제거되었을 때 호출됩니다. 자식이 제거되었다고 해도 <code>ReactTransitionGroup</code>는 <code>callback</code>이 호출될 때까지 DOM에 자식을 남겨둡니다.</p>
 <h3><a class="anchor" name="componentdidleave"></a><code>componentDidLeave()</code> <a class="hash-link" href="#componentdidleave">#</a></h3>
-<p>This is called when the <code>willLeave</code> <code>callback</code> is called (at the same time as <code>componentWillUnmount</code>).</p>
-<h3><a class="anchor" name="rendering-a-different-component"></a>Rendering a Different Component <a class="hash-link" href="#rendering-a-different-component">#</a></h3>
-<p>By default <code>ReactTransitionGroup</code> renders as a <code>span</code>. You can change this behavior by providing a <code>component</code> prop. For example, here&#39;s how you would render a <code>&lt;ul&gt;</code>:</p>
+<p>이는 <code>willLeave</code> <code>callback</code>이 호출될 때 호출됩니다. (<code>componentWillUnmount</code>와 같은 타이밍)</p>
+<h3><a class="anchor" name="--"></a>다른 컴포넌트 렌더하기 <a class="hash-link" href="#--">#</a></h3>
+<p>기본적으로 <code>ReactTransitionGroup</code>은 <code>span</code>으로 렌더합니다. <code>component</code> prop으로 이 행동을 바꿀 수 있습니다. 예를 들어, <code>&lt;ul&gt;</code>을 렌더하고 싶다면 이렇게 하면됩니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="hll"><span class="o">&lt;</span><span class="nx">ReactTransitionGroup</span> <span class="nx">component</span><span class="o">=</span><span class="s2">&quot;ul&quot;</span><span class="o">&gt;</span>
 </span>  <span class="p">...</span>
 <span class="o">&lt;</span><span class="err">/ReactTransitionGroup&gt;</span>
 </code></pre></div>
-<p>Every DOM component that React can render is available for use. However, <code>component</code> does not need to be a DOM component. It can be any React component you want; even ones you&#39;ve written yourself!</p>
+<p>모든 React가 렌더할 수 있는 DOM 컴포넌트는 사용할 수 있습니다. 하지만 <code>component</code>가 DOM 컴포넌트일 필요는 없습니다. React 컴포넌트라면 무엇이든 넣을 수 있습니다. 직접 구현한 컴포넌트여도 됩니다!</p>
 
 <blockquote>
-<p>Note:</p>
+<p>주의:</p>
 
-<p>Prior to v0.12, when using DOM components, the <code>component</code> prop needed to be a reference to <code>React.DOM.*</code>. Since the component is simply passed to <code>React.createElement</code>, it must now be a string. Composite components must pass the factory.</p>
+<p>v0.12이전에는, DOM 컴포넌트를 사용할 때, <code>component</code> prop은 <code>React.DOM.*</code>로 참조할 필요가 있었습니다. 이제 컴포넌트가 단순히 <code>React.createElement</code>로 전달되기 때문에, <code>component</code> prop은 스트링이어야 합니다. 복합 컴포넌트는 팩토리를 넘겨야 합니다.</p>
 </blockquote>
 
-<p>Any additional, user-defined, properties will become properties of the rendered component. For example, here&#39;s how you would render a <code>&lt;ul&gt;</code> with css class:</p>
+<p>사용자 정의를 포함한 어떤 프로퍼티도 렌더된 컴포넌트의 프로퍼티가 됩니다. 예를 들어, <code>&lt;ul&gt;</code>에 css 클래스를 넣어서 렌더하려면 이렇게 하면됩니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="hll"><span class="o">&lt;</span><span class="nx">ReactTransitionGroup</span> <span class="nx">component</span><span class="o">=</span><span class="s2">&quot;ul&quot;</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&quot;animated-list&quot;</span><span class="o">&gt;</span>
 </span>  <span class="p">...</span>
 <span class="o">&lt;</span><span class="err">/ReactTransitionGroup&gt;</span>
@@ -541,10 +543,10 @@
 
     <div class="docs-prevnext">
       
-        <a class="docs-prev" href="/react/docs/addons.html">&larr; Prev</a>
+        <a class="docs-prev" href="/react/docs/addons-ko-KR.html">&larr; Prev</a>
       
       
-        <a class="docs-next" href="/react/docs/two-way-binding-helpers.html">Next &rarr;</a>
+        <a class="docs-next" href="/react/docs/two-way-binding-helpers-ko-KR.html">Next &rarr;</a>
       
     </div>
   </div>

@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>传递 Props | React</title>
+  <title>Props 전달 | React</title>
   <meta name="viewport" content="width=device-width">
-  <meta property="og:title" content="传递 Props | React">
+  <meta property="og:title" content="Props 전달 | React">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://facebook.github.io/react/docs/transferring-props-zh-CN.html">
+  <meta property="og:url" content="http://facebook.github.io/react/docs/transferring-props-ko-KR.html">
   <meta property="og:image" content="http://facebook.github.io/react/img/logo_og.png">
   <meta property="og:description" content="A JavaScript library for building user interfaces">
   <meta property="fb:app_id" content="623268441017527">
@@ -156,7 +156,7 @@
           </li>
         
           <li>
-            <a href="/react/docs/transferring-props-ko-KR.html">Props 전달</a>
+            <a href="/react/docs/transferring-props-ko-KR.html" class="active">Props 전달</a>
             
           </li>
         
@@ -392,22 +392,22 @@
 
   <div class="inner-content">
     <h1>
-      传递 Props
-      <a class="edit-page-link" href="https://github.com/reactkr/react/blob/translation/docs/docs/06-transferring-props.zh-CN.md" target="_blank">Edit on GitHub</a>
+      Props 전달
+      <a class="edit-page-link" href="https://github.com/reactkr/react/blob/translation/docs/docs/06-transferring-props.ko-KR.md" target="_blank">Edit on GitHub</a>
     </h1>
     <div class="subHeader"></div>
 
-    <p>React 里有一个非常常用的模式就是对组件做一层抽象。组件对外公开一个简单的属性（Props）来实现功能，但内部细节可能有非常复杂的实现。</p>
+    <p>React에서는 컴포넌트를 감싸서 추상화하는 것이 일반적인 패턴입니다. 외부 컴포넌트에서는 간단한 프로퍼티만을 노출하여 복잡한 세부 구현을 감출 수 있습니다.</p>
 
-<p>可以使用 <a href="/react/docs/jsx-spread-zh-CN.html">JSX 展开属性</a> 来合并现有的 props 和其它值：</p>
+<p><a href="/react/docs/jsx-spread-ko-KR.html">JSX 스프레드 어트리뷰트</a>를 통해 props에 추가적인 값을 병합할 수 있습니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">return</span> <span class="o">&lt;</span><span class="nx">Component</span> <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">}</span> <span class="nx">more</span><span class="o">=</span><span class="s2">&quot;values&quot;</span> <span class="o">/&gt;</span><span class="p">;</span>
 </code></pre></div>
-<p>如果不使用 JSX，可以使用一些对象辅助方法如 ES6 的 <code>Object.assign</code> 或 Underscore <code>_.extend</code>。</p>
+<p>만약 JSX를 사용하지 않는다면 ES6의 <code>Object.assign</code>나 Underscore의 <code>_.extend</code> 같은 객체 헬퍼를 사용할 수 있습니다:</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">return</span> <span class="nx">Component</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">,</span> <span class="p">{</span> <span class="nx">more</span><span class="o">:</span> <span class="s1">&#39;values&#39;</span> <span class="p">}));</span>
 </code></pre></div>
-<p>下面的教程介绍一些最佳实践。使用了 JSX 和 ES7 的还在试验阶段的特性。</p>
-<h2><a class="anchor" name=""></a>手动传递 <a class="hash-link" href="#">#</a></h2>
-<p>大部分情况下你应该显式地向下传递 props。这样可以确保只公开你认为是安全的内部 API 的子集。</p>
+<p>이 튜토리얼의 나머지 부분은 모범 답안을 소개할 것입니다. JSX와 실험적인 ES7 구문을 사용합니다.</p>
+<h2><a class="anchor" name="-"></a>수동적인 전달 <a class="hash-link" href="#-">#</a></h2>
+<p>대부분의 경우 명시적으로 프로퍼티를 아래로 전달해야 합니다. 이는 동작을 확신하는 내부 API의 일부만 공개하도록 합니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">FancyCheckbox</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">fancyClass</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">checked</span> <span class="o">?</span> <span class="s1">&#39;FancyChecked&#39;</span> <span class="o">:</span> <span class="s1">&#39;FancyUnchecked&#39;</span><span class="p">;</span>
@@ -420,24 +420,30 @@
 <span class="p">});</span>
 <span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
   <span class="o">&lt;</span><span class="nx">FancyCheckbox</span> <span class="nx">checked</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">console</span><span class="p">)}</span><span class="o">&gt;</span>
-    <span class="nx">Hello</span> <span class="nx">world</span><span class="o">!</span>
+    <span class="err">세상아</span> <span class="err">안녕</span><span class="o">!</span>
   <span class="o">&lt;</span><span class="err">/FancyCheckbox&gt;,</span>
   <span class="nb">document</span><span class="p">.</span><span class="nx">body</span>
 <span class="p">);</span>
 </code></pre></div>
-<p>但 <code>name</code> 这个属性怎么办？还有 <code>title</code>、<code>onMouseOver</code> 这些 props？</p>
-<h2><a class="anchor" name="-jsx--...-"></a>在 JSX 里使用 <code>...</code> 传递 <a class="hash-link" href="#-jsx--...-">#</a></h2>
-<p>有时把所有属性都传下去是不安全或啰嗦的。这时可以使用 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">解构赋值</a> 中的剩余属性特性来把未知属性批量提取出来。</p>
+<p>하지만 <code>name</code>이나 <code>title</code>, <code>onMouseOver</code> 같은 prop들이 더 추가된다면 어떨까요?</p>
+<h2><a class="anchor" name="jsx-...--"></a>JSX에서 <code>...</code>를 사용해 전달하기 <a class="hash-link" href="#jsx-...--">#</a></h2>
+<blockquote>
+<p>주의:</p>
 
-<p>列出所有要当前使用的属性，后面跟着 <code>...other</code>。</p>
+<p>아래의 예제에서는 실험적인 ES7 문법이 사용되었기 때문에 <code>--harmony</code> 플래그가 필요합니다. 브라우저에서 JSX 변환기를 사용 중이라면, <code>&lt;script type=&quot;text/jsx;harmony=true&quot;&gt;</code>를 사용해 스크립트를 작성하세요. 자세히 알아보려면 아래의 <a href="http://facebook.github.io/react/docs/transferring-props-ko-KR.html#rest-and-spread-properties-...">잔여 프로퍼티와 스프레드 프로퍼티 ...</a>를 확인하세요.</p>
+</blockquote>
+
+<p>때로는 모든 프로퍼티를 일일이 전달 하는것은 지루하고 덧없는 작업입니다. 이 경우 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">구조 해체 할당(destructuring assignment)</a>을 다른 프로퍼티를 함께 사용해 미상의 프로퍼티를 추출할 수 있습니다.</p>
+
+<p>소비할 프로퍼티들을 나열하고, 그 뒤에 <code>...other</code>를 넣습니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="p">{</span> <span class="nx">checked</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
 </code></pre></div>
-<p>这样能确保把所有 props 传下去，<em>除了</em> 那些已经被使用了的。</p>
+<p>이는 지금 소비한 props를 <em>제외한</em> 나머지를 아래로 전달합니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">FancyCheckbox</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="p">{</span> <span class="nx">checked</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">fancyClass</span> <span class="o">=</span> <span class="nx">checked</span> <span class="o">?</span> <span class="s1">&#39;FancyChecked&#39;</span> <span class="o">:</span> <span class="s1">&#39;FancyUnchecked&#39;</span><span class="p">;</span>
-    <span class="c1">// `other` 包含 { onClick: console.log } 但 checked 属性除外</span>
+    <span class="c1">// `other`에는 { onClick: console.log }가 포함되지만 checked 프로퍼티는 제외됩니다</span>
     <span class="k">return</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">div</span> <span class="p">{...</span><span class="nx">other</span><span class="p">}</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">fancyClass</span><span class="p">}</span> <span class="o">/&gt;</span>
     <span class="p">);</span>
@@ -445,29 +451,29 @@
 <span class="p">});</span>
 <span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
   <span class="o">&lt;</span><span class="nx">FancyCheckbox</span> <span class="nx">checked</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">console</span><span class="p">)}</span><span class="o">&gt;</span>
-    <span class="nx">Hello</span> <span class="nx">world</span><span class="o">!</span>
+    <span class="err">세상아</span> <span class="err">안녕</span><span class="o">!</span>
   <span class="o">&lt;</span><span class="err">/FancyCheckbox&gt;,</span>
   <span class="nb">document</span><span class="p">.</span><span class="nx">body</span>
 <span class="p">);</span>
 </code></pre></div>
 <blockquote>
-<p>注意:</p>
+<p>주의:</p>
 
-<p>上面例子中，<code>checked</code> 属性也是一个有效的 DOM 属性。如果你没有使用解构赋值，那么可能无意中把它传下去。</p>
+<p>위의 예제에서는 <code>checked</code> prop 또한 마찬가지로 유효한 DOM 어트리뷰트입니다. 이런 식으로 구조의 해체(destructuring)를 하지 않으면 의도하지 않게 함께 전달될 수 있습니다.</p>
 </blockquote>
 
-<p>在传递这些未知的 <code>other</code> 属性时，要经常使用解构赋值模式。</p>
+<p>미상의 <code>other</code> props을 전달할 때는 항상 구조 해체 패턴을 사용하세요.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">FancyCheckbox</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">fancyClass</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">checked</span> <span class="o">?</span> <span class="s1">&#39;FancyChecked&#39;</span> <span class="o">:</span> <span class="s1">&#39;FancyUnchecked&#39;</span><span class="p">;</span>
-    <span class="c1">// 反模式：`checked` 会被传到里面的组件里</span>
+    <span class="c1">// 반례: `checked` 또한 내부 컴포넌트로 전달될 것입니다</span>
     <span class="k">return</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">div</span> <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">}</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">fancyClass</span><span class="p">}</span> <span class="o">/&gt;</span>
     <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">});</span>
-</code></pre></div><h2><a class="anchor" name="-prop"></a>使用和传递同一个 Prop <a class="hash-link" href="#-prop">#</a></h2>
-<p>如果组件需要使用一个属性又要往下传递，可以直接使用 <code>checked={checked}</code> 再传一次。这样做比传整个 <code>this.props</code> 对象要好，因为更利于重构和语法检查。</p>
+</code></pre></div><h2><a class="anchor" name="-prop--"></a>같은 Prop을 소비하고 전달하기 <a class="hash-link" href="#-prop--">#</a></h2>
+<p>컴포넌트가 프로퍼티를 사용하지만 계속 넘겨야한다면, <code>checked={checked}</code>처럼 명시적으로 다시 넘길 수 있습니다. 리팩토링과 린트(lint)하기가 더 쉬우므로 이 방식이 <code>this.props</code> 객체 전부를 넘기는 것보다 낫습니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">FancyCheckbox</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="p">{</span> <span class="nx">checked</span><span class="p">,</span> <span class="nx">title</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
@@ -487,26 +493,28 @@
 <span class="p">});</span>
 </code></pre></div>
 <blockquote>
-<p>注意:</p>
+<p>주의:</p>
 
-<p>顺序很重要，把 <code>{...other}</code> 放到 JSX props 前面会使它不被覆盖。上面例子中我们可以保证 input 的 type 是 <code>&quot;checkbox&quot;</code>。</p>
+<p>순서는 중요합니다. <code>{...other}</code>를 JSX props 이전에 넣는 것으로 컴포넌트의 사용자가 확실히 그것들을 오버라이드 할 수 없게 합니다. 위의 예제에서는 input이 <code>&quot;checkbox&quot;</code> 타입인 것을 보장합니다.</p>
 </blockquote>
-<h2><a class="anchor" name="-..."></a>剩余属性和展开属性 <code>...</code> <a class="hash-link" href="#-...">#</a></h2>
-<p>剩余属性可以把对象剩下的属性提取到一个新的对象。会把所有在解构赋值中列出的属性剔除。</p>
 
-<p>这是 <a href="https://github.com/sebmarkbage/ecmascript-rest-spread">ES7 草案</a> 中的试验特性。</p>
+<p><a name="rest-and-spread-properties-..."></a></p>
+<h2><a class="anchor" name="----..."></a>잔여 프로퍼티와 스프레드 프로퍼티 <code>...</code> <a class="hash-link" href="#----...">#</a></h2>
+<p>잔여(Rest, <code>...</code>) 프로퍼티는 객체에서 소비되지 않은 나머지 프로퍼티를 추출해 새로운 객체로 만들 수 있게 해 줍니다. 구조 해체 패턴에서 열거된 다른 프로퍼티들은 모두 제외됩니다.</p>
+
+<p>이는 <a href="https://github.com/sebmarkbage/ecmascript-rest-spread">ES7 제안</a>의 실험적인 구현체입니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="p">{</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span><span class="nx">z</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">4</span> <span class="p">};</span>
 <span class="nx">x</span><span class="p">;</span> <span class="c1">// 1</span>
 <span class="nx">y</span><span class="p">;</span> <span class="c1">// 2</span>
 <span class="nx">z</span><span class="p">;</span> <span class="c1">// { a: 3, b: 4 }</span>
 </code></pre></div>
 <blockquote>
-<p>注意:</p>
+<p>주의:</p>
 
-<p>使用 <a href="http://npmjs.org/package/react-tools">JSX 命令行工具</a> 配合 <code>--harmony</code> 标记来启用 ES7 语法。</p>
+<p>실험적인 ES7 구문을 활성화하려면 <a href="http://npmjs.org/package/react-tools">JSX 커맨드라인 도구</a>를 <code>--harmony</code> 플래그와 함께 사용하세요.</p>
 </blockquote>
-<h2><a class="anchor" name="-underscore-"></a>使用 Underscore 来传递 <a class="hash-link" href="#-underscore-">#</a></h2>
-<p>如果不使用 JSX，可以使用一些库来实现相同效果。Underscore 提供 <code>_.omit</code> 来过滤属性，<code>_.extend</code> 复制属性到新的对象。</p>
+<h2><a class="anchor" name="underscore--"></a>Underscore로 전달 다루기 <a class="hash-link" href="#underscore--">#</a></h2>
+<p>JSX를 사용하지 않는다면 라이브러리를 사용해 같은 패턴을 쓸 수 있습니다. Underscore에서는 <code>_.omit</code>을 사용해 특정 프로퍼티를 제외하거나 <code>_.extend</code>를 사용해 새로운 객체로 프로퍼티를 복사할 수 있습니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">FancyCheckbox</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">checked</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">checked</span><span class="p">;</span>
@@ -521,10 +529,10 @@
 
     <div class="docs-prevnext">
       
-        <a class="docs-prev" href="/react/docs/reusable-components-zh-CN.html">&larr; Prev</a>
+        <a class="docs-prev" href="/react/docs/reusable-components-ko-KR.html">&larr; Prev</a>
       
       
-        <a class="docs-next" href="/react/docs/forms-zh-CN.html">Next &rarr;</a>
+        <a class="docs-next" href="/react/docs/forms-ko-KR.html">Next &rarr;</a>
       
     </div>
   </div>

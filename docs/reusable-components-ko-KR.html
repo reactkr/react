@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>可复用组件 | React</title>
+  <title>재사용가능한 컴포넌트 | React</title>
   <meta name="viewport" content="width=device-width">
-  <meta property="og:title" content="可复用组件 | React">
+  <meta property="og:title" content="재사용가능한 컴포넌트 | React">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://facebook.github.io/react/docs/reusable-components-zh-CN.html">
+  <meta property="og:url" content="http://facebook.github.io/react/docs/reusable-components-ko-KR.html">
   <meta property="og:image" content="http://facebook.github.io/react/img/logo_og.png">
   <meta property="og:description" content="A JavaScript library for building user interfaces">
   <meta property="fb:app_id" content="623268441017527">
@@ -151,7 +151,7 @@
           </li>
         
           <li>
-            <a href="/react/docs/reusable-components-ko-KR.html">재사용가능한 컴포넌트</a>
+            <a href="/react/docs/reusable-components-ko-KR.html" class="active">재사용가능한 컴포넌트</a>
             
           </li>
         
@@ -392,18 +392,18 @@
 
   <div class="inner-content">
     <h1>
-      可复用组件
-      <a class="edit-page-link" href="https://github.com/reactkr/react/blob/translation/docs/docs/05-reusable-components.zh-CN.md" target="_blank">Edit on GitHub</a>
+      재사용가능한 컴포넌트
+      <a class="edit-page-link" href="https://github.com/reactkr/react/blob/translation/docs/docs/05-reusable-components.ko-KR.md" target="_blank">Edit on GitHub</a>
     </h1>
     <div class="subHeader"></div>
 
-    <p>设计接口的时候，把通用的设计元素（按钮，表单框，布局组件等）拆成接口良好定义的可复用的组件。这样，下次开发相同界面程序时就可以写更少的代码，也意义着更高的开发效率，更少的 Bug 和更少的程序体积。</p>
-<h2><a class="anchor" name="prop-"></a>Prop 验证 <a class="hash-link" href="#prop-">#</a></h2>
-<p>随着应用不断变大，保证组件被正确使用变得非常有用。为此我们引入 <code>propTypes</code>。<code>React.PropTypes</code> 提供很多验证器 (validator) 来验证传入数据的有效性。当向 props 传入无效数据时，JavaScript 控制台会抛出警告。注意为了性能考虑，只在开发环境验证 <code>propTypes</code>。下面用例子来说明不同验证器的区别：</p>
+    <p>인터페이스를 설계할 때, 공통적으로 사용되는 디자인 요소들(버튼, 폼 필드, 레이아웃 컴포넌트 등)을 잘 정의된 인터페이스의 재사용 가능한 컴포넌트로 분해합니다. 이런 방법으로 다음에 UI를 구축할 때에는 훨씬 적은 코드로 만들 수 있습니다. 이 말은 더 빠른 개발 시간, 더 적은 버그, 더 적은 용량으로 할 수 있다는 뜻이죠.</p>
+<h2><a class="anchor" name="prop-"></a>Prop 검증 <a class="hash-link" href="#prop-">#</a></h2>
+<p>앱의 규모가 커지면 컴포넌트들이 바르게 사용되었는지 확인하는게 도움이 됩니다. 확인은 <code>propTypes</code>를 명시해서 할 수 있습니다. <code>React.PropTypes</code>는 받은 데이터가 적절한지(valid) 확인하는데 사용할 수 있는 다양한 검증자(validator)를 제공합니다. prop에 부적절한 값을 명시한다면 JavaScript 콘솔에 경고가 보일 것입니다. 성능상의 문제로 <code>propTypes</code>는 개발 모드에서만 검사됩니다. 다음은 제공되는 검증자를 설명하는 예제입니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">propTypes</span><span class="o">:</span> <span class="p">{</span>
-    <span class="c1">// 可以声明 prop 为指定的 JS 基本类型。默认</span>
-    <span class="c1">// 情况下，这些 prop 都是可传可不传的。</span>
+    <span class="c1">// 특정 JavaScript 프리미티브 타입에 대한 prop을 명시할 수 있습니다.</span>
+    <span class="c1">// 기본적으로 이것들은 모두 선택적입니다.</span>
     <span class="nx">optionalArray</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">array</span><span class="p">,</span>
     <span class="nx">optionalBool</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">bool</span><span class="p">,</span>
     <span class="nx">optionalFunc</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">func</span><span class="p">,</span>
@@ -411,46 +411,49 @@
     <span class="nx">optionalObject</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">object</span><span class="p">,</span>
     <span class="nx">optionalString</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">,</span>
 
-    <span class="c1">// 所有可以被渲染的对象：数字，</span>
-    <span class="c1">// 字符串，DOM 元素或包含这些类型的数组。</span>
+    <span class="c1">// 렌더링될 수 있는 모든 것: 숫자, 문자열, 요소</span>
+    <span class="c1">// 이것들을 포함하는 배열이나 엘리먼트</span>
     <span class="nx">optionalNode</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">node</span><span class="p">,</span>
 
-    <span class="c1">// React 元素</span>
+    <span class="c1">// React 엘리먼트</span>
     <span class="nx">optionalElement</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">element</span><span class="p">,</span>
 
-    <span class="c1">// 用 JS 的 instanceof 操作符声明 prop 为类的实例。</span>
+    <span class="c1">// 클래스의 인스턴스 또한 prop으로 명시할 수 있습니다. JavaScript의 instanceof</span>
+    <span class="c1">// 연산자를 사용합니다.</span>
     <span class="nx">optionalMessage</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">instanceOf</span><span class="p">(</span><span class="nx">Message</span><span class="p">),</span>
 
-    <span class="c1">// 用 enum 来限制 prop 只接受指定的值。</span>
+    <span class="c1">// 열거형처럼 특정 값들로만 prop을 제한해서 사용할 수 있습니다.</span>
     <span class="nx">optionalEnum</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">oneOf</span><span class="p">([</span><span class="s1">&#39;News&#39;</span><span class="p">,</span> <span class="s1">&#39;Photos&#39;</span><span class="p">]),</span>
 
-    <span class="c1">// 指定的多个对象类型中的一个</span>
+    <span class="c1">// 많은 타입들 중 하나로 사용할 수 있는 객체가 될 수도 있습니다.</span>
     <span class="nx">optionalUnion</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">oneOfType</span><span class="p">([</span>
       <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">,</span>
       <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">number</span><span class="p">,</span>
       <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">instanceOf</span><span class="p">(</span><span class="nx">Message</span><span class="p">)</span>
     <span class="p">]),</span>
 
-    <span class="c1">// 指定类型组成的数组</span>
+    <span class="c1">// 특정 타입의 배열</span>
     <span class="nx">optionalArrayOf</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">arrayOf</span><span class="p">(</span><span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">number</span><span class="p">),</span>
 
-    <span class="c1">// 指定类型的属性构成的对象</span>
+    <span class="c1">// 특정 타입의 속성값을 갖는 객체</span>
     <span class="nx">optionalObjectOf</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">objectOf</span><span class="p">(</span><span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">number</span><span class="p">),</span>
 
-    <span class="c1">// 特定形状参数的对象</span>
+    <span class="c1">// 특정한 형태(shape)의 객체</span>
     <span class="nx">optionalObjectWithShape</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">shape</span><span class="p">({</span>
       <span class="nx">color</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">,</span>
       <span class="nx">fontSize</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">number</span>
     <span class="p">}),</span>
 
-    <span class="c1">// 以后任意类型加上 `isRequired` 来使 prop 不可空。</span>
+    <span class="c1">// 위에 언급된 것들을 `isRequired`로 연결해서 prop이 제공되지 않을 때 경고를</span>
+    <span class="c1">// 띄우도록 할 수도 있습니다.</span>
     <span class="nx">requiredFunc</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">func</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
 
-    <span class="c1">// 不可空的任意类型</span>
+    <span class="c1">// 어떤 데이터 타입도 가능</span>
     <span class="nx">requiredAny</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">any</span><span class="p">.</span><span class="nx">isRequired</span><span class="p">,</span>
 
-    <span class="c1">// 自定义验证器。如果验证失败需要返回一个 Error 对象。不要直接</span>
-    <span class="c1">// 使用 `console.warn` 或抛异常，因为这样 `oneOfType` 会失效。</span>
+    <span class="c1">// 물론 사용자 정의 검증자도 지정할 수 있습니다. 이는 검증이 실패했을 때</span>
+    <span class="c1">// Error 객체를 리턴해야합니다. `console.warn`을 이나 throw를 하면 안됩니다.</span>
+    <span class="c1">// 그렇게하면 `oneOfType` 안에서 작동하지 않습니다.</span>
     <span class="nx">customProp</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">propName</span><span class="p">,</span> <span class="nx">componentName</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="sr">/matchme/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">props</span><span class="p">[</span><span class="nx">propName</span><span class="p">]))</span> <span class="p">{</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Validation failed!&#39;</span><span class="p">);</span>
@@ -459,8 +462,8 @@
   <span class="p">},</span>
   <span class="cm">/* ... */</span>
 <span class="p">});</span>
-</code></pre></div><h2><a class="anchor" name="-prop-"></a>默认 Prop 值 <a class="hash-link" href="#-prop-">#</a></h2>
-<p>React 支持以声明式的方式来定义 <code>props</code> 的默认值。</p>
+</code></pre></div><h2><a class="anchor" name="-prop-"></a>기본 Prop 값 <a class="hash-link" href="#-prop-">#</a></h2>
+<p>React는 매우 선언적(declarative)인 방법으로 <code>props</code>의 기본값을 정의할 수 있게 해줍니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">ComponentWithDefaultProps</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">getDefaultProps</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span>
@@ -470,12 +473,12 @@
   <span class="cm">/* ... */</span>
 <span class="p">});</span>
 </code></pre></div>
-<p>当父级没有传入 props 时，<code>getDefaultProps()</code> 可以保证  <code>this.props.value</code> 有默认值，注意 <code>getDefaultProps</code> 的结果会被 <em>缓存</em>。得益于此，你可以直接使用 props，而不必写手动编写一些重复或无意义的代码。</p>
-<h2><a class="anchor" name="-props"></a>传递 Props：小技巧 <a class="hash-link" href="#-props">#</a></h2>
-<p>有一些常用的 React 组件只是对 HTML 做简单扩展。通常，你想少写点代码来把传入组件的 props 复制到对应的 HTML 元素上。这时 JSX 的 <em>spread</em> 语法会帮到你：</p>
+<p><code>getDefaultProps()</code>의 결과값은 캐시가 되며, 부모 컴포넌트에서 명시되지 않았을 때 <code>this.props.value</code>가 값을 가질 수 있도록 해주는데 사용됩니다.<code>getDefaultProps()</code>를 사용하면 반복적이고 깨지기 쉬운 코드를 짤 필요없이 그냥 안전하게 prop을 사용할 수 있습니다.</p>
+<h2><a class="anchor" name="prop--"></a>Prop 전달하기: 단축 <a class="hash-link" href="#prop--">#</a></h2>
+<p>React 컴포넌트의 흔히 그냥 기본 HTML을 확장해서 씁니다. 타이핑을 아끼기 위해 기저의 HTML 엘리먼트에 HTML 속성들을 단순히 복사하는 컴포넌트가 필요할 수도 있습니다. JSX의 <em>spread</em> 문법을 사용하면 이렇게 할 수 있습니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">CheckLink</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// 这样会把 CheckList 所有的 props 复制到 &lt;a&gt;</span>
+    <span class="c1">// 모든 prop을 받아서 CheckLink에 넘기고 &lt;a&gt;에 복사합니다.</span>
     <span class="k">return</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="s1">&#39;√ &#39;</span><span class="p">}{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/a&gt;;</span>
   <span class="p">}</span>
 <span class="p">});</span>
@@ -486,8 +489,8 @@
   <span class="o">&lt;</span><span class="err">/CheckLink&gt;,</span>
   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
 <span class="p">);</span>
-</code></pre></div><h2><a class="anchor" name=""></a>单个子级 <a class="hash-link" href="#">#</a></h2>
-<p><code>React.PropTypes.element</code> 可以限定只能有一个子级传入。</p>
+</code></pre></div><h2><a class="anchor" name="-"></a>단일 자식 <a class="hash-link" href="#-">#</a></h2>
+<p><code>React.PropTypes.element</code>을 통해 컴포넌트에 한 자식만 보내도록 명시할 수 있습니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">propTypes</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">children</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">isRequired</span>
@@ -496,16 +499,16 @@
   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span> <span class="c1">// 有且仅有一个元素，否则会抛异常。</span>
+        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span> <span class="c1">// 정확히 한 엘리먼트여야만 하며, 아니면 에러가 발생합니다.</span>
       <span class="o">&lt;</span><span class="err">/div&gt;</span>
     <span class="p">);</span>
   <span class="p">}</span>
 
 <span class="p">});</span>
-</code></pre></div><h2><a class="anchor" name="mixins"></a>Mixins <a class="hash-link" href="#mixins">#</a></h2>
-<p>组件是 React 里复用代码最佳方式，但是有时一些复杂的组件间也需要共用一些功能。有时会被称为 <a href="http://en.wikipedia.org/wiki/Cross-cutting_concern">跨切面关注点</a>。React 使用 <code>mixins</code> 来解决这类问题。</p>
+</code></pre></div><h2><a class="anchor" name=""></a>믹스인 <a class="hash-link" href="#">#</a></h2>
+<p>컴포넌트는 React에서 코드를 재사용할 수 있는 최고의 방법이지만, 가끔 아주 다른 컴포넌트에서 공통 기능이 필요한 때도 있습니다. 이런 상황을 <a href="http://en.wikipedia.org/wiki/Cross-cutting_concern">공통된 관심사(cross-cutting concerns)</a>라 부르며, React에서는 <code>mixins</code>으로 이 문제를 해결합니다.</p>
 
-<p>一个通用的场景是：一个组件需要定期更新。用 <code>setInterval()</code> 做很容易，但当不需要它的时候取消定时器来节省内存是非常重要的。React 提供 <a href="/react/docs/working-with-the-browser.html#component-lifecycle">生命周期方法</a> 来告知组件创建或销毁的时间。下面来做一个简单的 mixin，使用 <code>setInterval()</code> 并保证在组件销毁时清理定时器。</p>
+<p>예를 들어, 컴포넌트가 주기적으로 업데이트되길 원할 경우가 있습니다. <code>setInterval()</code>을 사용하면 쉽지만, 필요 없어지면 메모리를 아끼기 위해 주기를 꼭 취소해야 합니다. React는 컴포넌트가 막 생성거나 없어질 때를 <a href="/react/docs/working-with-the-browser-ko-KR.html#component-lifecycle">생명주기 메소드</a>를 통해 알려줍니다. 이런 메소드들을 사용해서 컴포넌트가 사라질 때 자동으로 정리해주는 <code>setInterval()</code>를 제공해주는 간단한 믹스인을 만들어보겠습니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">SetIntervalMixin</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">componentWillMount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">intervals</span> <span class="o">=</span> <span class="p">[];</span>
@@ -519,12 +522,12 @@
 <span class="p">};</span>
 
 <span class="kd">var</span> <span class="nx">TickTock</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
-  <span class="nx">mixins</span><span class="o">:</span> <span class="p">[</span><span class="nx">SetIntervalMixin</span><span class="p">],</span> <span class="c1">// 引用 mixin</span>
+  <span class="nx">mixins</span><span class="o">:</span> <span class="p">[</span><span class="nx">SetIntervalMixin</span><span class="p">],</span> <span class="c1">// 믹스인 사용</span>
   <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span><span class="nx">seconds</span><span class="o">:</span> <span class="mi">0</span><span class="p">};</span>
   <span class="p">},</span>
   <span class="nx">componentDidMount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">setInterval</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">tick</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span> <span class="c1">// 调用 mixin 的方法</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setInterval</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">tick</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span> <span class="c1">// 믹스인에 있는 메소드를 호출</span>
   <span class="p">},</span>
   <span class="nx">tick</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">seconds</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">seconds</span> <span class="o">+</span> <span class="mi">1</span><span class="p">});</span>
@@ -543,15 +546,15 @@
   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
 <span class="p">);</span>
 </code></pre></div>
-<p>关于 mixin 值得一提的优点是，如果一个组件使用了多个 mixin，并用有多个 mixin 定义了同样的生命周期方法（如：多个 mixin 都需要在组件销毁时做资源清理操作），所有这些生命周期方法都保证会被执行到。方法执行顺序是：首先按 mixin 引入顺序执行 mixin 里方法，最后执行组件内定义的方法。</p>
+<p>믹스인의 괜찮은 점은 컴포넌트가 여러 믹스인을 사용하고 여러 믹스인에서 같은 생명주기 메소드를 사용할 때(예를 들어, 여러 믹스인에서 컴포넌트가 사라질 때 뭔가 정리하려 한다면) 모든 생명주기 메소드들의 실행은 보장됩니다. 믹스인에 정의된 메소드은 컴포넌트의 메소드가 호출됨에 따라 믹스인이 나열된 순서대로 실행됩니다.</p>
 
 
     <div class="docs-prevnext">
       
-        <a class="docs-prev" href="/react/docs/multiple-components-zh-CN.html">&larr; Prev</a>
+        <a class="docs-prev" href="/react/docs/multiple-components-ko-KR.html">&larr; Prev</a>
       
       
-        <a class="docs-next" href="/react/docs/transferring-props-zh-CN.html">Next &rarr;</a>
+        <a class="docs-next" href="/react/docs/transferring-props-ko-KR.html">Next &rarr;</a>
       
     </div>
   </div>

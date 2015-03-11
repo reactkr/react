@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Advanced Performance | React</title>
+  <title>성능 심화 | React</title>
   <meta name="viewport" content="width=device-width">
-  <meta property="og:title" content="Advanced Performance | React">
+  <meta property="og:title" content="성능 심화 | React">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://facebook.github.io/react/docs/advanced-performance.html">
+  <meta property="og:url" content="http://facebook.github.io/react/docs/advanced-performance-ko-KR.html">
   <meta property="og:image" content="http://facebook.github.io/react/img/logo_og.png">
   <meta property="og:description" content="A JavaScript library for building user interfaces">
   <meta property="fb:app_id" content="623268441017527">
@@ -225,7 +225,7 @@
           </li>
         
           <li>
-            <a href="/react/docs/advanced-performance-ko-KR.html">성능 심화</a>
+            <a href="/react/docs/advanced-performance-ko-KR.html" class="active">성능 심화</a>
             
           </li>
         
@@ -392,42 +392,40 @@
 
   <div class="inner-content">
     <h1>
-      Advanced Performance
-      <a class="edit-page-link" href="https://github.com/reactkr/react/blob/translation/docs/docs/11-advanced-performance.md" target="_blank">Edit on GitHub</a>
+      성능 심화
+      <a class="edit-page-link" href="https://github.com/reactkr/react/blob/translation/docs/docs/11-advanced-performance.ko-KR.md" target="_blank">Edit on GitHub</a>
     </h1>
     <div class="subHeader"></div>
 
-    <p>One of the first questions people ask when considering React for a project is whether their application will be as fast and responsive as an equivalent non-React version. The idea of re-rendering an entire subtree of components in response to every state change makes people wonder whether this process negatively impacts performance. React uses several clever techniques to minimize the number of costly DOM operations required to update the UI.</p>
-<h2><a class="anchor" name="avoiding-reconciling-the-dom"></a>Avoiding reconciling the DOM <a class="hash-link" href="#avoiding-reconciling-the-dom">#</a></h2>
-<p>React makes use of a <em>virtual DOM</em>, which is a descriptor of a DOM subtree rendered in the browser. This parallel representation allows React to avoid creating DOM nodes and accessing existing ones, which is slower than operations on JavaScript objects. When a component&#39;s props or state change, React decides whether an actual DOM update is necessary by constructing a new virtual DOM and comparing it to the old one. Only in the case they are not equal, will React <a href="http://facebook.github.io/react/docs/reconciliation.html">reconcile</a> the DOM, applying as few mutations as possible.</p>
+    <p>React를 도입하려 할 때 많은 사람이 묻는 첫 번째 질문은 React를 사용하지 않을 때처럼 애플리케이션이 빠르고 반응성도 좋을 것이냐는 것입니다. 모든 상태변화에 대해 컴포넌트의 하위 트리를 전부 다시 렌더링하는 아이디어에 대해 사람들은 이 프로세스가 성능에 부정적인 영향을 줄 것으로 생각하지만, React는 여러 가지 영리한 방법을 통해 UI를 업데이트하는데 필요한 비싼 DOM 조작을 최소화합니다.</p>
+<h2><a class="anchor" name="dom--"></a>DOM 조정 회피 <a class="hash-link" href="#dom--">#</a></h2>
+<p>React는 브라우저에서 렌더된 DOM 하위 트리의 서술자 개념인 <em>가상의 DOM</em>을 사용합니다. 이 병렬적인 서술체는 React가 DOM 노드를 생성하거나 이미 존재하는 DOM 노드에 접근하는 것(JavaScript 객체를 조작하는 것보다 느리죠)을 피하게 해 줍니다. 컴포넌트의 props나 state가 변경되면 React는 새로운 가상의 DOM을 구성해 이전의 것과 비교해서 실제 DOM 업데이트가 필요한지 결정합니다. 가능한 적게 변화를 적용하기 위해, React는 둘이 다를 경우에만 DOM을 <a href="/react/docs/reconciliation-ko-KR.html">조정</a>할 것입니다.</p>
 
-<p>On top of this, React provides a component lifecycle function, <code>shouldComponentUpdate</code>, which is triggered before the re-rendering process starts, giving the developer the ability to short circuit this process. The default implementation of this function returns <code>true</code>, leaving React to perform the update:</p>
+<p>이에 더해, React는 컴포넌트 생명주기 함수인 <code>shouldComponentUpdate</code>를 제공합니다. 이는 다시 렌더링하는 프로세스가 일어나기 직전에 일어나며 개발자가 프로세스를 중단할 수 있게 합니다. 이 함수의 기본구현은 <code>true</code>를 반환해 React가 업데이트를 수행하도록 합니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">shouldComponentUpdate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Keep in mind that React will invoke this function pretty often, so the implementation has to be fast.</p>
+<p>React가 이 함수를 자주 호출한다는 것을 명심하십시오. 따라서 구현체는 빨라야 합니다. </p>
 
-<p>Say you have a messaging application with several chat threads. Suppose only one of the threads has changed. If we implement <code>shouldComponentUpdate</code> on the <code>ChatThread</code> component, React can skip the rendering step for the other threads:</p>
+<p>대화 스레드가 여럿 돌고 있는 메시지처리 애플리케이션을 생각해 봅시다. 오직 하나의 스레드만이 변경되었다고 가정해 보죠. <code>ChatThread</code>에 <code>shouldComponentUpdate</code>를 구현했다면 React는 다른 스레드의 렌더링 프로세스를 건너뛸 수 있습니다. </p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">shouldComponentUpdate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// TODO: return whether or not current chat thread is</span>
-  <span class="c1">// different to former one.</span>
+  <span class="c1">// TODO: 현재의 대화 스레드가 이전의 것과 다른지 아닌지를 반환한다</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>So, in summary, React avoids carrying out expensive DOM operations required to reconcile subtrees of the DOM by allowing the user to short circuit the process using <code>shouldComponentUpdate</code>, and, for those which should update, by comparing virtual DOMs.</p>
-<h2><a class="anchor" name="shouldcomponentupdate-in-action"></a>shouldComponentUpdate in action <a class="hash-link" href="#shouldcomponentupdate-in-action">#</a></h2>
-<p>Here&#39;s a subtree of components. For each one is indicated what <code>shouldComponentUpdate</code> returned and whether or not the virtual DOMs were equivalent. Finally, the circle&#39;s color indicates whether the component had to be reconciled or not.</p>
+<p>정리하자면, React는 사용자가 <code>shouldComponentUpdate</code>를 사용해 렌더링 프로세스를 중단하고 가상의 DOM과 비교해 업데이트 여부를 결정해서 DOM의 하위 트리를 조정하는 비싼 DOM 조작을 피하도록 합니다. </p>
+<h2><a class="anchor" name="shouldcomponentupdate-"></a>shouldComponentUpdate 실전 <a class="hash-link" href="#shouldcomponentupdate-">#</a></h2>
+<p>다음은 컴포넌트의 하위 트리입니다. 각각은 <code>shouldComponentUpdate</code>의 반환값(SCU)과 가상의 DOM과의 동일성(vDOMEq)을 표시합니다. 마지막으로, 원의 색은 컴포넌트가 조정되었는지를 표시합니다.</p>
 
 <figure><img src="/react/img/docs/should-component-update.png" /></figure>
 
-<p>In the example above, since <code>shouldComponentUpdate</code> returned <code>false</code> for the subtree rooted at C2, React had no need to generate the new virtual DOM, and therefore, it neither needed to reconcile the DOM. Note that React didn&#39;t even had to invoke <code>shouldComponentUpdate</code> on C4 and C5.</p>
+<p>위의 예시에서, C2를 루트로 하는 하위 트리에 대해 <code>shouldComponentUpdate</code>가 <code>false</code>를 반환했기 때문에 React는 새로운 가상의 DOM을 만들 필요가 없습니다. 따라서 DOM을 조정할 필요도 없습니다. React가 C4와 C5에는 <code>shouldComponentUpdate</code>를 요청하지도 않은 것을 확인하세요.</p>
 
-<p>For C1 and C3 <code>shouldComponentUpdate</code> returned <code>true</code>, so React had to go down to the leaves and check them. For C6 it returned <code>true</code>; since the virtual DOMs weren&#39;t equivalent it had to reconcile the DOM.
-The last interesting case is C8. For this node React had to compute the virtual DOM, but since it was equal to the old one, it didn&#39;t have to reconcile it&#39;s DOM.</p>
+<p>C1과 C3의 <code>shouldComponentUpdate</code>가 <code>true</code>를 반환했기 때문에 React는 하위 노드로 내려가 그들을 확인합니다. C6는 <code>true</code>를 반환했네요; 이는 가상의 DOM과 같지 않기 때문에 DOM의 조정이 일어났습니다. 마지막으로 흥미로운 사례는 C8입니다. React가 이 노드를 위해 가상의 DOM을 작동했지만, 노드가 이전의 것과 일치했기 때문에 DOM의 조정을 일어나지 않았습니다.</p>
 
-<p>Note that React only had to do DOM mutations for C6, which was inevitable. For C8 it bailed out by comparing the virtual DOMs, and for C2&#39;s subtree and C7, it didn&#39;t even have to compute the virtual DOM as we bailed out on <code>shouldComponentUpdate</code>.</p>
+<p>React가 C6에만 DOM 변경을 수행한 것을 확인하세요. 이는 필연적이었습니다. C8의 경우는 가상의 DOM과 비교를 해 제외되었고, C2의 하위 트리와 C7은 <code>shouldComponentUpdate</code> 단계에서 제외되어 가상의 DOM은 구동조차 되지 않았습니다. </p>
 
-<p>So, how should we implement <code>shouldComponentUpdate</code>? Say that you have a component that just renders a string value:</p>
+<p>자 그럼, 어떻게 <code>shouldComponentUpdate</code>를 구현해야 할까요? 문자열 값을 렌더하는 컴포넌트를 생각해보죠.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">propsTypes</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">value</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">isRequired</span>
@@ -438,14 +436,14 @@ The last interesting case is C8. For this node React had to compute the virtual 
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre></div>
-<p>We could easily implement <code>shouldComponentUpdate</code> as follow:</p>
+<p>다음과 같이 간단히 <code>shouldComponentUpdate</code>를 구현해 볼 수 있습니다:</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">shouldComponentUpdate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">value</span> <span class="o">!==</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>So far so good, dealing with such simple props/state structures is easy. We could even generalize an implementation based on shallow equality and mix it into components. In fact, React already provides such implementation: <a href="http://facebook.github.io/react/docs/pure-render-mixin.html">PureRenderMixin</a>.</p>
+<p>여기까지는 좋습니다. 간단한 props/state 구조를 다루기는 쉽습니다. 단순한 등식비교 구현을 일반화하고 이를 컴포넌트에 혼합할 수도 있습니다. 사실, React는 이미 그런 구현을 제공합니다: <a href="/react/docs/pure-render-mixin-ko-KR.html">PureRenderMixin</a>.</p>
 
-<p>But what if your components&#39; props or state are mutable data structures?. Say the prop the component receives, instead of being a string like <code>&#39;bar&#39;</code>, is a Javascript object that contains a string such as, <code>{ foo: &#39;bar&#39; }</code>:</p>
+<p>하지만 만약 컴포넌트의 props나 state가 가변적인 데이터 구조로 되어 있다면 어떨까요? 컴포넌트의 prop으로 <code>&#39;bar&#39;</code>같은 문자열 대신에 <code>{ foo: &#39;bar&#39; }</code>처럼 문자열을 포함한 JavaScript 객체를 전달받는다고 해봅시다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">propsTypes</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">value</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">object</span><span class="p">.</span><span class="nx">isRequired</span>
@@ -456,18 +454,18 @@ The last interesting case is C8. For this node React had to compute the virtual 
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre></div>
-<p>The implementation of <code>shouldComponentUpdate</code> we had before wouldn&#39;t always work as expected:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// assume this.props.value is { foo: &#39;bar&#39; }</span>
-<span class="c1">// assume nextProps.value is { foo: &#39;bar&#39; },</span>
-<span class="c1">// but this reference is different to this.props.value</span>
+<p>전에 구현했던 <code>shouldComponentUpdate</code>는 언제나 예상대로 작동하지 않을 것입니다:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// this.props.value가 { foo: &#39;bar&#39; }라고 가정합니다</span>
+<span class="c1">// nextProps.value도 { foo: &#39;bar&#39; }라고 가정하지만,</span>
+<span class="c1">// 이 참조는 this.props.value와 다른 것입니다</span>
 <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">value</span> <span class="o">!==</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span> <span class="c1">// true</span>
 </code></pre></div>
-<p>The problem is <code>shouldComponentUpdate</code> will return <code>true</code> when the prop actually didn&#39;t change. To fix this we could come up with this alternative implementation:</p>
+<p>문제는 prop이 실제로 변경되지 않았을 때도 <code>shouldComponentUpdate</code>가 <code>true</code>를 반환할 거라는 겁니다. 이를 해결하기 위한 대안으로 아래와 같이 구현해 볼 수 있습니다:</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">shouldComponentUpdate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">foo</span> <span class="o">!==</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Basically, we ended up doing a deep comparison to make sure we properly track changes. This approach is pretty expensive in terms of performance and it doesn&#39;t scale as we would have to write different deep equality code for each model. On top of that, it might not even work if we don&#39;t carefully manage object references. Say this component is used by a parent:</p>
+<p>기본적으로, 우리는 변경을 정확히 추적하기 위해서 깊은 비교를 해야 했습니다. 이 방법은 성능 면에서 제법 비싸고 각각의 모델마다 다른 깊은 등식 코드를 작성해야 하므로 확장이 힘들어 집니다. 심지어 객체 참조를 신중히 관리하지 않는다면 작동하지도 않을 수 있습니다. 컴포넌트가 부모에 의해 다뤄지는 경우를 살펴보죠:</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span> <span class="nx">value</span><span class="o">:</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">}</span> <span class="p">};</span>
@@ -475,7 +473,7 @@ The last interesting case is C8. For this node React had to compute the virtual 
 
   <span class="nx">onClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
-    <span class="nx">value</span><span class="p">.</span><span class="nx">foo</span> <span class="o">+=</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span> <span class="c1">// ANTI-PATTERN!</span>
+    <span class="nx">value</span><span class="p">.</span><span class="nx">foo</span> <span class="o">+=</span> <span class="s1">&#39;bar&#39;</span><span class="p">;</span> <span class="c1">// 안티패턴 입니다!</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">value</span> <span class="p">});</span>
   <span class="p">},</span>
 
@@ -483,47 +481,47 @@ The last interesting case is C8. For this node React had to compute the virtual 
     <span class="k">return</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">InnerComponent</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span> <span class="o">/&gt;</span>
-        <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onClick</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Click</span> <span class="nx">me</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
+        <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onClick</span><span class="p">}</span><span class="o">&gt;</span><span class="err">클릭하세요</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
       <span class="o">&lt;</span><span class="err">/div&gt;</span>
     <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre></div>
-<p>The first time the inner component gets rendered it will have <code>{ foo: &#39;bar&#39; }</code> as the value prop. If the user clicks on the anchor, the parent component&#39;s state will get updated to <code>{ value: { foo: &#39;barbar&#39; } }</code>, triggering the re-rendering process of the inner component, which will receive <code>{ foo: &#39;barbar&#39; }</code> as the new value for the prop.</p>
+<p>처음엔 내부 컴포넌트(<code>&lt;InnerComponent /&gt;</code>)가 <code>{ foo: &#39;bar&#39; }</code>를 value prop으로 가진 채 렌더될 것입니다. 사용자가 앵커(<code>&lt;a&gt;</code>)를 클릭한다면 부모 컴포넌트의 state는 <code>{ value: { foo: &#39;barbar&#39; } }</code>로 업데이트되고, 내부 컴포넌트 또한 <code>{ foo: &#39;barbar&#39; }</code>를 새로운 value prop으로 전달받아 다시 렌더링 되는 프로세스가 일어날 것입니다. </p>
 
-<p>The problem is that since the parent and inner components share a reference to the same object, when the object gets mutated on line 2 of the <code>onClick</code> function, the prop the inner component had will change. So, when the re-rendering process starts, and <code>shouldComponentUpdate</code> gets invoked, <code>this.props.value.foo</code> will be equal to <code>nextProps.value.foo</code>, because in fact, <code>this.props.value</code> references the same object as <code>nextProps.value</code>.</p>
+<p>이 문제는 부모와 내부 컴포넌트가 같은 객체에 대한 참조를 공유하기 때문에 발생합니다. <code>onClick</code> 함수의 두 번째 줄에서 객체에 대한 변경이 일어날 때, 내부 컴포넌트의 prop도 변경될 것입니다. 따라서 다시 렌더링 되는 프로세스가 시작될 때 <code>shouldComponentUpdate</code>가 호출되고 <code>this.props.value.foo</code>가 <code>nextProps.value.foo</code>와 같게 됩니다. 실제로 <code>this.props.value</code>는 <code>nextProps.value</code>와 같은 객체이기 때문입니다.</p>
 
-<p>Consequently, since we&#39;ll miss the change on the prop and short circuit the re-rendering process, the UI won&#39;t get updated from <code>&#39;bar&#39;</code> to <code>&#39;barbar&#39;</code>.</p>
-<h2><a class="anchor" name="immutable-js-to-the-rescue"></a>Immutable-js to the rescue <a class="hash-link" href="#immutable-js-to-the-rescue">#</a></h2>
-<p><a href="https://github.com/facebook/immutable-js">Immutable-js</a> is a Javascript collections library  written by Lee Byron, which Facebook recently open-sourced. It provides <em>immutable persistent</em> collections via <em>structural sharing</em>. Lets see what these properties mean:</p>
+<p>그에따라 prop의 변경을 놓치게 되어 다시 렌더링하는 프로세스가 중단되고, UI는 <code>&#39;bar&#39;</code>에서 <code>&#39;barbar&#39;</code>로 업데이트되지 않습니다. </p>
+<h2><a class="anchor" name="-immutable-js"></a>구원자 Immutable-js <a class="hash-link" href="#-immutable-js">#</a></h2>
+<p><a href="https://github.com/facebook/immutable-js">Immutable-js</a>는 Lee Byron이 만들고 Facebook이 오픈소스화 한 Javascript 컬렉션 라이브러리입니다. 이는 <em>구조의 공유(structural sharing)</em>를 통해 <em>불변의 영속적인(immutable persistent)</em> 컬렉션을 제공합니다. 이러한 속성이 무엇을 의미하는지 살펴보죠:</p>
 
 <ul>
-<li><em>Immutable</em>: once created, a collection cannot be altered at another point in time.</li>
-<li><em>Persistent</em>: new collections can be created from a previous collection and a mutation such as set. The original collection is still valid after the new collection is created.</li>
-<li><em>Structural Sharing</em>: new collections are created using as much of the same structure as the original collection as possible, reducing copying to a minimum to achieve space efficiency and acceptable performance. If the new collection is equal to the original, the original is often returned.</li>
+<li><em>불변성(Immutable)</em>: 컬렉션이 한번 생성되면, 이 후 다른 시점에 변경될 수 없습니다.</li>
+<li><em>영속성(Persistent)</em>: 새로운 컬렉션이 이전의 컬렉션이나 셋(set) 같은 뮤테이션(mutation)에서 생성될 수 있습니다. 기존의 컬렉션은 새로운 컬렉션이 생성된 후에도 여전히 유효합니다.</li>
+<li><em>구조의 공유(Structural Sharing)</em>: 새로운 컬렉션은 가능한 한 원래의 컬렉션과 같은 구조를 사용해 생성됩니다. 공간 효율성과 적절한 성능을 위해 복사를 최소화합니다. </li>
 </ul>
 
-<p>Immutability makes tracking changes cheap; a change will always result in a new object so we only need to check if the reference to the object has changed. For example, in this regular Javascript code:</p>
+<p>불변성은 변경의 추적을 비용을 줄여줍니다; 변경은 항상 새로운 객체에만 발생하기 때문에 객체에 대한 참조가 변경될 때만 확인하면 됩니다. 예를 들어 일반적인 JavaScript 코드에서는:</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span> <span class="p">};</span>
 <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
 <span class="nx">y</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="s2">&quot;baz&quot;</span><span class="p">;</span>
 <span class="nx">x</span> <span class="o">===</span> <span class="nx">y</span><span class="p">;</span> <span class="c1">// true</span>
 </code></pre></div>
-<p>Although <code>y</code> was edited, since it&#39;s a reference to the same object as <code>x</code>, this comparison returns <code>true</code>. However, this code could be written using immutable-js as follows:</p>
+<p><code>y</code>가 수정되더라도 여전히 같은 객체인 <code>x</code>를 참조하고 있기 때문에, 이 비교는 <code>true</code>를 반환합니다. 하지만 이 코드를 immutable-js를 사용해 다음과 같이 작성할 수 있습니다:</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">SomeRecord</span> <span class="o">=</span> <span class="nx">Immutable</span><span class="p">.</span><span class="nx">Record</span><span class="p">({</span> <span class="nx">foo</span><span class="o">:</span> <span class="kc">null</span> <span class="p">});</span>
 <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SomeRecord</span><span class="p">({</span> <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>  <span class="p">});</span>
 <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">x</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">);</span>
 <span class="nx">x</span> <span class="o">===</span> <span class="nx">y</span><span class="p">;</span> <span class="c1">// false</span>
 </code></pre></div>
-<p>In this case, since a new reference is returned when mutating <code>x</code>, we can safely assume that <code>x</code> has changed.</p>
+<p>이 경우, <code>x</code>가 변경되면 새로운 참조가 반환되기 때문에, 우리는 안전하게 <code>x</code>가 변경되었을 것으로 추정할 수 있습니다.</p>
 
-<p>Another possible way to track changes could be doing dirty checking by having a flag set by setters. A problem with this approach is that it forces you to use setters and, either write a lot of additional code, or somehow instrument your classes. Alternatively, you could deep copy the object just before the mutations and deep compare to determine whether there was a change or not. A problem with this approach is both deepCopy and deepCompare are expensive operations.</p>
+<p>변경을 탐지할 수 있는 또 다른 방법은 세터(setter)에 의해 설정된 플래그를 더티 체킹(dirty checking)하는 것입니다. 이 방식의 문제는 당신이 세터를 사용할 뿐만 아니라 수많은 추가 코드를 작성하거나 어떻게든 클래스들을 인스트루먼트(instrument) 하도록 강요한다는 것입니다. 혹은 변경(mutations) 직전에 객체를 깊은 복사(deep copy) 한 뒤 깊은 비교(deep compare)를 수행해 변경 여부를 판단할 수 있습니다. 이 방식의 문제점은 deepCopy와 deepCompare 둘 다 비용이 많이 드는 연산이라는 것입니다.</p>
 
-<p>So, Immutable data structures provides you a cheap and less verbose way to track changes on objects, which is all we need to implement <code>shouldComponentUpdate</code>. Therefore, if we model props and state attributes using the abstractions provided by immutable-js we&#39;ll be able to use <code>PureRenderMixin</code> and get a nice boost in perf.</p>
-<h2><a class="anchor" name="immutable-js-and-flux"></a>Immutable-js and Flux <a class="hash-link" href="#immutable-js-and-flux">#</a></h2>
-<p>If you&#39;re using <a href="http://facebook.github.io/flux/">Flux</a>, you should start writing your stores using immutable-js. Take a look at the <a href="http://facebook.github.io/immutable-js/docs/#/">full API</a>.</p>
+<p>그래서 Immutable 자료구조는 <code>shouldComponentUpdate</code>의 구현에 필요한 객체의 변경사항을 추적할 수 있는 덜 자세하지만 저렴한 방법을 제공합니다. 그에 따라 immutable-js가 제공하는 추상화를 사용해 props와 state 어트리뷰트를 모델링한다면, <code>PureRenderMixin</code>을 사용해 성능을 향상할 수 있습니다.</p>
+<h2><a class="anchor" name="immutable-js-flux"></a>Immutable-js와 Flux <a class="hash-link" href="#immutable-js-flux">#</a></h2>
+<p><a href="http://facebook.github.io/flux/">Flux</a>를 사용한다면 immutable-js를 사용해 stores를 작성해야 합니다. <a href="http://facebook.github.io/immutable-js/docs/#/">전체 API</a>를 살펴보세요.</p>
 
-<p>Let&#39;s see one possible way to model the thread example using Immutable data structures. First, we need to define a <code>Record</code> for each of the entities we&#39;re trying to model. Records are just immutable containers that hold values for a specific set of fields:</p>
+<p>Immutable 자료구조를 이용해 스레드를 모델링하는 예제를 살펴봅시다. 먼저 모델링하려는 엔티티마다 <code>Record</code>를 정의해야 합니다. Record는 특정 필드들의 값을 유지하기 위한 불변의 컨테이너입니다:</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">User</span> <span class="o">=</span> <span class="nx">Immutable</span><span class="p">.</span><span class="nx">Record</span><span class="p">({</span>
   <span class="nx">id</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
   <span class="nx">name</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
@@ -536,27 +534,27 @@ The last interesting case is C8. For this node React had to compute the virtual 
   <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
 <span class="p">});</span>
 </code></pre></div>
-<p>The object the <code>Record</code> function receives defines the fields the object has and their default values.</p>
+<p><code>Record</code> 함수는 필드별로 기본값이 선언된 객체에 대한 정의를 넘겨받습니다.</p>
 
-<p>The messages <em>store</em> could keep track of the users and messages using two lists:</p>
+<p>메시지 store는 두 개의 List를 통해 users와 messages를 추적할 수 있습니다:</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">this</span><span class="p">.</span><span class="nx">users</span> <span class="o">=</span> <span class="nx">Immutable</span><span class="p">.</span><span class="nx">List</span><span class="p">();</span>
 <span class="k">this</span><span class="p">.</span><span class="nx">messages</span> <span class="o">=</span> <span class="nx">Immutable</span><span class="p">.</span><span class="nx">List</span><span class="p">();</span>
 </code></pre></div>
-<p>It should be pretty straightforward to implement functions to process each <em>payload</em> type. For instance, when the store sees a payload representing a new message,  we can just create a new record and append it to the messages list:</p>
+<p>각각의 <em>페이로드</em> 타입을 처리하는 기능을 구현하는 것은 꽤 간단합니다. 예를 들면, store가 새 메시지를 나타내는 페이로드를 확인할 때 레코드를 새로 생성하고 메시지 리스트에 추가할 수 있습니다. </p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">this</span><span class="p">.</span><span class="nx">messages</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">Message</span><span class="p">({</span>
   <span class="nx">timestamp</span><span class="o">:</span> <span class="nx">payload</span><span class="p">.</span><span class="nx">timestamp</span><span class="p">,</span>
   <span class="nx">sender</span><span class="o">:</span> <span class="nx">payload</span><span class="p">.</span><span class="nx">sender</span><span class="p">,</span>
   <span class="nx">text</span><span class="o">:</span> <span class="nx">payload</span><span class="p">.</span><span class="nx">text</span>
 <span class="p">});</span>
 </code></pre></div>
-<p>Note that since the data structures are immutable, we need to assign the result of the push function to this.messages.</p>
+<p>자료구조가 불변이기 때문에 push 함수의 결과를 this.messages에 할당할 필요가 있으니 주의하세요.</p>
 
-<p>On the React side, if we also use immutable-js data structures to hold the components&#39; state, we could mix <code>PureRenderMixin</code> into all our components and short circuit the re-rendering process.</p>
+<p>React 측에서는, 컴포넌트의 state를 보존하기 위해 immutable-js 자료구조를 사용한다면, 모든 컴포넌트에 <code>PureRenderMixin</code>을 혼합해 다시 렌더링하는 프로세스를 중단할 수 있습니다.</p>
 
 
     <div class="docs-prevnext">
       
-        <a class="docs-prev" href="/react/docs/perf.html">&larr; Prev</a>
+        <a class="docs-prev" href="/react/docs/perf-ko-KR.html">&larr; Prev</a>
       
       
     </div>
