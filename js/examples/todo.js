@@ -38,6 +38,6 @@ var TODO_COMPONENT = ("\nvar TodoList = React.createClass({\n  render: function(
 );
 
 React.render(
-  React.createElement(ReactPlayground, {codeText: TODO_COMPONENT}),
+  <ReactPlayground codeText={TODO_COMPONENT} />,
   document.getElementById('todoExample')
 );

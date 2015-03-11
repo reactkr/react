@@ -50,7 +50,7 @@
           <li><a href="/react/support.html">support</a></li>
           <li><a href="/react/downloads.html">download</a></li>
           <li><a href="/react/blog/" class="active">blog</a></li>
-          <li><a href="http://github.com/facebook/react">github</a>
+          <li><a href="https://github.com/facebook/react">github</a>
         </ul>
       </div>
     </div>
@@ -62,6 +62,12 @@
   <div class="nav-docs-section">
     <h3>Recent posts</h3>
     <ul>
+      
+        <li><a href="/react/blog/2015/03/10/react-v0.13.html">React v0.13</a></li>
+      
+        <li><a href="/react/blog/2015/03/04/community-roundup-25.html">Community Round-up #25</a></li>
+      
+        <li><a href="/react/blog/2015/03/03/react-v0.13-rc2.html">React v0.13 RC2</a></li>
       
         <li><a href="/react/blog/2015/02/24/react-v0.13-rc1.html">React v0.13 RC</a></li>
       
@@ -77,18 +83,172 @@
       
         <li><a href="/react/blog/2014/12/18/react-v0.12.2.html">React v0.12.2</a></li>
       
-        <li><a href="/react/blog/2014/11/25/community-roundup-24.html">Community Round-up #24</a></li>
-      
-        <li><a href="/react/blog/2014/11/24/react-js-conf-updates.html">React.js Conf Updates</a></li>
-      
-        <li><a href="/react/blog/2014/10/28/react-v0.12.html">React v0.12</a></li>
-      
       <li><a href="/react/blog/all.html">All posts ...</a></li>
     </ul>
   </div>
 </div>
 
   <div class="inner-content">
+    
+      <div class="post-list-item">
+        <h1><a href="/react/blog/2013/07/11/react-v0-4-prop-validation-and-default-values.html">New in React v0.4: Prop Validation and Default Values</a></h1>
+        <p class="meta">July 11, 2013 by Paul O'Shannessy</p>
+        <hr />
+        <div class="post">
+         <p>Many of the questions we got following the public launch of React revolved around <code>props</code>, specifically that people wanted to do validation and to make sure their components had sensible defaults.</p>
+<h2><a class="anchor" name="validation"></a>Validation <a class="hash-link" href="#validation">#</a></h2>
+<p>Oftentimes you want to validate your <code>props</code> before you use them. Perhaps you want to ensure they are a specific type. Or maybe you want to restrict your prop to specific values. Or maybe you want to make a specific prop required. This was always possible — you could have written validations in your <code>render</code> or <code>componentWillReceiveProps</code> functions, but that gets clunky fast.</p>
+
+<p>React v0.4 will provide a nice easy way for you to use built-in validators, or to even write your own.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">propTypes</span><span class="o">:</span> <span class="p">{</span>
+    <span class="c1">// An optional string prop named &quot;description&quot;.</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span><span class="p">,</span>
+
+    <span class="c1">// A required enum prop named &quot;category&quot;.</span>
+    <span class="nx">category</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">oneOf</span><span class="p">([</span><span class="s1">&#39;News&#39;</span><span class="p">,</span><span class="s1">&#39;Photos&#39;</span><span class="p">]).</span><span class="nx">isRequired</span><span class="p">,</span>
+
+    <span class="c1">// A prop named &quot;dialog&quot; that requires an instance of Dialog.</span>
+    <span class="nx">dialog</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">instanceOf</span><span class="p">(</span><span class="nx">Dialog</span><span class="p">).</span><span class="nx">isRequired</span>
+  <span class="p">},</span>
+  <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div><h2><a class="anchor" name="default-values"></a>Default Values <a class="hash-link" href="#default-values">#</a></h2>
+<p>One common pattern we&#39;ve seen with our React code is to do something like this:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">value</span> <span class="o">||</span> <span class="s1">&#39;default value&#39;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Do this for a few <code>props</code> across a few components and now you have a lot of redundant code. Starting with React v0.4, you can provide default values in a declarative way:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">getDefaultProps</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;default value&#39;</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+  <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>We will use the cached result of this function before each <code>render</code>. We also perform all validations before each <code>render</code> to ensure that you have all of the data you need in the right form before you try to use it.</p>
+
+<hr>
+
+<p>Both of these features are entirely optional. We&#39;ve found them to be increasingly valuable at Facebook as our applications grow and evolve, and we hope others find them useful as well.</p>
+
+        </div>
+      </div>
+    
+      <div class="post-list-item">
+        <h1><a href="/react/blog/2013/07/03/community-roundup-4.html">Community Round-up #4</a></h1>
+        <p class="meta">July  3, 2013 by Vjeux</p>
+        <hr />
+        <div class="post">
+         <p>React reconciliation process appears to be very well suited to implement a text editor with a live preview as people at Khan Academy show us.</p>
+<h2><a class="anchor" name="khan-academy"></a>Khan Academy <a class="hash-link" href="#khan-academy">#</a></h2>
+<p><a href="http://bjk5.com/">Ben Kamens</a> explains how <a href="http://benalpert.com/">Ben Alpert</a> and <a href="http://joelburget.com/">Joel Burget</a> are promoting React inside of <a href="https://www.khanacademy.org/">Khan Academy</a>. They now have three projects in the works using React.</p>
+
+<blockquote>
+<p>Recently two Khan Academy devs dropped into our team chat and said they were gonna use React to write a new feature. They even hinted that we may want to adopt it product-wide.</p>
+
+<p>&quot;The library is only a week old. It&#39;s a brand new way of thinking about things. We&#39;re the first to use it outside of Facebook. Heck, even the React devs were surprised to hear we&#39;re using this in production!!!&quot;</p>
+
+<p><a href="http://bjk5.com/post/53742233351/getting-your-team-to-adopt-new-technology">Read the full post...</a></p>
+</blockquote>
+
+<p>The best part is the demo of how React reconciliation process makes live editing more user-friendly.</p>
+
+<blockquote>
+<p>Our renderer, post-React, is on the left. A typical math editor&#39;s preview is on the right.
+<figure><a href="http://bjk5.com/post/53742233351/getting-your-team-to-adopt-new-technology"><img src="/react/img/blog/monkeys.gif" width="70%" /></a></figure></p>
+</blockquote>
+<h2><a class="anchor" name="react-snippets"></a>React Snippets <a class="hash-link" href="#react-snippets">#</a></h2>
+<p>Over the past several weeks, members of our team, <a href="http://www.petehunt.net/">Pete Hunt</a> and <a href="http://zpao.com/">Paul O&#39;Shannessy</a>, answered many questions that were asked in the <a href="https://groups.google.com/forum/#!forum/reactjs">React group</a>. They give a good overview of how to integrate React with other libraries and APIs through the use of <a href="/react/docs/reusable-components.html">Mixins</a> and <a href="/react/docs/working-with-the-browser.html">Lifecycle Methods</a>.</p>
+
+<blockquote>
+<p><a href="https://groups.google.com/forum/#!topic/reactjs/l6PnP8qbofk">Listening Scroll Event</a></p>
+
+<ul>
+<li><a href="http://jsfiddle.net/aabeL/1/">JSFiddle</a>: Basically I&#39;ve given you two mixins. The first lets you react to global scroll events. The second is, IMO, much more useful: it gives you scroll start and scroll end events, which you can use with setState() to create components that react based on whether the user is scrolling or not.</li>
+</ul>
+
+<p><a href="https://groups.google.com/forum/#!topic/reactjs/RVAY_eQmdpo">Fade-in Transition</a></p>
+
+<ul>
+<li><a href="http://jsfiddle.net/ufe8k/1/">JSFiddle</a>: Creating a new <code>&lt;FadeInWhenAdded&gt;</code> component and using jQuery <code>.fadeIn()</code> function on the DOM node.</li>
+<li><a href="http://jsfiddle.net/R8f5L/5/">JSFiddle</a>: Using CSS transition instead.</li>
+</ul>
+
+<p><a href="https://groups.google.com/forum/#!topic/reactjs/pyUZBRWcHB4">Socket.IO Integration</a></p>
+
+<ul>
+<li><a href="https://gist.github.com/zpao/5686416">Gist</a>: The big thing to notice is that my component is pretty dumb (it doesn&#39;t have to be but that&#39;s how I chose to model it). All it does is render itself based on the props that are passed in. renderOrUpdate is where the &quot;magic&quot; happens.</li>
+<li><a href="https://gist.github.com/petehunt/5687230">Gist</a>: This example is doing everything -- including the IO -- inside of a single React component.</li>
+<li><a href="https://gist.github.com/petehunt/5687276">Gist</a>: One pattern that we use at Instagram a lot is to employ separation of concerns and consolidate I/O and state into components higher in the hierarchy to keep the rest of the components mostly stateless and purely display.</li>
+</ul>
+
+<p><a href="https://groups.google.com/forum/#!topic/reactjs/mHfBGI3Qwz4">Sortable jQuery Plugin Integration</a></p>
+
+<ul>
+<li><a href="http://jsfiddle.net/LQxy7/">JSFiddle</a>: Your React component simply render empty divs, and then in componentDidMount() you call React.renderComponent() on each of those divs to set up a new root React tree. Be sure to explicitly unmountAndReleaseReactRootNode() for each component in componentWillUnmount().</li>
+</ul>
+</blockquote>
+<h2><a class="anchor" name="introduction-to-react-screencast"></a>Introduction to React Screencast <a class="hash-link" href="#introduction-to-react-screencast">#</a></h2>
+<p><a href="http://www.petehunt.net/">Pete Hunt</a> recorded himself implementing a simple <code>&lt;Blink&gt;</code> tag in React.</p>
+
+<figure><iframe src="https://player.vimeo.com/video/67248575" width="500" height="340" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></figure>
+<h2><a class="anchor" name="snake-in-react"></a>Snake in React <a class="hash-link" href="#snake-in-react">#</a></h2>
+<p><a href="http://tomocchino.com/">Tom Occhino</a> implemented Snake in 150 lines with React.</p>
+
+<blockquote>
+<p><a href="https://github.com/tomocchino/react-snake/blob/master/src/snake.js">Check the source on Github</a>
+<figure><a href="http://tomocchino.github.io/react-snake/"><img src="/react/img/blog/snake.png" alt=""></a></figure></p>
+</blockquote>
+
+        </div>
+      </div>
+    
+      <div class="post-list-item">
+        <h1><a href="/react/blog/2013/07/02/react-v0-4-autobind-by-default.html">New in React v0.4: Autobind by Default</a></h1>
+        <p class="meta">July  2, 2013 by Paul O'Shannessy</p>
+        <hr />
+        <div class="post">
+         <p>React v0.4 is very close to completion. As we finish it off, we&#39;d like to share with you some of the major changes we&#39;ve made since v0.3. This is the first of several posts we&#39;ll be making over the next week.</p>
+<h2><a class="anchor" name="what-is-react.autobind"></a>What is React.autoBind? <a class="hash-link" href="#what-is-react.autobind">#</a></h2>
+<p>If you take a look at most of our current examples, you&#39;ll see us using <code>React.autoBind</code> for event handlers. This is used in place of <code>Function.prototype.bind</code>. Remember that in JS, <a href="http://bonsaiden.github.io/JavaScript-Garden/#function.this">function calls are late-bound</a>. That means that if you simply pass a function around, the <code>this</code> used inside won&#39;t necessarily be the <code>this</code> you expect. <code>Function.prototype.bind</code> creates a new, properly bound, function so that when called, <code>this</code> is exactly what you expect it to be.</p>
+
+<p>Before we launched React, we would write this:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">onClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span><span class="cm">/* do something with this */</span><span class="p">},</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="hll">    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span> <span class="o">/&gt;</span><span class="p">;</span>
+</span>  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>We wrote <code>React.autoBind</code> as a way to cache the function creation and save on memory usage. Since <code>render</code> can get called multiple times, if you used <code>this.onClick.bind(this)</code> you would actually create a new function on each pass. With React v0.3 you were able to write this instead:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+<span class="hll">  <span class="nx">onClick</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">autoBind</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span><span class="cm">/* do something with this */</span><span class="p">}),</span>
+</span>  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="hll">    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onClick</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+</span>  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div><h2><a class="anchor" name="whats-changing-in-v0.4"></a>What&#39;s Changing in v0.4? <a class="hash-link" href="#whats-changing-in-v0.4">#</a></h2>
+<p>After using <code>React.autoBind</code> for a few weeks, we realized that there were very few times that we didn&#39;t want that behavior. So we made it the default! Now all methods defined within <code>React.createClass</code> will already be bound to the correct instance.</p>
+
+<p>Starting with v0.4 you can just write this:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+<span class="hll">  <span class="nx">onClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span><span class="cm">/* do something with this */</span><span class="p">},</span>
+</span>  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="hll">    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onClick</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+</span>  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>For v0.4 we will simply be making <code>React.autoBind</code> a no-op — it will just return the function you pass to it. Most likely you won&#39;t have to change your code to account for this change, though we encourage you to update. We&#39;ll publish a migration guide documenting this and other changes that come along with React v0.4.</p>
+
+        </div>
+      </div>
     
       <div class="post-list-item">
         <h1><a href="/react/blog/2013/06/27/community-roundup-3.html">Community Round-up #3</a></h1>
@@ -197,221 +357,6 @@
         </div>
       </div>
     
-      <div class="post-list-item">
-        <h1><a href="/react/blog/2013/06/19/community-roundup-2.html">Community Round-up #2</a></h1>
-        <p class="meta">June 19, 2013 by Vjeux</p>
-        <hr />
-        <div class="post">
-         <p>Since the launch we have received a lot of feedback and are actively working on React 0.4. In the meantime, here are the highlights of this week.</p>
-<h2><a class="anchor" name="some-quick-thoughts-on-react"></a>Some quick thoughts on React <a class="hash-link" href="#some-quick-thoughts-on-react">#</a></h2>
-<p><a href="http://www.andrewgreig.com/">Andrew Greig</a> made a blog post that gives a high level description of what React is.</p>
-
-<blockquote>
-<p>I have been using Facebooks recently released Javascript framework called React.js for the last few days and have managed to obtain a rather high level understanding of how it works and formed a good perspective on how it fits in to the entire javascript framework ecosystem.</p>
-
-<p>Basically, React is not an MVC framework. It is not a replacement for Backbone or Knockout or Angular, instead it is designed to work with existing frameworks and help extend their functionality.</p>
-
-<p>It is designed for building big UIs. The type where you have lots of reusable components that are handling events and presenting and changing some backend data. In a traditional MVC app, React fulfils the role of the View. So you would still need to handle the Model and Controller on your own.</p>
-
-<p>I found the best way to utilise React was to pair it with Backbone, with React replacing the Backbone View, or to write your own Model/Data object and have React communicate with that.</p>
-
-<p><a href="http://www.andrewgreig.com/637/">Read the full post...</a></p>
-</blockquote>
-<h2><a class="anchor" name="react-and-socket.io-chat-application"></a>React and Socket.IO Chat Application <a class="hash-link" href="#react-and-socket.io-chat-application">#</a></h2>
-<p><a href="http://danialk.github.io/">Danial Khosravi</a> made a real-time chat application that interacts with the back-end using Socket.IO.</p>
-
-<blockquote>
-<p>A week ago I was playing with AngularJS and <a href="https://github.com/btford/angular-socket-io-im">this little chat application</a> which uses socket.io and nodejs for realtime communication. Yesterday I saw a post about ReactJS in <a href="http://www.echojs.com/">EchoJS</a> and started playing with this UI library. After playing a bit with React, I decided to write and chat application using React and I used Bran Ford&#39;s Backend for server side of this little app.
-<figure><a href="http://danialk.github.io/blog/2013/06/16/reactjs-and-socket-dot-io-chat-application/"><img src="/react/img/blog/chatapp.png" alt=""></a></figure></p>
-
-<p><a href="http://danialk.github.io/blog/2013/06/16/reactjs-and-socket-dot-io-chat-application/">Read the full post...</a></p>
-</blockquote>
-<h2><a class="anchor" name="react-and-other-frameworks"></a>React and Other Frameworks <a class="hash-link" href="#react-and-other-frameworks">#</a></h2>
-<p><a href="http://www.petehunt.net/blog/">Pete Hunt</a> wrote an answer on Quora comparing React and Angular directives. At the end, he explains how you can make an Angular directive that is in fact being rendered with React.</p>
-
-<blockquote>
-<p>To set the record straight: React components are far more powerful than Angular templates; they should be compared with Angular&#39;s directives instead. So I took the first Google hit for &quot;AngularJS directive tutorial&quot; (AngularJS Directives Tutorial - Fundoo Solutions), rewrote it in React and compared them. [...]</p>
-
-<p>We&#39;ve designed React from the beginning to work well with other libraries. Angular is no exception. Let&#39;s take the original Angular example and use React to implement the fundoo-rating directive.</p>
-
-<p><a href="http://www.quora.com/Pete-Hunt/Posts/Facebooks-React-vs-AngularJS-A-Closer-Look">Read the full post...</a></p>
-</blockquote>
-
-<p>In the same vein, <a href="https://twitter.com/markov_twain/status/345702941845499906">Markov Twain</a> re-implemented the examples on the front-page <a href="http://jsbin.com/azihiw/2/edit">with Ember</a> and <a href="https://twitter.com/vla">Vlad Yazhbin</a> re-implemented the tutorial <a href="http://jsfiddle.net/vla/Cdrse/">with Angular</a>.</p>
-<h2><a class="anchor" name="web-components-react-amp-x-tags"></a>Web Components: React &amp; x-tags <a class="hash-link" href="#web-components-react-amp-x-tags">#</a></h2>
-<p>Mozilla and Google are actively working on Web Components. <a href="http://blog.vjeux.com/">Vjeux</a> wrote a proof of concept that shows how to implement them using React.</p>
-
-<blockquote>
-<p>Using <a href="http://www.x-tags.org/">x-tags</a> from Mozilla, we can write custom tags within the DOM. This is a great opportunity to be able to write reusable components without being tied to a particular library. I wrote <a href="https://github.com/vjeux/react-xtags/">x-react</a> to have them being rendered in React.
-<figure><a href="http://blog.vjeux.com/2013/javascript/custom-components-react-x-tags.html"><img src="/react/img/blog/xreact.png" alt=""></a></figure></p>
-
-<p><a href="http://blog.vjeux.com/2013/javascript/custom-components-react-x-tags.html">Read the full post...</a></p>
-</blockquote>
-<h2><a class="anchor" name="react-todomvc-example"></a>React TodoMVC Example <a class="hash-link" href="#react-todomvc-example">#</a></h2>
-<p><a href="http://todomvc.com/">TodoMVC.com</a> is a website that collects various implementations of the same basic Todo app. <a href="http://www.petehunt.net/blog/">Pete Hunt</a> wrote an idiomatic React version.</p>
-
-<blockquote>
-<p>Developers these days are spoiled with choice when it comes to selecting an MV* framework for structuring and organizing their JavaScript web apps.</p>
-
-<p>To help solve this problem, we created TodoMVC - a project which offers the same Todo application implemented using MV* concepts in most of the popular JavaScript MV* frameworks of today.
-<figure><a href="http://todomvc.com/labs/architecture-examples/react/"><img src="/react/img/blog/todomvc.png" alt=""></a></figure></p>
-
-<p><a href="https://github.com/tastejs/todomvc/tree/gh-pages/labs/architecture-examples/react">Read the source code...</a></p>
-</blockquote>
-<h2><a class="anchor" name="jsx-is-not-html"></a>JSX is not HTML <a class="hash-link" href="#jsx-is-not-html">#</a></h2>
-<p>Many of you pointed out differences between JSX and HTML. In order to clear up some confusion, we have added some documentation that covers the four main differences:</p>
-
-<ul>
-<li><a href="http://facebook.github.io/react/docs/jsx-is-not-html.html">Whitespace removal</a></li>
-<li><a href="http://facebook.github.io/react/docs/jsx-is-not-html.html">HTML Entities</a></li>
-<li><a href="http://facebook.github.io/react/docs/jsx-is-not-html.html">Comments</a></li>
-<li><a href="http://facebook.github.io/react/docs/jsx-is-not-html.html">Custom HTML Attributes</a></li>
-</ul>
-
-        </div>
-      </div>
-    
-      <div class="post-list-item">
-        <h1><a href="/react/blog/2013/06/12/community-roundup.html">Community Round-up #1</a></h1>
-        <p class="meta">June 12, 2013 by Vjeux</p>
-        <hr />
-        <div class="post">
-         <p>React was open sourced two weeks ago and it&#39;s time for a little round-up of what has been going on.</p>
-<h2><a class="anchor" name="khan-academy-question-editor"></a>Khan Academy Question Editor <a class="hash-link" href="#khan-academy-question-editor">#</a></h2>
-<p>It looks like <a href="http://benalpert.com/">Ben Alpert</a> is the first person outside of Facebook and Instagram to push React code to production. We are very grateful for his contributions in form of pull requests, bug reports and presence on IRC (<a href="irc://chat.freenode.net/reactjs">#reactjs on Freenode</a>). Ben wrote about his experience using React:</p>
-
-<blockquote>
-<p>I just rewrote a 2000-line project in React and have now made a handful of pull requests to React. Everything about React I&#39;ve seen so far seems really well thought-out and I&#39;m proud to be the first non-FB/IG production user of React.</p>
-
-<p>The project that I rewrote in React (and am continuing to improve) is the Khan Academy question editor which content creators can use to enter questions and hints that will be presented to students:
-<figure><a href="http://benalpert.com/2013/06/09/using-react-to-speed-up-khan-academy.html"><img src="/react/img/blog/khan-academy-editor.png" alt=""></a></figure></p>
-
-<p><a href="http://benalpert.com/2013/06/09/using-react-to-speed-up-khan-academy.html">Read the full post...</a></p>
-</blockquote>
-<h2><a class="anchor" name="pimp-my-backbone.view-by-replacing-it-with-react"></a>Pimp my Backbone.View (by replacing it with React) <a class="hash-link" href="#pimp-my-backbone.view-by-replacing-it-with-react">#</a></h2>
-<p><a href="https://blog.mayflower.de/">Paul Seiffert</a> wrote a blog post that explains how to integrate React into Backbone applications.</p>
-
-<blockquote>
-<p>React has some interesting concepts for JavaScript view objects that can be used to eliminate this one big problem I have with Backbone.js.</p>
-
-<p>As in most MVC implementations (although React is probably just a VC implementation), a view is one portion of the screen that is managed by a controlling object. This object is responsible for deciding when to re-render the view and how to react to user input. With React, these view-controllers objects are called components. A component knows how to render its view and how to handle to the user&#39;s interaction with it.</p>
-
-<p>The interesting thing is that React is figuring out by itself when to re-render a view and how to do this in the most efficient way.</p>
-
-<p><a href="https://blog.mayflower.de/3937-Backbone-React.html">Read the full post...</a></p>
-</blockquote>
-<h2><a class="anchor" name="using-facebooks-react-with-require.js"></a>Using facebook&#39;s React with require.js <a class="hash-link" href="#using-facebooks-react-with-require.js">#</a></h2>
-<p><a href="http://blog.xenji.com/">Mario Mueller</a> wrote a menu component in React and was able to easily integrate it with require.js, EventEmitter2 and bower.</p>
-
-<blockquote>
-<p>I recently stumbled upon facebook&#39;s React library, which is a Javascript library for building reusable frontend components. Even if this lib is only at version 0.3.x it behaves very stable, it is fast and is fun to code. I&#39;m a big fan of require.js, so I tried to use React within the require.js eco system. It was not as hard as expected and here are some examples and some thoughts about it.</p>
-
-<p><a href="http://blog.xenji.com/2013/06/facebooks-react-require-js.html">Read the full post...</a></p>
-</blockquote>
-<h2><a class="anchor" name="origins-of-react"></a>Origins of React <a class="hash-link" href="#origins-of-react">#</a></h2>
-<p><a href="http://www.petehunt.net/blog/">Pete Hunt</a> explained what differentiates React from other JavaScript libraries in <a href="http://facebook.github.io/react/blog/2013/06/05/why-react.html">a previous blog post</a>. <a href="http://leebyron.com/">Lee Byron</a> gives another perspective on Quora:</p>
-
-<blockquote>
-<p>React isn&#39;t quite like any other popular Javascript libraries, and it solves a very specific problem: complex UI rendering. It&#39;s also intended to be used along side many other popular libraries. For example, React works well with Backbone.js, amongst many others.</p>
-
-<p>React was born out of frustrations with the common pattern of writing two-way data bindings in complex MVC apps. React is an implementation of one-way data bindings.</p>
-
-<p><a href="http://www.quora.com/React-JS-Library/How-is-Facebooks-React-JavaScript-library/answer/Lee-Byron?srid=3DcX">Read the full post...</a></p>
-</blockquote>
-
-        </div>
-      </div>
-    
-      <div class="post-list-item">
-        <h1><a href="/react/blog/2013/06/05/why-react.html">Why did we build React?</a></h1>
-        <p class="meta">June  5, 2013 by Pete Hunt</p>
-        <hr />
-        <div class="post">
-         <p>There are a lot of JavaScript MVC frameworks out there. Why did we build React
-and why would you want to use it?</p>
-<h2><a class="anchor" name="react-isnt-an-mvc-framework."></a>React isn&#39;t an MVC framework. <a class="hash-link" href="#react-isnt-an-mvc-framework.">#</a></h2>
-<p>React is a library for building composable user interfaces. It encourages
-the creation of reusable UI components which present data that changes over
-time.</p>
-<h2><a class="anchor" name="react-doesnt-use-templates."></a>React doesn&#39;t use templates. <a class="hash-link" href="#react-doesnt-use-templates.">#</a></h2>
-<p>Traditionally, web application UIs are built using templates or HTML directives.
-These templates dictate the full set of abstractions that you are allowed to use
-to build your UI.</p>
-
-<p>React approaches building user interfaces differently by breaking them into
-<strong>components</strong>. This means React uses a real, full featured programming language
-to render views, which we see as an advantage over templates for a few reasons:</p>
-
-<ul>
-<li><strong>JavaScript is a flexible, powerful programming language</strong> with the ability
-to build abstractions. This is incredibly important in large applications.</li>
-<li>By unifying your markup with its corresponding view logic, React can actually
-make views <strong>easier to extend and maintain</strong>.</li>
-<li>By baking an understanding of markup and content into JavaScript, there&#39;s
-<strong>no manual string concatenation</strong> and therefore less surface area for XSS
-vulnerabilities.</li>
-</ul>
-
-<p>We&#39;ve also created <a href="/react/docs/jsx-in-depth.html">JSX</a>, an optional syntax
-extension, in case you prefer the readability of HTML to raw JavaScript.</p>
-<h2><a class="anchor" name="reactive-updates-are-dead-simple."></a>Reactive updates are dead simple. <a class="hash-link" href="#reactive-updates-are-dead-simple.">#</a></h2>
-<p>React really shines when your data changes over time.</p>
-
-<p>In a traditional JavaScript application, you need to look at what data changed
-and imperatively make changes to the DOM to keep it up-to-date. Even AngularJS,
-which provides a declarative interface via directives and data binding <a href="http://code.angularjs.org/1.0.8/docs/guide/directive#reasonsbehindthecompilelinkseparation">requires
-a linking function to manually update DOM nodes</a>.</p>
-
-<p>React takes a different approach.</p>
-
-<p>When your component is first initialized, the <code>render</code> method is called,
-generating a lightweight representation of your view. From that representation,
-a string of markup is produced, and injected into the document. When your data
-changes, the <code>render</code> method is called again. In order to perform updates as
-efficiently as possible, we diff the return value from the previous call to
-<code>render</code> with the new one, and generate a minimal set of changes to be applied
-to the DOM.</p>
-
-<blockquote>
-<p>The data returned from <code>render</code> is neither a string nor a DOM node -- it&#39;s a
-lightweight description of what the DOM should look like.</p>
-</blockquote>
-
-<p>We call this process <strong>reconciliation</strong>. Check out
-<a href="http://jsfiddle.net/fv6RD/3/">this jsFiddle</a> to see an example of
-reconciliation in action.</p>
-
-<p>Because this re-render is so fast (around 1ms for TodoMVC), the developer
-doesn&#39;t need to explicitly specify data bindings. We&#39;ve found this approach
-makes it easier to build apps.</p>
-<h2><a class="anchor" name="html-is-just-the-beginning."></a>HTML is just the beginning. <a class="hash-link" href="#html-is-just-the-beginning.">#</a></h2>
-<p>Because React has its own lightweight representation of the document, we can do
-some pretty cool things with it:</p>
-
-<ul>
-<li>Facebook has dynamic charts that render to <code>&lt;canvas&gt;</code> instead of HTML.</li>
-<li>Instagram is a &quot;single page&quot; web app built entirely with React and
-<code>Backbone.Router</code>. Designers regularly contribute React code with JSX.</li>
-<li>We&#39;ve built internal prototypes that run React apps in a web worker and use
-React to drive <strong>native iOS views</strong> via an Objective-C bridge.</li>
-<li>You can run React
-<a href="http://github.com/petehunt/react-server-rendering-example">on the server</a>
-for SEO, performance, code sharing and overall flexibility.</li>
-<li>Events behave in a consistent, standards-compliant way in all browsers
-(including IE8) and automatically use
-<a href="http://davidwalsh.name/event-delegate">event delegation</a>.</li>
-</ul>
-
-<p>Head on over to <a href="/react">facebook.github.io/react</a> to check out what we have
-built. Our documentation is geared towards building apps with the framework,
-but if you are interested in the nuts and bolts
-<a href="/react/support.html">get in touch</a> with us!</p>
-
-<p>Thanks for reading!</p>
-
-        </div>
-      </div>
-    
 
     <div class="pagination">
       
@@ -436,7 +381,7 @@ but if you are interested in the nuts and bolts
       </div>
       <div class="right">
         &copy; 2013&ndash;2015 Facebook Inc.<br>
-        Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+        Documentation licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
       </div>
     </footer>
   </div>

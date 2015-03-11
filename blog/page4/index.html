@@ -50,7 +50,7 @@
           <li><a href="/react/support.html">support</a></li>
           <li><a href="/react/downloads.html">download</a></li>
           <li><a href="/react/blog/" class="active">blog</a></li>
-          <li><a href="http://github.com/facebook/react">github</a>
+          <li><a href="https://github.com/facebook/react">github</a>
         </ul>
       </div>
     </div>
@@ -62,6 +62,12 @@
   <div class="nav-docs-section">
     <h3>Recent posts</h3>
     <ul>
+      
+        <li><a href="/react/blog/2015/03/10/react-v0.13.html">React v0.13</a></li>
+      
+        <li><a href="/react/blog/2015/03/04/community-roundup-25.html">Community Round-up #25</a></li>
+      
+        <li><a href="/react/blog/2015/03/03/react-v0.13-rc2.html">React v0.13 RC2</a></li>
       
         <li><a href="/react/blog/2015/02/24/react-v0.13-rc1.html">React v0.13 RC</a></li>
       
@@ -77,18 +83,545 @@
       
         <li><a href="/react/blog/2014/12/18/react-v0.12.2.html">React v0.12.2</a></li>
       
-        <li><a href="/react/blog/2014/11/25/community-roundup-24.html">Community Round-up #24</a></li>
-      
-        <li><a href="/react/blog/2014/11/24/react-js-conf-updates.html">React.js Conf Updates</a></li>
-      
-        <li><a href="/react/blog/2014/10/28/react-v0.12.html">React v0.12</a></li>
-      
       <li><a href="/react/blog/all.html">All posts ...</a></li>
     </ul>
   </div>
 </div>
 
   <div class="inner-content">
+    
+      <div class="post-list-item">
+        <h1><a href="/react/blog/2014/10/16/react-v0.12-rc1.html">React v0.12 RC</a></h1>
+        <p class="meta">October 16, 2014 by Sebastian Markbåge</p>
+        <hr />
+        <div class="post">
+         <p>We are finally ready to share the work we&#39;ve been doing over the past couple months. A lot has gone into this and we want to make sure we iron out any potential issues before we make this final. So, we&#39;re shipping a Release Candidate for React v0.12 today. If you get a chance, please give it a try and report any issues you find! A full changelog will accompany the final release but we&#39;ve highlighted the interesting and breaking changes below.</p>
+
+<p>The release candidate is available for download:</p>
+
+<ul>
+<li><strong>React</strong><br>
+Dev build with warnings: <a href="http://fb.me/react-0.12.0-rc1.js">http://fb.me/react-0.12.0-rc1.js</a><br>
+Minified build for production: <a href="http://fb.me/react-0.12.0-rc1.min.js">http://fb.me/react-0.12.0-rc1.min.js</a><br></li>
+<li><strong>React with Add-Ons</strong><br>
+Dev build with warnings: <a href="http://fb.me/react-with-addons-0.12.0-rc1.js">http://fb.me/react-with-addons-0.12.0-rc1.js</a><br>
+Minified build for production: <a href="http://fb.me/react-with-addons-0.12.0-rc1.min.js">http://fb.me/react-with-addons-0.12.0-rc1.min.js</a><br></li>
+<li><strong>In-Browser JSX transformer</strong><br>
+<a href="http://fb.me/JSXTransformer-0.12.0-rc1.js">http://fb.me/JSXTransformer-0.12.0-rc1.js</a></li>
+</ul>
+
+<p>We&#39;ve also published version <code>0.12.0-rc1</code> of the <code>react</code> and <code>react-tools</code> packages on npm and the <code>react</code> package on bower.</p>
+<h2><a class="anchor" name="react-elements"></a>React Elements <a class="hash-link" href="#react-elements">#</a></h2>
+<p>The biggest conceptual change we made in v0.12 is the move to React Elements. <a href="/react/blog/2014/10/14/introducting-react-elements.html">We talked about this topic in depth earlier this week</a>. If you haven&#39;t already, you should read up on the exciting changes in there!</p>
+<h2><a class="anchor" name="jsx-changes"></a>JSX Changes <a class="hash-link" href="#jsx-changes">#</a></h2>
+<p>Earlier this year we decided to write <a href="http://facebook.github.io/jsx/">a specification for JSX</a>. This has allowed us to make some changes focused on the React specific JSX and still allow others to innovate in the same space.</p>
+<h3><a class="anchor" name="the-jsx-pragma-is-gone"></a>The <code>@jsx</code> Pragma is Gone! <a class="hash-link" href="#the-jsx-pragma-is-gone">#</a></h3>
+<p>We have wanted to do this since before we even open sourced React. No more <code>/** @jsx React.DOM */</code>!. The React specific JSX transform assumes you have <code>React</code> in scope (which had to be true before anyway).</p>
+
+<p><code>JSXTransformer</code> and <code>react-tools</code> have both been updated to account for this.</p>
+<h3><a class="anchor" name="jsx-for-function-calls-is-no-longer-supported"></a>JSX for Function Calls is No Longer Supported <a class="hash-link" href="#jsx-for-function-calls-is-no-longer-supported">#</a></h3>
+<p>The React specific JSX transform no longer transforms to function calls. Instead we use <code>React.createElement</code> and pass it arguments. This allows us to make optimizations and better support React as a compile target for things like Om. Read more in the <a href="/react/blog/2014/10/14/introducting-react-elements.html">React Elements introduction</a>.</p>
+
+<p>The result of this change is that we will no longer support arbitrary function calls. We understand that the ability to do was was a convenient shortcut for many people but we believe the gains will be worth it.</p>
+<h3><a class="anchor" name="jsx-lower-case-convention"></a>JSX Lower-case Convention <a class="hash-link" href="#jsx-lower-case-convention">#</a></h3>
+<p>We used to have a whitelist of HTML tags that got special treatment in JSX. However as new HTML tags got added to the spec, or we added support for more SVG tags, we had to go update our whitelist. Additionally, there was ambiguity about the behavior. There was always the chance that something new added to the tag list would result in breaking your code. For example:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">return</span> <span class="o">&lt;</span><span class="nx">component</span> <span class="o">/&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>Is <code>component</code> an existing HTML tag? What if it becomes one?</p>
+
+<p>To address this, we decided on a convention: <strong>All JSX tags that start with a lower-case letter or contain a dash are treated as HTML.</strong></p>
+
+<p>This means that you no longer have to wait for us to upgrade JSX to use new tags. This also introduces the possibility to consume custom elements (Web Components) - although custom attributes are not yet fully supported.</p>
+
+<p>Currently we still use the whitelist as a sanity check. The transform will fail when it encounters an unknown tag. This allows you to update your code without hitting errors in production.</p>
+
+<p>In addition, the HTML tags are converted to strings instead of using <code>React.DOM</code> directly. <code>&lt;div/&gt;</code> becomes <code>React.createElement(&#39;div&#39;)</code> instead of <code>React.DOM.div()</code>.</p>
+<h3><a class="anchor" name="jsx-spread-attributes"></a>JSX Spread Attributes <a class="hash-link" href="#jsx-spread-attributes">#</a></h3>
+<p>Previously there wasn&#39;t a way to for you to pass a dynamic or unknown set of properties through JSX. This is now possible using the spread <code>...</code> operator.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">myProps</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span> <span class="p">};</span>
+<span class="k">return</span> <span class="o">&lt;</span><span class="nx">MyComponent</span> <span class="p">{...</span><span class="nx">myProps</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>This merges the properties of the object onto the props of <code>MyComponent</code>.</p>
+
+<p><a href="https://gist.github.com/sebmarkbage/07bbe37bc42b6d4aef81">Read More About Spread Attributes</a></p>
+
+<p>If you used to use plain function calls to pass arbitrary props objects...</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">return</span> <span class="nx">MyComponent</span><span class="p">(</span><span class="nx">myProps</span><span class="p">);</span>
+</code></pre></div>
+<p>You can now switch to using Spread Attributes instead:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">return</span> <span class="o">&lt;</span><span class="nx">MyComponent</span> <span class="p">{...</span><span class="nx">myProps</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+</code></pre></div><h2><a class="anchor" name="breaking-change-key-and-ref-removed-from-this.props"></a>Breaking Change: <code>key</code> and <code>ref</code> Removed From <code>this.props</code> <a class="hash-link" href="#breaking-change-key-and-ref-removed-from-this.props">#</a></h2>
+<p>The props <code>key</code> and <code>ref</code> were already reserved property names. This turned out to be difficult to explicitly statically type since any object can accept these extra props. It also screws up JIT optimizations of React internals in modern VMs.</p>
+
+<p>These are concepts that React manages from outside the Component before it even gets created so it shouldn&#39;t be part of the props.</p>
+
+<p>We made this distinction clearer by moving them off the props object and onto the <code>ReactElement</code> itself. This means that you need to rename:</p>
+
+<p><code>someElement.props.key</code> -&gt; <code>someElement.key</code></p>
+
+<p>You can no longer access <code>this.props.ref</code> and <code>this.props.key</code> from inside the Component instance itself. So you need to use a different name for those props.</p>
+
+<p>You do NOT need to change the way to define <code>key</code> and <code>ref</code>, only if you need to read it. E.g. <code>&lt;div key=&quot;my-key&quot; /&gt;</code> and <code>div({ key: &#39;my-key&#39; })</code> still works.</p>
+<h2><a class="anchor" name="breaking-change-default-props-resolution"></a>Breaking Change: Default Props Resolution <a class="hash-link" href="#breaking-change-default-props-resolution">#</a></h2>
+<p>This is a subtle difference but <code>defaultProps</code> are now resolved at <code>ReactElement</code> creation time instead of when it&#39;s mounted. This is means that we can avoid allocating an extra object for the resolved props.</p>
+
+<p>You will primarily see this breaking if you&#39;re also using <code>transferPropsTo</code>.</p>
+<h2><a class="anchor" name="deprecated-transferpropsto"></a>Deprecated: transferPropsTo <a class="hash-link" href="#deprecated-transferpropsto">#</a></h2>
+<p><code>transferPropsTo</code> is deprecated in v0.12 and will be removed in v0.13. This helper function was a bit magical. It auto-merged a certain whitelist of properties and excluded others. It was also transferring too many properties. This meant that we have to keep a whitelist of valid HTML attributes in the React runtime. It also means that we can&#39;t catch typos on props.</p>
+
+<p>Our suggested solution is to use the Spread Attributes.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>Or, just if you&#39;re not using JSX:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">return</span> <span class="nx">div</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">);</span>
+</code></pre></div>
+<p>Although to avoid passing too many props down, you&#39;ll probably want to use something like ES7 rest properties. <a href="https://gist.github.com/sebmarkbage/a6e220b7097eb3c79ab7">Read more about upgrading from transferPropsTo</a>.</p>
+<h2><a class="anchor" name="deprecated-returning-false-in-event-handlers"></a>Deprecated: Returning <code>false</code> in Event Handlers <a class="hash-link" href="#deprecated-returning-false-in-event-handlers">#</a></h2>
+<p>It used to be possible to return <code>false</code> from event handlers to preventDefault. We did this because this works in most browsers. This is a confusing API and we might want to use the return value for something else. Therefore, this is deprecated. Use <code>event.preventDefault()</code> instead.</p>
+<h2><a class="anchor" name="renamed-apis"></a>Renamed APIs <a class="hash-link" href="#renamed-apis">#</a></h2>
+<p>As part of the <a href="https://gist.github.com/sebmarkbage/fcb1b6ab493b0c77d589">new React terminology</a> we aliased some existing APIs to use the new naming convention:</p>
+
+<ul>
+<li><code>React.renderComponent</code> -&gt; <code>React.render</code></li>
+<li><code>React.renderComponentToString</code> -&gt; <code>React.renderToString</code></li>
+<li><code>React.renderComponentToStaticMarkup</code> -&gt; <code>React.renderToStaticMarkup</code></li>
+<li><code>React.isValidComponent</code> -&gt; <code>React.isValidElement</code></li>
+<li><code>React.PropTypes.component</code> -&gt; <code>React.PropTypes.element</code></li>
+<li><code>React.PropTypes.renderable</code> -&gt; <code>React.PropTypes.node</code></li>
+</ul>
+
+<p>The older APIs will log a warning but work the same. They will be removed in v0.13.</p>
+
+        </div>
+      </div>
+    
+      <div class="post-list-item">
+        <h1><a href="/react/blog/2014/10/14/introducing-react-elements.html">Introducing React Elements</a></h1>
+        <p class="meta">October 14, 2014 by Sebastian Markbåge</p>
+        <hr />
+        <div class="post">
+         <p>The upcoming React 0.12 tweaks some APIs to get us close to the final 1.0 API. This release is all about setting us up for making the <code>ReactElement</code> type really FAST, <a href="http://facebook.github.io/jest/">jest unit testing</a> easier, making classes simpler (in preparation for ES6 classes) and better integration with third-party languages!</p>
+
+<p>If you currently use JSX everywhere, you don&#39;t really have to do anything to get these benefits! The updated transformer will do it for you.</p>
+
+<p>If you can&#39;t or don&#39;t want to use JSX, then please insert some hints for us. Add a <code>React.createFactory</code> call around your imported class when you require it:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createFactory</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;MyComponent&#39;</span><span class="p">));</span>
+</code></pre></div>
+<p>Everything is backwards compatible for now, and as always React will provide you with descriptive console messaging to help you upgrade.</p>
+
+<p><code>ReactElement</code> is the primary API of React. Making it faster has shown to give us several times faster renders on common benchmarks. The API tweaks in this release helps us get there.</p>
+
+<p>Continue reading if you want all the nitty gritty details...</p>
+<h2><a class="anchor" name="new-terminology"></a>New Terminology <a class="hash-link" href="#new-terminology">#</a></h2>
+<p>We wanted to make it easier for new users to see the parallel with the DOM (and why React is different). To align our terminology we now use the term <code>ReactElement</code> instead of <em>descriptor</em>. Likewise, we use the term <code>ReactNode</code> instead of <em>renderable</em>.</p>
+
+<p><a href="https://gist.github.com/sebmarkbage/fcb1b6ab493b0c77d589">See the full React terminology guide.</a></p>
+<h2><a class="anchor" name="creating-a-reactelement"></a>Creating a ReactElement <a class="hash-link" href="#creating-a-reactelement">#</a></h2>
+<p>We now expose an external API for programmatically creating a <code>ReactElement</code> object.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">reactElement</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">props</span><span class="p">,</span> <span class="nx">children</span><span class="p">);</span>
+</code></pre></div>
+<p>The <code>type</code> argument is either a string (HTML tag) or a class. It&#39;s a description of what tag/class is going to be rendered and what props it will contain. You can also create factory functions for specific types. This basically just provides the type argument for you:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createFactory</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">reactDivElement</span> <span class="o">=</span> <span class="nx">div</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">children</span><span class="p">);</span>
+</code></pre></div><h2><a class="anchor" name="deprecated-auto-generated-factories"></a>Deprecated: Auto-generated Factories <a class="hash-link" href="#deprecated-auto-generated-factories">#</a></h2>
+<p>Imagine if <code>React.createClass</code> was just a plain JavaScript class. If you call a class as a plain function you would call the component&#39;s constructor to create a Component instance, not a <code>ReactElement</code>:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">new</span> <span class="nx">MyComponent</span><span class="p">();</span> <span class="c1">// Component, not ReactElement</span>
+</code></pre></div>
+<p>React 0.11 gave you a factory function for free when you called <code>React.createClass</code>. This wrapped your internal class and then returned a <code>ReactElement</code> factory function for you.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createFactory</span><span class="p">(</span>
+  <span class="kr">class</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+      <span class="p">...</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>In future versions of React, we want to be able to support pure classes without any special React dependencies. To prepare for that we&#39;re <a href="https://gist.github.com/sebmarkbage/d7bce729f38730399d28">deprecating the auto-generated factory</a>.</p>
+
+<p>This is the biggest change to 0.12. Don&#39;t worry though. This functionality continues to work the same for this release, it just warns you if you&#39;re using a deprecated API. That way you can upgrade piece-by-piece instead of everything at once.</p>
+<h2><a class="anchor" name="upgrading-to-0.12"></a>Upgrading to 0.12 <a class="hash-link" href="#upgrading-to-0.12">#</a></h2><h3><a class="anchor" name="react-with-jsx"></a>React With JSX <a class="hash-link" href="#react-with-jsx">#</a></h3>
+<p>If you use the React specific <a href="http://facebook.github.io/jsx/">JSX</a> transform, the upgrade path is simple. Just make sure you have React in scope.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// If you use node/browserify modules make sure</span>
+<span class="c1">// that you require React into scope.</span>
+<span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;react&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>React&#39;s JSX will create the <code>ReactElement</code> for you. You can continue to use JSX with regular classes:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">(...);</span>
+
+<span class="kd">var</span> <span class="nx">MyOtherComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">MyComponent</span> <span class="nx">prop</span><span class="o">=</span><span class="s2">&quot;value&quot;</span> <span class="o">/&gt;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><em>NOTE: React&#39;s JSX will not call arbitrary functions in future releases. This restriction is introduced so that it&#39;s easier to reason about the output of JSX by both the reader of your code and optimizing compilers. The JSX syntax is not tied to React. Just the transpiler. You can still use <a href="http://facebook.github.io/jsx/">the JSX spec</a> with a different transpiler for custom purposes.</em></p>
+<h3><a class="anchor" name="react-without-jsx"></a>React Without JSX <a class="hash-link" href="#react-without-jsx">#</a></h3>
+<p>If you don&#39;t use JSX and just call components as functions, you will need to explicitly create a factory before calling it:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">MyComponentClass</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">(...);</span>
+
+<span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createFactory</span><span class="p">(</span><span class="nx">MyComponentClass</span><span class="p">);</span> <span class="c1">// New step</span>
+
+<span class="kd">var</span> <span class="nx">MyOtherComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">MyComponent</span><span class="p">({</span> <span class="nx">prop</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>If you&#39;re using a module system, the recommended solution is to export the class and create the factory on the requiring side.</p>
+
+<p>Your class creation is done just like before:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// MyComponent.js</span>
+<span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;react&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">(...);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">MyComponent</span><span class="p">;</span>
+</code></pre></div>
+<p>The other side uses <code>React.createFactory</code> after <code>require</code>ing the component class:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// MyOtherComponent.js</span>
+<span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;react&#39;</span><span class="p">);</span>
+<span class="c1">// All you have to do to upgrade is wrap your requires like this:</span>
+<span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createFactory</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;MyComponent&#39;</span><span class="p">));</span>
+
+<span class="kd">var</span> <span class="nx">MyOtherComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">MyComponent</span><span class="p">({</span> <span class="nx">prop</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">MyOtherComponent</span><span class="p">;</span>
+</code></pre></div>
+<p>You ONLY have to do this for custom classes. React still has built-in factories for common HTML elements.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">MyDOMComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">DOM</span><span class="p">.</span><span class="nx">div</span><span class="p">({</span> <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span> <span class="p">});</span> <span class="c1">// still ok</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>We realize that this is noisy. At least it&#39;s on the top of the file (out of sight, out of mind). This a tradeoff we had to make to get <a href="https://gist.github.com/sebmarkbage/d7bce729f38730399d28">the other benefits</a> that this model unlocks.</p>
+<h3><a class="anchor" name="anti-pattern-exporting-factories"></a>Anti-Pattern: Exporting Factories <a class="hash-link" href="#anti-pattern-exporting-factories">#</a></h3>
+<p>If you have an isolated project that only you use, then you could create a helper that creates both the class and the factory at once:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Anti-pattern - Please, don&#39;t use</span>
+<span class="kd">function</span> <span class="nx">createClass</span><span class="p">(</span><span class="nx">spec</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createFactory</span><span class="p">(</span><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">(</span><span class="nx">spec</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This makes your components incompatible with jest testing, consumers using JSX, third-party languages that implement their own optimized <code>ReactElement</code> creation, etc.</p>
+
+<p>It also encourages you to put more logic into these helper functions. Something that another language, a compiler or a reader of your code couldn&#39;t reason about.</p>
+
+<p>To fit into the React ecosystem we recommend that you always export pure classes from your shared modules and let the consumer decide the best strategy for generating <code>ReactElement</code>s.</p>
+<h2><a class="anchor" name="third-party-languages"></a>Third-party Languages <a class="hash-link" href="#third-party-languages">#</a></h2>
+<p>The signature of a <code>ReactElement</code> is something like this:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="nx">type</span> <span class="o">:</span> <span class="nx">string</span> <span class="o">|</span> <span class="kr">class</span><span class="p">,</span>
+  <span class="nx">props</span> <span class="o">:</span> <span class="p">{</span> <span class="nx">children</span><span class="p">,</span> <span class="nx">className</span><span class="p">,</span> <span class="nx">etc</span><span class="p">.</span> <span class="p">},</span>
+  <span class="nx">key</span> <span class="o">:</span> <span class="nx">string</span> <span class="o">|</span> <span class="kr">boolean</span> <span class="o">|</span> <span class="nx">number</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">ref</span> <span class="o">:</span> <span class="nx">string</span> <span class="o">|</span> <span class="kc">null</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Languages with static typing that don&#39;t need validation (e.g. <a href="https://github.com/swannodette/om">Om in ClojureScript</a>), and production level compilers will be able to generate these objects inline instead of going through the validation step. This optimization will allow significant performance improvements in React.</p>
+<h2><a class="anchor" name="your-thoughts-and-ideas"></a>Your Thoughts and Ideas <a class="hash-link" href="#your-thoughts-and-ideas">#</a></h2>
+<p>We&#39;d love to hear your feedback on this API and your preferred style. A plausible alternative could be to directly inline objects instead of creating factory functions:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// MyOtherComponent.js</span>
+<span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;react&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;MyComponent&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">MyOtherComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">type</span><span class="o">:</span> <span class="nx">MyComponent</span><span class="p">,</span> <span class="nx">props</span><span class="o">:</span> <span class="p">{</span> <span class="nx">prop</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span> <span class="p">}</span> <span class="p">};</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">MyOtherComponent</span><span class="p">;</span>
+</code></pre></div>
+<p>This moves the noise down into the render method though. It also doesn&#39;t provide a hook for dynamic validation/type checking so you&#39;ll need some other way to verify that it&#39;s safe.</p>
+
+<p><em>NOTE: This won&#39;t work in this version of React because it&#39;s conflicting with other legacy APIs that we&#39;re deprecating. (We temporarily add a <code>element._isReactElement = true</code> marker on the object.)</em></p>
+<h2><a class="anchor" name="the-next-step-es6-classes"></a>The Next Step: ES6 Classes <a class="hash-link" href="#the-next-step-es6-classes">#</a></h2>
+<p>After 0.12 we&#39;ll begin work on moving to ES6 classes. We will still support <code>React.createClass</code> as a backwards compatible API. If you use an ES6 transpiler you will be able to declare your components like this:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">MyComponent</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>This upcoming release is a stepping stone to make it as easy as this. Thanks for your support.</p>
+
+        </div>
+      </div>
+    
+      <div class="post-list-item">
+        <h1><a href="/react/blog/2014/09/24/testing-flux-applications.html">Testing Flux Applications</a></h1>
+        <p class="meta">September 24, 2014 by Bill Fisher</p>
+        <hr />
+        <div class="post">
+         <p><strong>A more up-to-date version of this post is available as part of the <a href="http://facebook.github.io/flux/docs/testing-flux-applications.html">Flux documentation</a>.</strong></p>
+
+<p><a href="http://facebook.github.io/flux/">Flux</a> is the application architecture that Facebook uses to build web applications with <a href="http://facebook.github.io/react/">React</a>. It&#39;s based on a unidirectional data flow. In previous blog posts and documentation articles, we&#39;ve shown the <a href="http://facebook.github.io/flux/docs/overview.html">basic structure and data flow</a>, more closely examined the <a href="http://facebook.github.io/react/blog/2014/07/30/flux-actions-and-the-dispatcher.html">dispatcher and action creators</a>, and shown how to put it all together with a <a href="http://facebook.github.io/flux/docs/todo-list.html">tutorial</a>. Now let&#39;s look at how to do formal unit testing of Flux applications with <a href="http://facebook.github.io/jest/">Jest</a>, Facebook&#39;s auto-mocking testing framework.</p>
+<h2><a class="anchor" name="testing-with-jest"></a>Testing with Jest <a class="hash-link" href="#testing-with-jest">#</a></h2>
+<p>For a unit test to operate on a truly isolated <em>unit</em> of the application, we need to mock every module except the one we are testing. Jest makes the mocking of other parts of a Flux application trivial. To illustrate testing with Jest, we&#39;ll return to our <a href="https://github.com/facebook/flux/tree/master/examples/flux-todomvc">example TodoMVC application</a>.</p>
+
+<p>The first steps toward working with Jest are as follows:</p>
+
+<ol>
+<li>Get the module dependencies for the application installed by running <code>npm install</code>.</li>
+<li>Create a directory <code>__tests__/</code> with a test file, in this case TodoStore-test.js</li>
+<li>Run <code>npm install jest-cli —save-dev</code></li>
+<li>Add the following to your package.json</li>
+</ol>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+  <span class="p">...</span>
+  <span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;test&quot;</span><span class="o">:</span> <span class="s2">&quot;jest&quot;</span>
+  <span class="p">}</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Now you&#39;re ready to run your tests from the command line with <code>npm test</code>.</p>
+
+<p>By default, all modules are mocked, so the only boilerplate we need in TodoStore-test.js is a declarative call to Jest&#39;s <code>dontMock()</code> method.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">jest</span><span class="p">.</span><span class="nx">dontMock</span><span class="p">(</span><span class="s1">&#39;TodoStore&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>This tells Jest to let TodoStore be a real object with real, live methods. Jest will mock all other objects involved with the test.</p>
+<h2><a class="anchor" name="testing-stores"></a>Testing Stores <a class="hash-link" href="#testing-stores">#</a></h2>
+<p>At Facebook, Flux stores often receive a great deal of formal unit test coverage, as this is where the application state and logic lives. Stores are arguably the most important place in a Flux application to provide coverage, but at first glance, it&#39;s not entirely obvious how to test them.</p>
+
+<p>By design, stores can&#39;t be modified from the outside. They have no setters. The only way new data can enter a store is through the callback it registers with the dispatcher.</p>
+
+<p>We therefore need to simulate the Flux data flow with this <em>one weird trick</em>.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">mockRegister</span> <span class="o">=</span> <span class="nx">MyDispatcher</span><span class="p">.</span><span class="nx">register</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">mockRegisterInfo</span> <span class="o">=</span> <span class="nx">mockRegister</span><span class="p">.</span><span class="nx">mock</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">callsToRegister</span> <span class="o">=</span> <span class="nx">mockRegisterInfo</span><span class="p">.</span><span class="nx">calls</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">firstCall</span> <span class="o">=</span> <span class="nx">callsToRegister</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">firstArgument</span> <span class="o">=</span> <span class="nx">firstCall</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">callback</span> <span class="o">=</span> <span class="nx">firstArgument</span><span class="p">;</span>
+</code></pre></div>
+<p>We now have the store&#39;s registered callback, the sole mechanism by which data can enter the store.</p>
+
+<p>For folks new to Jest, or mocks in general, it might not be entirely obvious what is happening in that code block, so let&#39;s look at each part of it a bit more closely. We start out by looking at the <code>register()</code> method of our application&#39;s dispatcher — the method that the store uses to register its callback with the dispatcher. The dispatcher has been thoroughly mocked automatically by Jest, so we can get a reference to the mocked version of the <code>register()</code> method just as we would normally refer to that method in our production code. But we can get additional information about that method with the <code>mock</code> <em>property</em> of that method. We don&#39;t often think of methods having properties, but in Jest, this idea is vital. Every method of a mocked object has this property, and it allows us to examine how the method is being called during the test. A chronologically ordered list of calls to <code>register()</code> is available with the <code>calls</code> property of <code>mock</code>, and each of these calls has a list of the arguments that were used in each method call.</p>
+
+<p>So in this code, we are really saying, &quot;Give me a reference to the first argument of the first call to MyDispatcher&#39;s <code>register()</code> method.&quot; That first argument is the store&#39;s callback, so now we have all we need to start testing.  But first, we can save ourselves some semicolons and roll all of this into a single line:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">callback</span> <span class="o">=</span> <span class="nx">MyDispatcher</span><span class="p">.</span><span class="nx">register</span><span class="p">.</span><span class="nx">mock</span><span class="p">.</span><span class="nx">calls</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+</code></pre></div>
+<p>We can invoke that callback whenever we like, independent of our application&#39;s dispatcher or action creators. We will, in fact, fake the behavior of the dispatcher and action creators by invoking the callback with an action that we&#39;ll create directly in our test.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">payload</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">source</span><span class="o">:</span> <span class="s1">&#39;VIEW_ACTION&#39;</span><span class="p">,</span>
+  <span class="nx">action</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">actionType</span><span class="o">:</span> <span class="nx">TodoConstants</span><span class="p">.</span><span class="nx">TODO_CREATE</span><span class="p">,</span>
+    <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">callback</span><span class="p">(</span><span class="nx">payload</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">all</span> <span class="o">=</span> <span class="nx">TodoStore</span><span class="p">.</span><span class="nx">getAll</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">all</span><span class="p">);</span>
+<span class="nx">expect</span><span class="p">(</span><span class="nx">all</span><span class="p">[</span><span class="nx">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]].</span><span class="nx">text</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+</code></pre></div><h2><a class="anchor" name="putting-it-all-together"></a>Putting it All Together <a class="hash-link" href="#putting-it-all-together">#</a></h2>
+<p>The example Flux TodoMVC application has been updated with an example test for the TodoStore, but let&#39;s look at an abbreviated version of the entire test. The most important things to notice in this test are how we keep a reference to the store&#39;s registered callback in the closure of the test, and how we recreate the store before every test so that we clear the state of the store entirely.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">jest</span><span class="p">.</span><span class="nx">dontMock</span><span class="p">(</span><span class="s1">&#39;../TodoStore&#39;</span><span class="p">);</span>
+<span class="nx">jest</span><span class="p">.</span><span class="nx">dontMock</span><span class="p">(</span><span class="s1">&#39;react/lib/merge&#39;</span><span class="p">);</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;TodoStore&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="kd">var</span> <span class="nx">TodoConstants</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../../constants/TodoConstants&#39;</span><span class="p">);</span>
+
+  <span class="c1">// mock actions inside dispatch payloads</span>
+  <span class="kd">var</span> <span class="nx">actionTodoCreate</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">source</span><span class="o">:</span> <span class="s1">&#39;VIEW_ACTION&#39;</span><span class="p">,</span>
+    <span class="nx">action</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">actionType</span><span class="o">:</span> <span class="nx">TodoConstants</span><span class="p">.</span><span class="nx">TODO_CREATE</span><span class="p">,</span>
+      <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="kd">var</span> <span class="nx">actionTodoDestroy</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">source</span><span class="o">:</span> <span class="s1">&#39;VIEW_ACTION&#39;</span><span class="p">,</span>
+    <span class="nx">action</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">actionType</span><span class="o">:</span> <span class="nx">TodoConstants</span><span class="p">.</span><span class="nx">TODO_DESTROY</span><span class="p">,</span>
+      <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;replace me in test&#39;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="kd">var</span> <span class="nx">AppDispatcher</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">TodoStore</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">callback</span><span class="p">;</span>
+
+  <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">AppDispatcher</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../../dispatcher/AppDispatcher&#39;</span><span class="p">);</span>
+    <span class="nx">TodoStore</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../TodoStore&#39;</span><span class="p">);</span>
+    <span class="nx">callback</span> <span class="o">=</span> <span class="nx">AppDispatcher</span><span class="p">.</span><span class="nx">register</span><span class="p">.</span><span class="nx">mock</span><span class="p">.</span><span class="nx">calls</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;registers a callback with the dispatcher&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">AppDispatcher</span><span class="p">.</span><span class="nx">register</span><span class="p">.</span><span class="nx">mock</span><span class="p">.</span><span class="nx">calls</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;initializes with no to-do items&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">all</span> <span class="o">=</span> <span class="nx">TodoStore</span><span class="p">.</span><span class="nx">getAll</span><span class="p">();</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">all</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">({});</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;creates a to-do item&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="nx">actionTodoCreate</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">all</span> <span class="o">=</span> <span class="nx">TodoStore</span><span class="p">.</span><span class="nx">getAll</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">all</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">all</span><span class="p">[</span><span class="nx">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]].</span><span class="nx">text</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;destroys a to-do item&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="nx">actionTodoCreate</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">all</span> <span class="o">=</span> <span class="nx">TodoStore</span><span class="p">.</span><span class="nx">getAll</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">all</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="nx">actionTodoDestroy</span><span class="p">.</span><span class="nx">action</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="nx">actionTodoDestroy</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">all</span><span class="p">[</span><span class="nx">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]]).</span><span class="nx">toBeUndefined</span><span class="p">();</span>
+  <span class="p">});</span>
+
+<span class="p">});</span>
+</code></pre></div>
+<p>You can take a look at all this code in the <a href="https://github.com/facebook/flux/tree/master/examples/flux-todomvc/js/stores/__tests__/TodoStore-test.js">TodoStore&#39;s tests on GitHub</a> as well. </p>
+<h2><a class="anchor" name="mocking-data-derived-from-other-stores"></a>Mocking Data Derived from Other Stores <a class="hash-link" href="#mocking-data-derived-from-other-stores">#</a></h2>
+<p>Sometimes our stores rely on data from other stores. Because all of our modules are mocked, we&#39;ll need to simulate the data that comes from the other store.  We can do this by retrieving the mock function and adding a custom return value to it.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">MyOtherStore</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../MyOtherStore&#39;</span><span class="p">);</span>
+<span class="nx">MyOtherStore</span><span class="p">.</span><span class="nx">getState</span><span class="p">.</span><span class="nx">mockReturnValue</span><span class="p">({</span>
+  <span class="s1">&#39;123&#39;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;123&#39;</span><span class="p">,</span>
+    <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span>
+  <span class="p">},</span>
+  <span class="s1">&#39;456&#39;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;456&#39;</span><span class="p">,</span>
+    <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Now we have a collection of objects that will come back from MyOtherStore whenever we call MyOtherStore.getState() in our tests.  Any application state can be simulated with a combination of these custom return values and the previously shown technique of working with the store&#39;s registered callback.</p>
+
+<p>A brief example of this technique is up on GitHub within the Flux Chat example&#39;s <a href="https://github.com/facebook/flux/tree/master/examples/flux-chat/js/stores/__tests__/UnreadThreadStore-test.js">UnreadThreadStore-test.js</a>.</p>
+
+<p>For more information about the <code>mock</code> property of mocked methods or Jest&#39;s ability to provide custom mock values, see Jest&#39;s documentation on <a href="http://facebook.github.io/jest/docs/mock-functions.html">mock functions</a>.</p>
+<h2><a class="anchor" name="moving-logic-from-react-to-stores"></a>Moving Logic from React to Stores <a class="hash-link" href="#moving-logic-from-react-to-stores">#</a></h2>
+<p>What often starts as a little piece of seemingly benign logic in our React components often presents a problem while creating unit tests. We want to be able to write tests that read like a specification for our application&#39;s behavior, and when application logic slips into our view layer, this becomes more difficult.</p>
+
+<p>For example, when a user has marked each of their to-do items as complete, the TodoMVC specification dictates that we should also change the status of the &quot;Mark all as complete&quot; checkbox automatically. To create that logic, we might be tempted to write code like this in our MainSection&#39;s <code>render()</code> method:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">allTodos</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">allTodos</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">allChecked</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">id</span> <span class="k">in</span> <span class="nx">allTodos</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">allTodos</span><span class="p">[</span><span class="nx">id</span><span class="p">].</span><span class="nx">complete</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">allChecked</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">...</span>
+
+<span class="k">return</span> <span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">section</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;main&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">input</span>
+    <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;toggle-all&quot;</span>
+    <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;checkbox&quot;</span>
+    <span class="nx">checked</span><span class="o">=</span><span class="p">{</span><span class="nx">allChecked</span> <span class="o">?</span> <span class="s1">&#39;checked&#39;</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span>
+  <span class="o">/&gt;</span>
+  <span class="p">...</span>
+  <span class="o">&lt;</span><span class="err">/section&gt;</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>While this seems like an easy, normal thing to do, this is an example of application logic slipping into the views, and it can&#39;t be described in our spec-style TodoStore test. Let&#39;s take that logic and move it to the store. First, we&#39;ll create a public method on the store that will encapsulate that logic:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">areAllComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">id</span> <span class="k">in</span> <span class="nx">_todos</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">_todos</span><span class="p">[</span><span class="nx">id</span><span class="p">].</span><span class="nx">complete</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">},</span>
+</code></pre></div>
+<p>Now we have the application logic where it belongs, and we can write the following test:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">it</span><span class="p">(</span><span class="s1">&#39;determines whether all to-do items are complete&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="nx">mockTodoCreate</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">TodoStore</span><span class="p">.</span><span class="nx">areAllComplete</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">all</span> <span class="o">=</span> <span class="nx">TodoStore</span><span class="p">.</span><span class="nx">getAll</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">all</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">({</span>
+      <span class="nx">source</span><span class="o">:</span> <span class="s1">&#39;VIEW_ACTION&#39;</span><span class="p">,</span>
+      <span class="nx">action</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">actionType</span><span class="o">:</span> <span class="nx">TodoConstants</span><span class="p">.</span><span class="nx">TODO_COMPLETE</span><span class="p">,</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="nx">key</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">TodoStore</span><span class="p">.</span><span class="nx">areAllComplete</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+  <span class="nx">callback</span><span class="p">({</span>
+    <span class="nx">source</span><span class="o">:</span> <span class="s1">&#39;VIEW_ACTION&#39;</span><span class="p">,</span>
+    <span class="nx">action</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">actionType</span><span class="o">:</span> <span class="nx">TodoConstants</span><span class="p">.</span><span class="nx">TODO_UNDO_COMPLETE</span><span class="p">,</span>
+      <span class="nx">id</span><span class="o">:</span> <span class="nx">key</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">TodoStore</span><span class="p">.</span><span class="nx">areAllComplete</span><span class="p">()).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Finally, we revise our view layer. We&#39;ll call for that data in the controller-view, TodoApp.js, and pass it down to the MainSection component.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">getTodoState</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">allTodos</span><span class="o">:</span> <span class="nx">TodoStore</span><span class="p">.</span><span class="nx">getAll</span><span class="p">(),</span>
+    <span class="nx">areAllComplete</span><span class="o">:</span> <span class="nx">TodoStore</span><span class="p">.</span><span class="nx">areAllComplete</span><span class="p">()</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">TodoApp</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+<span class="p">...</span>
+
+  <span class="cm">/**</span>
+<span class="cm">   * @return {object}</span>
+<span class="cm">   */</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="p">...</span>
+      <span class="o">&lt;</span><span class="nx">MainSection</span>
+        <span class="nx">allTodos</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">allTodos</span><span class="p">}</span>
+        <span class="nx">areAllComplete</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">areAllComplete</span><span class="p">}</span>
+      <span class="o">/&gt;</span>
+      <span class="p">...</span>
+    <span class="p">);</span>
+  <span class="p">},</span>
+
+  <span class="cm">/**</span>
+<span class="cm">   * Event handler for &#39;change&#39; events coming from the TodoStore</span>
+<span class="cm">   */</span>
+  <span class="nx">_onChange</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">getTodoState</span><span class="p">());</span>
+  <span class="p">}</span>
+
+<span class="p">});</span>
+</code></pre></div>
+<p>And then we&#39;ll utilize that property for the rendering of the checkbox.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="p">...</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">section</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;main&quot;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">input</span>
+      <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;toggle-all&quot;</span>
+      <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;checkbox&quot;</span>
+      <span class="nx">checked</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">areAllComplete</span> <span class="o">?</span> <span class="s1">&#39;checked&#39;</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span>
+    <span class="o">/&gt;</span>
+    <span class="p">...</span>
+    <span class="o">&lt;</span><span class="err">/section&gt;</span>
+  <span class="p">);</span>
+<span class="p">},</span>
+</code></pre></div>
+<p>To learn how to test React components themselves, check out the <a href="http://facebook.github.io/jest/docs/tutorial-react.html">Jest tutorial for React</a> and the <a href="http://facebook.github.io/react/docs/test-utils.html">ReactTestUtils documentation</a>.</p>
+<h2><a class="anchor" name="further-reading"></a>Further Reading <a class="hash-link" href="#further-reading">#</a></h2>
+<ul>
+<li><a href="http://martinfowler.com/articles/mocksArentStubs.html">Mocks Aren&#39;t Stubs</a> by Martin Fowler</li>
+<li><a href="http://facebook.github.io/jest/docs/api.html">Jest API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
     
       <div class="post-list-item">
         <h1><a href="/react/blog/2014/09/16/react-v0.11.2.html">React v0.11.2</a></h1>
@@ -236,143 +769,6 @@ Minified build for production: <a href="http://fb.me/react-with-addons-0.11.2.mi
         </div>
       </div>
     
-      <div class="post-list-item">
-        <h1><a href="/react/blog/2014/09/03/introducing-the-jsx-specification.html">Introducing the JSX Specification</a></h1>
-        <p class="meta">September  3, 2014 by Sebastian Markbåge</p>
-        <hr />
-        <div class="post">
-         <p>At Facebook we&#39;ve been using JSX for a long time. We originally introduced it to the world last year alongside React, but we actually used it in another form before that to create native DOM nodes. We&#39;ve also seen some similar efforts grow out of our work in order to be used with other libraries and in interesting ways. At this point React JSX is just one of many implementations.</p>
-
-<p>In order to make it easier to implement new versions and to make sure that the syntax remains compatible, we&#39;re now formalizing the syntax of JSX in a stand-alone spec without any semantic meaning. It&#39;s completely stand-alone from React itself.</p>
-
-<p>Read the spec now at <a href="http://facebook.github.io/jsx/">http://facebook.github.io/jsx/</a>.</p>
-
-<p>This is not a proposal to be standardized in ECMAScript. It&#39;s just a reference document that transpiler writers and syntax highlighters can agree on. It&#39;s currently in a draft stage and will probably continue to be a living document.</p>
-
-<p>Feel free to <a href="https://github.com/facebook/jsx/issues/new">open an Issue</a> or Pull Request if you find something wrong.</p>
-
-        </div>
-      </div>
-    
-      <div class="post-list-item">
-        <h1><a href="/react/blog/2014/08/03/community-roundup-21.html">Community Round-up #21</a></h1>
-        <p class="meta">August  3, 2014 by Lou Husson</p>
-        <hr />
-        <div class="post">
-         <h2><a class="anchor" name="react-router"></a>React Router <a class="hash-link" href="#react-router">#</a></h2>
-<p><a href="http://ryanflorence.com/">Ryan Florence</a> and <a href="http://twitter.com/mjackson">Michael Jackson</a> ported Ember&#39;s router to React in a project called <a href="https://github.com/rackt/react-router">React Router</a>. This is a very good example of both communities working together to make the web better!</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">React</span><span class="p">.</span><span class="nx">renderComponent</span><span class="p">((</span>
-  <span class="o">&lt;</span><span class="nx">Routes</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">handler</span><span class="o">=</span><span class="p">{</span><span class="nx">App</span><span class="p">}</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;about&quot;</span> <span class="nx">handler</span><span class="o">=</span><span class="p">{</span><span class="nx">About</span><span class="p">}</span><span class="o">/&gt;</span>
-      <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;users&quot;</span> <span class="nx">handler</span><span class="o">=</span><span class="p">{</span><span class="nx">Users</span><span class="p">}</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;user&quot;</span> <span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/user/:userId&quot;</span> <span class="nx">handler</span><span class="o">=</span><span class="p">{</span><span class="nx">User</span><span class="p">}</span><span class="o">/&gt;</span>
-      <span class="o">&lt;</span><span class="err">/Route&gt;</span>
-    <span class="o">&lt;</span><span class="err">/Route&gt;</span>
-  <span class="o">&lt;</span><span class="err">/Routes&gt;</span>
-<span class="p">),</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
-</code></pre></div><h2><a class="anchor" name="going-big-with-react"></a>Going Big with React <a class="hash-link" href="#going-big-with-react">#</a></h2>
-<p>Areeb Malik, from Facebook, talks about his experience using React. &quot;On paper, all those JS frameworks look promising: clean implementations, quick code design, flawless execution. But what happens when you stress test Javascript? What happens when you throw 6 megabytes of code at it? In this talk, we&#39;ll investigate how React performs in a high stress situation, and how it has helped our team build safe code on a massive scale&quot;</p>
-
-<p><a href="https://skillsmatter.com/skillscasts/5429-going-big-with-react"><img src="/react/img/blog/skills-matter.png" alt=""></a></p>
-
-<!--
-<iframe allowfullscreen="" data-progress="true" frameborder="0" height="390" id="vimeo-player" mozallowfullscreen="" src="//player.vimeo.com/video/100245392?api=1&amp;title=0" webkitallowfullscreen="" width="640"></iframe>
--->
-<h2><a class="anchor" name="what-is-react"></a>What is React? <a class="hash-link" href="#what-is-react">#</a></h2>
-<p><a href="http://www.funnyant.com/author/admin/">Craig McKeachie</a> author of <a href="http://www.funnyant.com/javascript-framework-guide/">Javascript Framework Guide</a> wrote an excellent news named <a href="http://www.funnyant.com/reactjs-what-is-it/">&quot;What is React.js? Another Template Library?</a></p>
-
-<ul>
-<li>Is React a template library?</li>
-<li>Is React similar to Web Components?</li>
-<li>Are the Virtual DOM and Shadow DOM the same?</li>
-<li>Can React be used with other JavaScript MVC frameworks?</li>
-<li>Who uses React?</li>
-<li>Is React a premature optimization if you aren’t Facebook or Instagram?</li>
-<li>Can I work with designers?</li>
-<li>Will React hurt my search engine optimizations (SEO)?</li>
-<li>Is React a framework for building applications or a library with one feature?</li>
-<li>Are components a better way to build an application?</li>
-<li>Can I build something complex with React?</li>
-</ul>
-<h2><a class="anchor" name="referencing-dynamic-children"></a>Referencing Dynamic Children <a class="hash-link" href="#referencing-dynamic-children">#</a></h2>
-<p>While Matt Zabriskie was working on <a href="https://www.npmjs.org/package/react-tabs">react-tabs</a> he discovered how to use React.Children.map and React.addons.cloneWithProps in order to <a href="http://www.mattzabriskie.com/blog/react-referencing-dynamic-children">reference dynamic children</a>.</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">App</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
-  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">children</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Children</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">addons</span><span class="p">.</span><span class="nx">cloneWithProps</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">ref</span><span class="o">:</span> <span class="s1">&#39;child-&#39;</span> <span class="o">+</span> <span class="nx">index</span>
-      <span class="p">});</span>
-    <span class="p">});</span>
-    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-</code></pre></div><h2><a class="anchor" name="jsx-with-sweet.js-using-readtables"></a>JSX with Sweet.js using Readtables <a class="hash-link" href="#jsx-with-sweet.js-using-readtables">#</a></h2>
-<p>Have you ever wondered how JSX was implemented? James Long wrote a very instructive blog post that explains how to <a href="http://jlongster.com/Compiling-JSX-with-Sweet.js-using-Readtables">compile JSX with Sweet.js using Readtables</a>.</p>
-
-<p><a href="http://jlongster.com/Compiling-JSX-with-Sweet.js-using-Readtables"><img src="/react/img/blog/sweet-jsx.png" alt=""></a></p>
-<h2><a class="anchor" name="first-look-getting-started-with-react"></a>First Look: Getting Started with React <a class="hash-link" href="#first-look-getting-started-with-react">#</a></h2>
-<p><a href="http://modernweb.com/authors/kirill-buga/">Kirill Buga</a> wrote an article on Modern Web explaining how <a href="http://modernweb.com/2014/07/23/getting-started-reactjs/">React is different from traditional MVC</a> used by most JavaScript applications</p>
-
-<figure><a href="http://modernweb.com/2014/07/23/getting-started-reactjs"><img src="/react/img/blog/first-look.png" /></a></figure>
-<h2><a class="anchor" name="react-draggable"></a>React Draggable <a class="hash-link" href="#react-draggable">#</a></h2>
-<p><a href="https://github.com/mzabriskie">Matt Zabriskie</a> released a <a href="https://github.com/mzabriskie/react-draggable">project</a> to make your react components draggable.</p>
-
-<p><a href="http://mzabriskie.github.io/react-draggable/example/"><img src="/react/img/blog/react-draggable.png" alt=""></a></p>
-<h2><a class="anchor" name="html-parser2-react"></a>HTML Parser2 React <a class="hash-link" href="#html-parser2-react">#</a></h2>
-<p><a href="http://browniefed.github.io/">Jason Brown</a> adapted htmlparser2 to React: <a href="https://www.npmjs.org/package/htmlparser2-react">htmlparser2-react</a>. That allows you to convert raw HTML to the virtual DOM.
-This is not the intended way to use React but can be useful as last resort if you have an existing piece of HTML.</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;div data-id=&quot;1&quot; class=&quot;hey this is a class&quot; &#39;</span> <span class="o">+</span>
-  <span class="s1">&#39;style=&quot;width:100%;height: 100%;&quot;&gt;&lt;article id=&quot;this-article&quot;&gt;&#39;</span> <span class="o">+</span>
-  <span class="s1">&#39;&lt;p&gt;hey this is a paragraph&lt;/p&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;1&lt;/li&gt;&lt;li&gt;2&lt;/li&gt;&#39;</span> <span class="o">+</span>
-  <span class="s1">&#39;&lt;li&gt;3&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/article&gt;&lt;/div&gt;&#39;</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">parsedComponent</span> <span class="o">=</span> <span class="nx">reactParser</span><span class="p">(</span><span class="nx">html</span><span class="p">,</span> <span class="nx">React</span><span class="p">);</span>
-</code></pre></div><h2><a class="anchor" name="building-uis-with-react"></a>Building UIs with React <a class="hash-link" href="#building-uis-with-react">#</a></h2>
-<p>If you haven&#39;t yet tried out React, Jacob Rios did a Hangout where he covers the most important aspects and thankfully he recorded it!</p>
-
-<iframe width="650" height="315" src="//www.youtube.com/embed/lAn7GVoGlKU" frameborder="0" allowfullscreen></iframe>
-<h2><a class="anchor" name="random-tweets"></a>Random Tweets <a class="hash-link" href="#random-tweets">#</a></h2>
-<blockquote class="twitter-tweet" lang="en"><p>We shipped reddit&#39;s first production <a href="https://twitter.com/reactjs">@reactjs</a> code last week, our checkout process.&#10;&#10;<a href="https://t.co/KUInwsCmAF">https://t.co/KUInwsCmAF</a></p>&mdash; Brian Holt (@holtbt) <a href="https://twitter.com/holtbt/statuses/493852312604254208">July 28, 2014</a></blockquote>
-
-<blockquote class="twitter-tweet" lang="en"><p>.<a href="https://twitter.com/AirbnbNerds">@AirbnbNerds</a> just launched our first user-facing React.js feature to production! We love it so far. <a href="https://t.co/KtyudemcIW">https://t.co/KtyudemcIW</a> /<a href="https://twitter.com/floydophone">@floydophone</a></p>&mdash; spikebrehm (@spikebrehm) <a href="https://twitter.com/spikebrehm/statuses/491645223643013121">July 22, 2014</a></blockquote>
-
-        </div>
-      </div>
-    
-      <div class="post-list-item">
-        <h1><a href="/react/blog/2014/07/30/flux-actions-and-the-dispatcher.html">Flux: Actions and the Dispatcher</a></h1>
-        <p class="meta">July 30, 2014 by Bill Fisher</p>
-        <hr />
-        <div class="post">
-         <p>Flux is the application architecture Facebook uses to build JavaScript applications. It&#39;s based on a unidirectional data flow.  We&#39;ve built everything from small widgets to huge applications with Flux, and it&#39;s handled everything we&#39;ve thrown at it. Because we&#39;ve found it to be a great way to structure our code, we&#39;re excited to share it with the open source community. <a href="http://youtu.be/nYkdrAPrdcw?t=10m20s">Jing Chen presented Flux</a> at the F8 conference, and since that time we&#39;ve seen a lot of interest in it. We&#39;ve also published an <a href="http://facebook.github.io/flux/docs/overview.html">overview of Flux</a> and a <a href="https://github.com/facebook/flux/tree/master/examples/flux-todomvc/">TodoMVC example</a>, with an accompanying <a href="http://facebook.github.io/flux/docs/todo-list.html">tutorial</a>.</p>
-
-<p>Flux is more of a pattern than a full-blown framework, and you can start using it without a lot of new code beyond React. Up until recently, however, we haven&#39;t released one crucial piece of our Flux software: the dispatcher. But along with the creation of the new <a href="https://github.com/facebook/flux">Flux code repository</a> and <a href="http://facebook.github.io/flux/">Flux website</a>, we&#39;ve now open sourced the same <a href="http://facebook.github.io/flux/docs/dispatcher.html">dispatcher</a> we use in our production applications.</p>
-<h2><a class="anchor" name="where-the-dispatcher-fits-in-the-flux-data-flow"></a>Where the Dispatcher Fits in the Flux Data Flow <a class="hash-link" href="#where-the-dispatcher-fits-in-the-flux-data-flow">#</a></h2>
-<p>The dispatcher is a singleton, and operates as the central hub of data flow in a Flux application. It is essentially a registry of callbacks, and can invoke these callbacks in order. Each <em>store</em> registers a callback with the dispatcher. When new data comes into the dispatcher, it then uses these callbacks to propagate that data to all of the stores. The process of invoking the callbacks is initiated through the dispatch() method, which takes a data payload object as its sole argument.</p>
-<h2><a class="anchor" name="actions-and-actioncreators"></a>Actions and ActionCreators <a class="hash-link" href="#actions-and-actioncreators">#</a></h2>
-<p>When new data enters the system, whether through a person interacting with the application or through a web api call, that data is packaged into an <em>action</em> — an object literal containing the new fields of data and a specific action type. We often create a library of helper methods called ActionCreators that not only create the action object, but also pass the action to the dispatcher.</p>
-
-<p>Different actions are identified by a type attribute. When all of the stores receive the action, they typically use this attribute to determine if and how they should respond to it. In a Flux application, both stores and views control themselves; they are not acted upon by external objects. Actions flow into the stores through the callbacks they define and register, not through setter methods.</p>
-
-<p>Letting the stores update themselves eliminates many entanglements typically found in MVC applications, where cascading updates between models can lead to unstable state and make accurate testing very difficult. The objects within a Flux application are highly decoupled, and adhere very strongly to the <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a>, the principle that each object within a system should know as little as possible about the other objects in the system. This results in software that is more maintainable, adaptable, testable, and easier for new engineering team members to understand.</p>
-
-<p><img src="/react/img/blog/flux-diagram.png" style="width: 100%;" /></p>
-<h2><a class="anchor" name="why-we-need-a-dispatcher"></a>Why We Need a Dispatcher <a class="hash-link" href="#why-we-need-a-dispatcher">#</a></h2>
-<p>As an application grows, dependencies across different stores are a near certainty. Store A will inevitably need Store B to update itself first, so that Store A can know how to update itself. We need the dispatcher to be able to invoke the callback for Store B, and finish that callback, before moving forward with Store A. To declaratively assert this dependency, a store needs to be able to say to the dispatcher, &quot;I need to wait for Store B to finish processing this action.&quot; The dispatcher provides this functionality through its waitFor() method.</p>
-
-<p>The dispatch() method provides a simple, synchronous iteration through the callbacks, invoking each in turn. When waitFor() is encountered within one of the callbacks, execution of that callback stops and waitFor() provides us with a new iteration cycle over the dependencies. After the entire set of dependencies have been fulfilled, the original callback then continues to execute.</p>
-
-<p>Further, the waitFor() method may be used in different ways for different actions, within the same store&#39;s callback.  In one case, Store A might need to wait for Store B.  But in another case, it might need to wait for Store C.  Using waitFor() within the code block that is specific to an action allows us to have fine-grained control of these dependencies.</p>
-
-<p>Problems arise, however, if we have circular dependencies. That is, if Store A needs to wait for Store B, and Store B needs to wait for Store A, we could wind up in an endless loop. The dispatcher now available in the Flux repo protects against this by throwing an informative error to alert the developer that this problem has occurred. The developer can then create a third store and resolve the circular dependency.</p>
-<h2><a class="anchor" name="example-chat-app"></a>Example Chat App <a class="hash-link" href="#example-chat-app">#</a></h2>
-<p>Along with the same dispatcher that Facebook uses in its production applications, we&#39;ve also published a new example <a href="https://github.com/facebook/flux/tree/master/examples/flux-chat">chat app</a>, slightly more complicated than the simplistic TodoMVC, so that engineers can better understand how Flux solves problems like dependencies between stores and calls to a web API.</p>
-
-<p>We&#39;re hopeful that the new Flux repository will grow with time to include additional tools, boilerplate code and further examples. And we hope that Flux will prove as useful to you as it has to us. Enjoy!</p>
-
-        </div>
-      </div>
-    
 
     <div class="pagination">
       
@@ -397,7 +793,7 @@ This is not the intended way to use React but can be useful as last resort if yo
       </div>
       <div class="right">
         &copy; 2013&ndash;2015 Facebook Inc.<br>
-        Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+        Documentation licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
       </div>
     </footer>
   </div>

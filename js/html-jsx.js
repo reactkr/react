@@ -48,35 +48,35 @@ var HELLO_COMPONENT = "\
     },
   	render: function() {
       return (
-        React.createElement("div", null, 
-          React.createElement("div", {id: "options"}, 
-            React.createElement("label", null, 
-              React.createElement("input", {
-                type: "checkbox", 
-                checked: this.state.createClass, 
-                onChange: this.onCreateClassChange}), 
-                "Create class"
-            ), 
-            React.createElement("label", {style: {display: this.state.createClass ? '' : 'none'}}, 
-              "·" + ' ' +
-              "Class name:", 
-              React.createElement("input", {
-                type: "text", 
-                value: this.state.outputClassName, 
-                onChange: this.onReactClassNameChange})
-            )
-          ), 
-          React.createElement(ReactPlayground, {
-            codeText: HELLO_COMPONENT, 
-            renderCode: true, 
-            transformer: this.convertToJSX, 
-            showCompiledJSTab: false, 
-            editorTabTitle: "Live HTML Editor"}
-            )
-        )
+        <div>
+          <div id="options">
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.createClass}
+                onChange={this.onCreateClassChange} />
+                Create class
+            </label>
+            <label style={{display: this.state.createClass ? '' : 'none'}}>
+              ·
+              Class name:
+              <input
+                type="text"
+                value={this.state.outputClassName}
+                onChange={this.onReactClassNameChange} />
+            </label>
+          </div>
+          <ReactPlayground
+            codeText={HELLO_COMPONENT}
+            renderCode={true}
+            transformer={this.convertToJSX}
+            showCompiledJSTab={false}
+            editorTabTitle="Live HTML Editor"
+            />
+        </div>
       );
     }
   });
 
-  React.render(React.createElement(HTMLtoJSXComponent, null), document.getElementById('jsxCompiler'));
+  React.render(<HTMLtoJSXComponent />, document.getElementById('jsxCompiler'));
 }());

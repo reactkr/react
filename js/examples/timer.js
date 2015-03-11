@@ -23,6 +23,6 @@ var TIMER_COMPONENT = ("\nvar Timer = React.createClass({\n  getInitialState: fu
 );
 
 React.render(
-  React.createElement(ReactPlayground, {codeText: TIMER_COMPONENT}),
+  <ReactPlayground codeText={TIMER_COMPONENT} />,
   document.getElementById('timerExample')
 );

@@ -9,6 +9,6 @@ var HELLO_COMPONENT = ("\nvar HelloMessage = React.createClass({\n  render: func
 );
 
 React.render(
-  React.createElement(ReactPlayground, {codeText: HELLO_COMPONENT}),
+  <ReactPlayground codeText={HELLO_COMPONENT} />,
   document.getElementById('helloExample')
 );

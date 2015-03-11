@@ -32,6 +32,6 @@ var MARKDOWN_COMPONENT = ("\nvar converter = new Showdown.converter();\n\nvar Ma
 );
 
 React.render(
-  React.createElement(ReactPlayground, {codeText: MARKDOWN_COMPONENT}),
+  <ReactPlayground codeText={MARKDOWN_COMPONENT} />,
   document.getElementById('markdownExample')
 );

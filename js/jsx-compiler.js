@@ -21,25 +21,26 @@ var CompilerPlayground = React.createClass({displayName: "CompilerPlayground",
   },
   render: function() {
     return (
-      React.createElement("div", null, 
-        React.createElement(ReactPlayground, {
-          codeText: HELLO_COMPONENT, 
-          renderCode: true, 
-          transformer: transformer.bind(null, this.state.harmony), 
-          showCompiledJSTab: false}
-        ), 
-        React.createElement("label", {className: "compiler-option"}, 
-          React.createElement("input", {
-            type: "checkbox", 
-            onChange: this.handleHarmonyChange, 
-            checked: this.state.harmony}), ' ', 
-          "Enable ES6 transforms (", React.createElement("code", null, "--harmony"), ")"
-        )
-      )
+      <div>
+        <ReactPlayground
+          codeText={HELLO_COMPONENT}
+          renderCode={true}
+          transformer={transformer.bind(null, this.state.harmony)}
+          showCompiledJSTab={false}
+          showLineNumbers={true}
+        />
+        <label className="compiler-option">
+          <input
+            type="checkbox"
+            onChange={this.handleHarmonyChange}
+            checked={this.state.harmony} />{' '}
+          Enable ES6 transforms (<code>--harmony</code>)
+        </label>
+      </div>
     );
   }
 });
 React.render(
-  React.createElement(CompilerPlayground, null),
+  <CompilerPlayground />,
   document.getElementById('jsxCompiler')
 );

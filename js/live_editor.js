@@ -9,12 +9,21 @@ var IS_MOBILE = (
 );
 
 var CodeMirrorEditor = React.createClass({displayName: "CodeMirrorEditor",
+  propTypes: {
+    lineNumbers: React.PropTypes.bool,
+    onChange: React.PropTypes.func
+  },
+  getDefaultProps: function() {
+    return {
+      lineNumbers: false
+    };
+  },
   componentDidMount: function() {
     if (IS_MOBILE) return;
 
     this.editor = CodeMirror.fromTextArea(this.refs.editor.getDOMNode(), {
       mode: 'javascript',
-      lineNumbers: false,
+      lineNumbers: this.props.lineNumbers,
       lineWrapping: true,
       smartIndent: false,  // javascript mode does bad things with jsx indents
       matchBrackets: true,
@@ -41,15 +50,15 @@ var CodeMirrorEditor = React.createClass({displayName: "CodeMirrorEditor",
     var editor;
 
     if (IS_MOBILE) {
-      editor = React.createElement("pre", {style: {overflow: 'scroll'}}, this.props.codeText);
+      editor = <pre style={{overflow: 'scroll'}}>{this.props.codeText}</pre>;
     } else {
-      editor = React.createElement("textarea", {ref: "editor", defaultValue: this.props.codeText});
+      editor = <textarea ref="editor" defaultValue={this.props.codeText} />;
     }
 
     return (
-      React.createElement("div", {style: this.props.style, className: this.props.className}, 
-        editor
-      )
+      <div style={this.props.style} className={this.props.className}>
+        {editor}
+      </div>
     );
   }
 });
@@ -75,6 +84,7 @@ var ReactPlayground = React.createClass({displayName: "ReactPlayground",
     transformer: React.PropTypes.func,
     renderCode: React.PropTypes.bool,
     showCompiledJSTab: React.PropTypes.bool,
+    showLineNumbers: React.PropTypes.bool,
     editorTabTitle: React.PropTypes.string
   },
 
@@ -84,7 +94,8 @@ var ReactPlayground = React.createClass({displayName: "ReactPlayground",
         return JSXTransformer.transform(code).code;
       },
       editorTabTitle: 'Live JSX Editor',
-      showCompiledJSTab: true
+      showCompiledJSTab: true,
+      showLineNumbers: false
     };
   },
 
@@ -116,21 +127,23 @@ var ReactPlayground = React.createClass({displayName: "ReactPlayground",
     } catch (err) {}
 
     var JSContent =
-      React.createElement(CodeMirrorEditor, {
-        key: "js", 
-        className: "playgroundStage CodeMirror-readonly", 
-        onChange: this.handleCodeChange, 
-        codeText: compiledCode, 
-        readOnly: true}
-      );
+      <CodeMirrorEditor
+        key="js"
+        className="playgroundStage CodeMirror-readonly"
+        onChange={this.handleCodeChange}
+        codeText={compiledCode}
+        readOnly={true}
+        lineNumbers={this.props.showLineNumbers}
+      />;
 
     var JSXContent =
-      React.createElement(CodeMirrorEditor, {
-        key: "jsx", 
-        onChange: this.handleCodeChange, 
-        className: "playgroundStage", 
-        codeText: this.state.code}
-      );
+      <CodeMirrorEditor
+        key="jsx"
+        onChange={this.handleCodeChange}
+        className="playgroundStage"
+        codeText={this.state.code}
+        lineNumbers={this.props.showLineNumbers}
+      />;
 
     var JSXTabClassName =
       'playground-tab' + (isJS ? '' : ' playground-tab-active');
@@ -138,32 +151,32 @@ var ReactPlayground = React.createClass({displayName: "ReactPlayground",
       'playground-tab' + (isJS ? ' playground-tab-active' : '');
 
     var JSTab =
-      React.createElement("div", {
-        className: JSTabClassName, 
-        onClick: this.handleCodeModeSwitch.bind(this, this.MODES.JS)}, 
-          "Compiled JS"
-      );
+      <div
+        className={JSTabClassName}
+        onClick={this.handleCodeModeSwitch.bind(this, this.MODES.JS)}>
+          Compiled JS
+      </div>;
 
     var JSXTab =
-      React.createElement("div", {
-        className: JSXTabClassName, 
-        onClick: this.handleCodeModeSwitch.bind(this, this.MODES.JSX)}, 
-          this.props.editorTabTitle
-      )
+      <div
+        className={JSXTabClassName}
+        onClick={this.handleCodeModeSwitch.bind(this, this.MODES.JSX)}>
+          {this.props.editorTabTitle}
+      </div>
 
     return (
-      React.createElement("div", {className: "playground"}, 
-        React.createElement("div", null, 
-          JSXTab, 
-          this.props.showCompiledJSTab && JSTab
-        ), 
-        React.createElement("div", {className: "playgroundCode"}, 
-          isJS ? JSContent : JSXContent
-        ), 
-        React.createElement("div", {className: "playgroundPreview"}, 
-          React.createElement("div", {ref: "mount"})
-        )
-      )
+      <div className="playground">
+        <div>
+          {JSXTab}
+          {this.props.showCompiledJSTab && JSTab}
+        </div>
+        <div className="playgroundCode">
+          {isJS ? JSContent : JSXContent}
+        </div>
+        <div className="playgroundPreview">
+          <div ref="mount" />
+        </div>
+      </div>
     );
   },
 
@@ -191,7 +204,7 @@ var ReactPlayground = React.createClass({displayName: "ReactPlayground",
       var compiledCode = this.compileCode();
       if (this.props.renderCode) {
         React.render(
-          React.createElement(CodeMirrorEditor, {codeText: compiledCode, readOnly: true}),
+          <CodeMirrorEditor codeText={compiledCode} readOnly={true} />,
           mountNode
         );
       } else {
@@ -200,7 +213,7 @@ var ReactPlayground = React.createClass({displayName: "ReactPlayground",
     } catch (err) {
       this.setTimeout(function() {
         React.render(
-          React.createElement("div", {className: "playgroundError"}, err.toString()),
+          <div className="playgroundError">{err.toString()}</div>,
           mountNode
         );
       }, 500);

@@ -50,7 +50,7 @@
           <li><a href="/react/support.html">support</a></li>
           <li><a href="/react/downloads.html">download</a></li>
           <li><a href="/react/blog/" class="active">blog</a></li>
-          <li><a href="http://github.com/facebook/react">github</a>
+          <li><a href="https://github.com/facebook/react">github</a>
         </ul>
       </div>
     </div>
@@ -62,6 +62,12 @@
   <div class="nav-docs-section">
     <h3>Recent posts</h3>
     <ul>
+      
+        <li><a href="/react/blog/2015/03/10/react-v0.13.html">React v0.13</a></li>
+      
+        <li><a href="/react/blog/2015/03/04/community-roundup-25.html">Community Round-up #25</a></li>
+      
+        <li><a href="/react/blog/2015/03/03/react-v0.13-rc2.html">React v0.13 RC2</a></li>
       
         <li><a href="/react/blog/2015/02/24/react-v0.13-rc1.html">React v0.13 RC</a></li>
       
@@ -77,18 +83,149 @@
       
         <li><a href="/react/blog/2014/12/18/react-v0.12.2.html">React v0.12.2</a></li>
       
-        <li><a href="/react/blog/2014/11/25/community-roundup-24.html">Community Round-up #24</a></li>
-      
-        <li><a href="/react/blog/2014/11/24/react-js-conf-updates.html">React.js Conf Updates</a></li>
-      
-        <li><a href="/react/blog/2014/10/28/react-v0.12.html">React v0.12</a></li>
-      
       <li><a href="/react/blog/all.html">All posts ...</a></li>
     </ul>
   </div>
 </div>
 
   <div class="inner-content">
+    
+      <div class="post-list-item">
+        <h1><a href="/react/blog/2014/09/03/introducing-the-jsx-specification.html">Introducing the JSX Specification</a></h1>
+        <p class="meta">September  3, 2014 by Sebastian Markbåge</p>
+        <hr />
+        <div class="post">
+         <p>At Facebook we&#39;ve been using JSX for a long time. We originally introduced it to the world last year alongside React, but we actually used it in another form before that to create native DOM nodes. We&#39;ve also seen some similar efforts grow out of our work in order to be used with other libraries and in interesting ways. At this point React JSX is just one of many implementations.</p>
+
+<p>In order to make it easier to implement new versions and to make sure that the syntax remains compatible, we&#39;re now formalizing the syntax of JSX in a stand-alone spec without any semantic meaning. It&#39;s completely stand-alone from React itself.</p>
+
+<p>Read the spec now at <a href="http://facebook.github.io/jsx/">http://facebook.github.io/jsx/</a>.</p>
+
+<p>This is not a proposal to be standardized in ECMAScript. It&#39;s just a reference document that transpiler writers and syntax highlighters can agree on. It&#39;s currently in a draft stage and will probably continue to be a living document.</p>
+
+<p>Feel free to <a href="https://github.com/facebook/jsx/issues/new">open an Issue</a> or Pull Request if you find something wrong.</p>
+
+        </div>
+      </div>
+    
+      <div class="post-list-item">
+        <h1><a href="/react/blog/2014/08/03/community-roundup-21.html">Community Round-up #21</a></h1>
+        <p class="meta">August  3, 2014 by Lou Husson</p>
+        <hr />
+        <div class="post">
+         <h2><a class="anchor" name="react-router"></a>React Router <a class="hash-link" href="#react-router">#</a></h2>
+<p><a href="http://ryanflorence.com/">Ryan Florence</a> and <a href="http://twitter.com/mjackson">Michael Jackson</a> ported Ember&#39;s router to React in a project called <a href="https://github.com/rackt/react-router">React Router</a>. This is a very good example of both communities working together to make the web better!</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">React</span><span class="p">.</span><span class="nx">renderComponent</span><span class="p">((</span>
+  <span class="o">&lt;</span><span class="nx">Routes</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">handler</span><span class="o">=</span><span class="p">{</span><span class="nx">App</span><span class="p">}</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;about&quot;</span> <span class="nx">handler</span><span class="o">=</span><span class="p">{</span><span class="nx">About</span><span class="p">}</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;users&quot;</span> <span class="nx">handler</span><span class="o">=</span><span class="p">{</span><span class="nx">Users</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;user&quot;</span> <span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/user/:userId&quot;</span> <span class="nx">handler</span><span class="o">=</span><span class="p">{</span><span class="nx">User</span><span class="p">}</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="err">/Route&gt;</span>
+    <span class="o">&lt;</span><span class="err">/Route&gt;</span>
+  <span class="o">&lt;</span><span class="err">/Routes&gt;</span>
+<span class="p">),</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+</code></pre></div><h2><a class="anchor" name="going-big-with-react"></a>Going Big with React <a class="hash-link" href="#going-big-with-react">#</a></h2>
+<p>Areeb Malik, from Facebook, talks about his experience using React. &quot;On paper, all those JS frameworks look promising: clean implementations, quick code design, flawless execution. But what happens when you stress test Javascript? What happens when you throw 6 megabytes of code at it? In this talk, we&#39;ll investigate how React performs in a high stress situation, and how it has helped our team build safe code on a massive scale&quot;</p>
+
+<p><a href="https://skillsmatter.com/skillscasts/5429-going-big-with-react"><img src="/react/img/blog/skills-matter.png" alt=""></a></p>
+
+<!--
+<iframe allowfullscreen="" data-progress="true" frameborder="0" height="390" id="vimeo-player" mozallowfullscreen="" src="//player.vimeo.com/video/100245392?api=1&amp;title=0" webkitallowfullscreen="" width="640"></iframe>
+-->
+<h2><a class="anchor" name="what-is-react"></a>What is React? <a class="hash-link" href="#what-is-react">#</a></h2>
+<p><a href="http://www.funnyant.com/author/admin/">Craig McKeachie</a> author of <a href="http://www.funnyant.com/javascript-framework-guide/">Javascript Framework Guide</a> wrote an excellent news named <a href="http://www.funnyant.com/reactjs-what-is-it/">&quot;What is React.js? Another Template Library?</a></p>
+
+<ul>
+<li>Is React a template library?</li>
+<li>Is React similar to Web Components?</li>
+<li>Are the Virtual DOM and Shadow DOM the same?</li>
+<li>Can React be used with other JavaScript MVC frameworks?</li>
+<li>Who uses React?</li>
+<li>Is React a premature optimization if you aren’t Facebook or Instagram?</li>
+<li>Can I work with designers?</li>
+<li>Will React hurt my search engine optimizations (SEO)?</li>
+<li>Is React a framework for building applications or a library with one feature?</li>
+<li>Are components a better way to build an application?</li>
+<li>Can I build something complex with React?</li>
+</ul>
+<h2><a class="anchor" name="referencing-dynamic-children"></a>Referencing Dynamic Children <a class="hash-link" href="#referencing-dynamic-children">#</a></h2>
+<p>While Matt Zabriskie was working on <a href="https://www.npmjs.org/package/react-tabs">react-tabs</a> he discovered how to use React.Children.map and React.addons.cloneWithProps in order to <a href="http://www.mattzabriskie.com/blog/react-referencing-dynamic-children">reference dynamic children</a>.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">App</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">children</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Children</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">addons</span><span class="p">.</span><span class="nx">cloneWithProps</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">ref</span><span class="o">:</span> <span class="s1">&#39;child-&#39;</span> <span class="o">+</span> <span class="nx">index</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div><h2><a class="anchor" name="jsx-with-sweet.js-using-readtables"></a>JSX with Sweet.js using Readtables <a class="hash-link" href="#jsx-with-sweet.js-using-readtables">#</a></h2>
+<p>Have you ever wondered how JSX was implemented? James Long wrote a very instructive blog post that explains how to <a href="http://jlongster.com/Compiling-JSX-with-Sweet.js-using-Readtables">compile JSX with Sweet.js using Readtables</a>.</p>
+
+<p><a href="http://jlongster.com/Compiling-JSX-with-Sweet.js-using-Readtables"><img src="/react/img/blog/sweet-jsx.png" alt=""></a></p>
+<h2><a class="anchor" name="first-look-getting-started-with-react"></a>First Look: Getting Started with React <a class="hash-link" href="#first-look-getting-started-with-react">#</a></h2>
+<p><a href="http://modernweb.com/authors/kirill-buga/">Kirill Buga</a> wrote an article on Modern Web explaining how <a href="http://modernweb.com/2014/07/23/getting-started-reactjs/">React is different from traditional MVC</a> used by most JavaScript applications</p>
+
+<figure><a href="http://modernweb.com/2014/07/23/getting-started-reactjs"><img src="/react/img/blog/first-look.png" /></a></figure>
+<h2><a class="anchor" name="react-draggable"></a>React Draggable <a class="hash-link" href="#react-draggable">#</a></h2>
+<p><a href="https://github.com/mzabriskie">Matt Zabriskie</a> released a <a href="https://github.com/mzabriskie/react-draggable">project</a> to make your react components draggable.</p>
+
+<p><a href="http://mzabriskie.github.io/react-draggable/example/"><img src="/react/img/blog/react-draggable.png" alt=""></a></p>
+<h2><a class="anchor" name="html-parser2-react"></a>HTML Parser2 React <a class="hash-link" href="#html-parser2-react">#</a></h2>
+<p><a href="http://browniefed.github.io/">Jason Brown</a> adapted htmlparser2 to React: <a href="https://www.npmjs.org/package/htmlparser2-react">htmlparser2-react</a>. That allows you to convert raw HTML to the virtual DOM.
+This is not the intended way to use React but can be useful as last resort if you have an existing piece of HTML.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;div data-id=&quot;1&quot; class=&quot;hey this is a class&quot; &#39;</span> <span class="o">+</span>
+  <span class="s1">&#39;style=&quot;width:100%;height: 100%;&quot;&gt;&lt;article id=&quot;this-article&quot;&gt;&#39;</span> <span class="o">+</span>
+  <span class="s1">&#39;&lt;p&gt;hey this is a paragraph&lt;/p&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;1&lt;/li&gt;&lt;li&gt;2&lt;/li&gt;&#39;</span> <span class="o">+</span>
+  <span class="s1">&#39;&lt;li&gt;3&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/article&gt;&lt;/div&gt;&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">parsedComponent</span> <span class="o">=</span> <span class="nx">reactParser</span><span class="p">(</span><span class="nx">html</span><span class="p">,</span> <span class="nx">React</span><span class="p">);</span>
+</code></pre></div><h2><a class="anchor" name="building-uis-with-react"></a>Building UIs with React <a class="hash-link" href="#building-uis-with-react">#</a></h2>
+<p>If you haven&#39;t yet tried out React, Jacob Rios did a Hangout where he covers the most important aspects and thankfully he recorded it!</p>
+
+<iframe width="650" height="315" src="//www.youtube.com/embed/lAn7GVoGlKU" frameborder="0" allowfullscreen></iframe>
+<h2><a class="anchor" name="random-tweets"></a>Random Tweets <a class="hash-link" href="#random-tweets">#</a></h2>
+<blockquote class="twitter-tweet" lang="en"><p>We shipped reddit&#39;s first production <a href="https://twitter.com/reactjs">@reactjs</a> code last week, our checkout process.&#10;&#10;<a href="https://t.co/KUInwsCmAF">https://t.co/KUInwsCmAF</a></p>&mdash; Brian Holt (@holtbt) <a href="https://twitter.com/holtbt/statuses/493852312604254208">July 28, 2014</a></blockquote>
+
+<blockquote class="twitter-tweet" lang="en"><p>.<a href="https://twitter.com/AirbnbNerds">@AirbnbNerds</a> just launched our first user-facing React.js feature to production! We love it so far. <a href="https://t.co/KtyudemcIW">https://t.co/KtyudemcIW</a> /<a href="https://twitter.com/floydophone">@floydophone</a></p>&mdash; spikebrehm (@spikebrehm) <a href="https://twitter.com/spikebrehm/statuses/491645223643013121">July 22, 2014</a></blockquote>
+
+        </div>
+      </div>
+    
+      <div class="post-list-item">
+        <h1><a href="/react/blog/2014/07/30/flux-actions-and-the-dispatcher.html">Flux: Actions and the Dispatcher</a></h1>
+        <p class="meta">July 30, 2014 by Bill Fisher</p>
+        <hr />
+        <div class="post">
+         <p>Flux is the application architecture Facebook uses to build JavaScript applications. It&#39;s based on a unidirectional data flow.  We&#39;ve built everything from small widgets to huge applications with Flux, and it&#39;s handled everything we&#39;ve thrown at it. Because we&#39;ve found it to be a great way to structure our code, we&#39;re excited to share it with the open source community. <a href="http://youtu.be/nYkdrAPrdcw?t=10m20s">Jing Chen presented Flux</a> at the F8 conference, and since that time we&#39;ve seen a lot of interest in it. We&#39;ve also published an <a href="http://facebook.github.io/flux/docs/overview.html">overview of Flux</a> and a <a href="https://github.com/facebook/flux/tree/master/examples/flux-todomvc/">TodoMVC example</a>, with an accompanying <a href="http://facebook.github.io/flux/docs/todo-list.html">tutorial</a>.</p>
+
+<p>Flux is more of a pattern than a full-blown framework, and you can start using it without a lot of new code beyond React. Up until recently, however, we haven&#39;t released one crucial piece of our Flux software: the dispatcher. But along with the creation of the new <a href="https://github.com/facebook/flux">Flux code repository</a> and <a href="http://facebook.github.io/flux/">Flux website</a>, we&#39;ve now open sourced the same <a href="http://facebook.github.io/flux/docs/dispatcher.html">dispatcher</a> we use in our production applications.</p>
+<h2><a class="anchor" name="where-the-dispatcher-fits-in-the-flux-data-flow"></a>Where the Dispatcher Fits in the Flux Data Flow <a class="hash-link" href="#where-the-dispatcher-fits-in-the-flux-data-flow">#</a></h2>
+<p>The dispatcher is a singleton, and operates as the central hub of data flow in a Flux application. It is essentially a registry of callbacks, and can invoke these callbacks in order. Each <em>store</em> registers a callback with the dispatcher. When new data comes into the dispatcher, it then uses these callbacks to propagate that data to all of the stores. The process of invoking the callbacks is initiated through the dispatch() method, which takes a data payload object as its sole argument.</p>
+<h2><a class="anchor" name="actions-and-actioncreators"></a>Actions and ActionCreators <a class="hash-link" href="#actions-and-actioncreators">#</a></h2>
+<p>When new data enters the system, whether through a person interacting with the application or through a web api call, that data is packaged into an <em>action</em> — an object literal containing the new fields of data and a specific action type. We often create a library of helper methods called ActionCreators that not only create the action object, but also pass the action to the dispatcher.</p>
+
+<p>Different actions are identified by a type attribute. When all of the stores receive the action, they typically use this attribute to determine if and how they should respond to it. In a Flux application, both stores and views control themselves; they are not acted upon by external objects. Actions flow into the stores through the callbacks they define and register, not through setter methods.</p>
+
+<p>Letting the stores update themselves eliminates many entanglements typically found in MVC applications, where cascading updates between models can lead to unstable state and make accurate testing very difficult. The objects within a Flux application are highly decoupled, and adhere very strongly to the <a href="http://en.wikipedia.org/wiki/Law_of_Demeter">Law of Demeter</a>, the principle that each object within a system should know as little as possible about the other objects in the system. This results in software that is more maintainable, adaptable, testable, and easier for new engineering team members to understand.</p>
+
+<p><img src="/react/img/blog/flux-diagram.png" style="width: 100%;" /></p>
+<h2><a class="anchor" name="why-we-need-a-dispatcher"></a>Why We Need a Dispatcher <a class="hash-link" href="#why-we-need-a-dispatcher">#</a></h2>
+<p>As an application grows, dependencies across different stores are a near certainty. Store A will inevitably need Store B to update itself first, so that Store A can know how to update itself. We need the dispatcher to be able to invoke the callback for Store B, and finish that callback, before moving forward with Store A. To declaratively assert this dependency, a store needs to be able to say to the dispatcher, &quot;I need to wait for Store B to finish processing this action.&quot; The dispatcher provides this functionality through its waitFor() method.</p>
+
+<p>The dispatch() method provides a simple, synchronous iteration through the callbacks, invoking each in turn. When waitFor() is encountered within one of the callbacks, execution of that callback stops and waitFor() provides us with a new iteration cycle over the dependencies. After the entire set of dependencies have been fulfilled, the original callback then continues to execute.</p>
+
+<p>Further, the waitFor() method may be used in different ways for different actions, within the same store&#39;s callback.  In one case, Store A might need to wait for Store B.  But in another case, it might need to wait for Store C.  Using waitFor() within the code block that is specific to an action allows us to have fine-grained control of these dependencies.</p>
+
+<p>Problems arise, however, if we have circular dependencies. That is, if Store A needs to wait for Store B, and Store B needs to wait for Store A, we could wind up in an endless loop. The dispatcher now available in the Flux repo protects against this by throwing an informative error to alert the developer that this problem has occurred. The developer can then create a third store and resolve the circular dependency.</p>
+<h2><a class="anchor" name="example-chat-app"></a>Example Chat App <a class="hash-link" href="#example-chat-app">#</a></h2>
+<p>Along with the same dispatcher that Facebook uses in its production applications, we&#39;ve also published a new example <a href="https://github.com/facebook/flux/tree/master/examples/flux-chat">chat app</a>, slightly more complicated than the simplistic TodoMVC, so that engineers can better understand how Flux solves problems like dependencies between stores and calls to a web API.</p>
+
+<p>We&#39;re hopeful that the new Flux repository will grow with time to include additional tools, boilerplate code and further examples. And we hope that Flux will prove as useful to you as it has to us. Enjoy!</p>
+
+        </div>
+      </div>
     
       <div class="post-list-item">
         <h1><a href="/react/blog/2014/07/28/community-roundup-20.html">Community Round-up #20</a></h1>
@@ -224,342 +361,6 @@ Minified build for production: <a href="http://fb.me/react-with-addons-0.11.1.mi
         </div>
       </div>
     
-      <div class="post-list-item">
-        <h1><a href="/react/blog/2014/07/17/react-v0.11.html">React v0.11</a></h1>
-        <p class="meta">July 17, 2014 by Paul O’Shannessy</p>
-        <hr />
-        <div class="post">
-         <p><strong>Update:</strong> We missed a few important changes in our initial post and changelog. We&#39;ve updated this post with details about <a href="#descriptors">Descriptors</a> and <a href="#prop-type-validation">Prop Type Validation</a>.</p>
-
-<hr>
-
-<p>We&#39;re really happy to announce the availability of React v0.11. There seems to be a lot of excitement already and we appreciate everybody who gave the release candidate a try over the weekend. We made a couple small changes in response to the feedback and issues filed. We enabled the destructuring assignment transform when using <code>jsx --harmony</code>, fixed a small regression with <code>statics</code>, and made sure we actually exposed the new API we said we were shipping: <code>React.Children.count</code>.</p>
-
-<p>This version has been cooking for a couple months now and includes a wide array of bug fixes and features. We highlighted some of the most important changes below, along with the full changelog.</p>
-
-<p>The release is available for download from the CDN:</p>
-
-<ul>
-<li><strong>React</strong><br>
-Dev build with warnings: <a href="http://fb.me/react-0.11.0.js">http://fb.me/react-0.11.0.js</a><br>
-Minified build for production: <a href="http://fb.me/react-0.11.0.min.js">http://fb.me/react-0.11.0.min.js</a><br></li>
-<li><strong>React with Add-Ons</strong><br>
-Dev build with warnings: <a href="http://fb.me/react-with-addons-0.11.0.js">http://fb.me/react-with-addons-0.11.0.js</a><br>
-Minified build for production: <a href="http://fb.me/react-with-addons-0.11.0.min.js">http://fb.me/react-with-addons-0.11.0.min.js</a><br></li>
-<li><strong>In-Browser JSX transformer</strong><br>
-<a href="http://fb.me/JSXTransformer-0.11.0.js">http://fb.me/JSXTransformer-0.11.0.js</a></li>
-</ul>
-
-<p>We&#39;ve also published version <code>0.11.0</code> of the <code>react</code> and <code>react-tools</code> packages on npm and the <code>react</code> package on bower.</p>
-
-<p>Please try these builds out and <a href="https://github.com/facebook/react/issues/new">file an issue on GitHub</a> if you see anything awry.</p>
-<h2><a class="anchor" name="getdefaultprops"></a><code>getDefaultProps</code> <a class="hash-link" href="#getdefaultprops">#</a></h2>
-<p>Starting in React 0.11, <code>getDefaultProps()</code> is called only once when <code>React.createClass()</code> is called, instead of each time a component is rendered. This means that <code>getDefaultProps()</code> can no longer vary its return value based on <code>this.props</code> and any objects will be shared across all instances. This change improves performance and will make it possible in the future to do PropTypes checks earlier in the rendering process, allowing us to give better error messages.</p>
-<h2><a class="anchor" name="rendering-to-null"></a>Rendering to <code>null</code> <a class="hash-link" href="#rendering-to-null">#</a></h2>
-<p>Since React&#39;s release, people have been using work arounds to &quot;render nothing&quot;. Usually this means returning an empty <code>&lt;div/&gt;</code> or <code>&lt;span/&gt;</code>. Some people even got clever and started returning <code>&lt;noscript/&gt;</code> to avoid extraneous DOM nodes. We finally provided a &quot;blessed&quot; solution that allows developers to write meaningful code. Returning <code>null</code> is an explicit indication to React that you do not want anything rendered. Behind the scenes we make this work with a <code>&lt;noscript&gt;</code> element, though in the future we hope to not put anything in the document. In the mean time, <code>&lt;noscript&gt;</code> elements do not affect layout in any way, so you can feel safe using <code>null</code> today!</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Before</span>
-<span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">visible</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">span</span><span class="o">/&gt;</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="c1">// ...</span>
-<span class="p">}</span>
-
-<span class="c1">// After</span>
-<span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">visible</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="c1">// ...</span>
-<span class="p">}</span>
-</code></pre></div><h2><a class="anchor" name="jsx-namespacing"></a>JSX Namespacing <a class="hash-link" href="#jsx-namespacing">#</a></h2>
-<p>Another feature request we&#39;ve been hearing for a long time is the ability to have namespaces in JSX. Given that JSX is just JavaScript, we didn&#39;t want to use XML namespacing. Instead we opted for a standard JS approach: object property access. Instead of assigning variables to access components stored in an object (such as a component library), you can now use the component directly as <code>&lt;Namespace.Component/&gt;</code>.</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Before</span>
-<span class="kd">var</span> <span class="nx">UI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;UI&#39;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">UILayout</span> <span class="o">=</span> <span class="nx">UI</span><span class="p">.</span><span class="nx">Layout</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">UIButton</span> <span class="o">=</span> <span class="nx">UI</span><span class="p">.</span><span class="nx">Button</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">UILabel</span> <span class="o">=</span> <span class="nx">UI</span><span class="p">.</span><span class="nx">Label</span><span class="p">;</span>
-
-<span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">UILayout</span><span class="o">&gt;&lt;</span><span class="nx">UIButton</span> <span class="o">/&gt;&lt;</span><span class="nx">UILabel</span><span class="o">&gt;</span><span class="nx">text</span><span class="o">&lt;</span><span class="err">/UILabel&gt;&lt;/UILayout&gt;;</span>
-<span class="p">}</span>
-
-<span class="c1">// After</span>
-<span class="kd">var</span> <span class="nx">UI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;UI&#39;</span><span class="p">);</span>
-
-<span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Layout</span><span class="o">&gt;&lt;</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Button</span> <span class="o">/&gt;&lt;</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Label</span><span class="o">&gt;</span><span class="nx">text</span><span class="o">&lt;</span><span class="err">/UI.Label&gt;&lt;/UI.Layout&gt;;</span>
-<span class="p">}</span>
-</code></pre></div><h2><a class="anchor" name="improved-keyboard-event-normalization"></a>Improved keyboard event normalization <a class="hash-link" href="#improved-keyboard-event-normalization">#</a></h2>
-<p>Keyboard events now contain a normalized <code>e.key</code> value according to the <a href="http://www.w3.org/TR/DOM-Level-3-Events/#keys-special">DOM Level 3 Events spec</a>, allowing you to write simpler key handling code that works in all browsers, such as:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">handleKeyDown</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span> <span class="o">===</span> <span class="s1">&#39;Enter&#39;</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Handle enter key</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span> <span class="o">===</span> <span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Handle spacebar</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span> <span class="o">===</span> <span class="s1">&#39;ArrowLeft&#39;</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Handle left arrow</span>
-  <span class="p">}</span>
-<span class="p">},</span>
-</code></pre></div>
-<p>Keyboard and mouse events also now include a normalized <code>e.getModifierState()</code> that works consistently across browsers.</p>
-<h2><a class="anchor" name="descriptors"></a>Descriptors <a class="hash-link" href="#descriptors">#</a></h2>
-<p>In our <a href="http://facebook.github.io/react/blog/2014/03/21/react-v0.10.html#clone-on-mount">v0.10 release notes</a>, we called out that we were deprecating the existing behavior of the component function call (eg <code>component = MyComponent(props, ...children)</code> or <code>component = &lt;MyComponent prop={...}/&gt;</code>). Previously that would create an instance and React would modify that internally. You could store that reference and then call functions on it (eg <code>component.setProps(...)</code>). This no longer works. <code>component</code> in the above examples will be a descriptor and not an instance that can be operated on. The v0.10 release notes provide a complete example along with a migration path. The development builds also provided warnings if you called functions on descriptors.</p>
-
-<p>Along with this change to descriptors, <code>React.isValidComponent</code> and <code>React.PropTypes.component</code> now actually validate that the value is a descriptor. Overwhelmingly, these functions are used to validate the value of <code>MyComponent()</code>, which as mentioned is now a descriptor, not a component instance. We opted to reduce code churn and make the migration to 0.11 as easy as possible. However, we realize this is has caused some confusion and we&#39;re working to make sure we are consistent with our terminology.</p>
-<h2><a class="anchor" name="prop-type-validation"></a>Prop Type Validation <a class="hash-link" href="#prop-type-validation">#</a></h2>
-<p>Previously <code>React.PropTypes</code> validation worked by simply logging to the console. Internally, each validator was responsible for doing this itself. Additionally, you could write a custom validator and the expectation was that you would also simply <code>console.log</code> your error message. Very shortly into the 0.11 cycle we changed this so that our validators return (<em>not throw</em>) an <code>Error</code> object. We then log the <code>error.message</code> property in a central place in ReactCompositeComponent. Overall the result is the same, but this provides a clearer intent in validation. In addition, to better transition into our descriptor factory changes, we also currently run prop type validation twice in development builds. As a result, custom validators doing their own logging result in duplicate messages. To update, simply return an <code>Error</code> with your message instead.</p>
-<h2><a class="anchor" name="changelog"></a>Changelog <a class="hash-link" href="#changelog">#</a></h2><h3><a class="anchor" name="react-core"></a>React Core <a class="hash-link" href="#react-core">#</a></h3><h4><a class="anchor" name="breaking-changes"></a>Breaking Changes <a class="hash-link" href="#breaking-changes">#</a></h4>
-<ul>
-<li><code>getDefaultProps()</code> is now called once per class and shared across all instances</li>
-<li><code>MyComponent()</code> now returns a descriptor, not an instance</li>
-<li><code>React.isValidComponent</code> and <code>React.PropTypes.component</code> validate <em>descriptors</em>, not component instances.</li>
-<li>Custom <code>propType</code> validators should return an <code>Error</code> instead of logging directly</li>
-</ul>
-<h4><a class="anchor" name="new-features"></a>New Features <a class="hash-link" href="#new-features">#</a></h4>
-<ul>
-<li>Rendering to <code>null</code></li>
-<li>Keyboard events include normalized <code>e.key</code> and <code>e.getModifierState()</code> properties</li>
-<li>New normalized <code>onBeforeInput</code> event</li>
-<li><code>React.Children.count</code> has been added as a helper for counting the number of children</li>
-</ul>
-<h4><a class="anchor" name="bug-fixes"></a>Bug Fixes <a class="hash-link" href="#bug-fixes">#</a></h4>
-<ul>
-<li>Re-renders are batched in more cases</li>
-<li>Events: <code>e.view</code> properly normalized</li>
-<li>Added Support for more HTML attributes (<code>coords</code>, <code>crossOrigin</code>, <code>download</code>, <code>hrefLang</code>, <code>mediaGroup</code>, <code>muted</code>, <code>scrolling</code>, <code>shape</code>, <code>srcSet</code>, <code>start</code>, <code>useMap</code>)</li>
-<li>Improved SVG support
-
-<ul>
-<li>Changing <code>className</code> on a mounted SVG component now works correctly</li>
-<li>Added support for elements <code>mask</code> and <code>tspan</code></li>
-<li>Added support for attributes <code>dx</code>, <code>dy</code>, <code>fillOpacity</code>, <code>fontFamily</code>, <code>fontSize</code>, <code>markerEnd</code>, <code>markerMid</code>, <code>markerStart</code>, <code>opacity</code>, <code>patternContentUnits</code>, <code>patternUnits</code>, <code>preserveAspectRatio</code>, <code>strokeDasharray</code>, <code>strokeOpacity</code></li>
-</ul></li>
-<li>CSS property names with vendor prefixes (<code>Webkit</code>, <code>ms</code>, <code>Moz</code>, <code>O</code>) are now handled properly</li>
-<li>Duplicate keys no longer cause a hard error; now a warning is logged (and only one of the children with the same key is shown)</li>
-<li><code>img</code> event listeners are now unbound properly, preventing the error &quot;Two valid but unequal nodes with the same <code>data-reactid</code>&quot;</li>
-<li>Added explicit warning when missing polyfills</li>
-</ul>
-<h3><a class="anchor" name="react-with-addons"></a>React With Addons <a class="hash-link" href="#react-with-addons">#</a></h3>
-<ul>
-<li>PureRenderMixin: a mixin which helps optimize &quot;pure&quot; components</li>
-<li>Perf: a new set of tools to help with performance analysis</li>
-<li>Update: New <code>$apply</code> command to transform values</li>
-<li>TransitionGroup bug fixes with null elements, Android</li>
-</ul>
-<h3><a class="anchor" name="react-npm-module"></a>React NPM Module <a class="hash-link" href="#react-npm-module">#</a></h3>
-<ul>
-<li>Now includes the pre-built packages under <code>dist/</code>.</li>
-<li><code>envify</code> is properly listed as a dependency instead of a peer dependency</li>
-</ul>
-<h3><a class="anchor" name="jsx"></a>JSX <a class="hash-link" href="#jsx">#</a></h3>
-<ul>
-<li>Added support for namespaces, eg <code>&lt;Components.Checkbox /&gt;</code></li>
-<li>JSXTransformer
-
-<ul>
-<li>Enable the same <code>harmony</code> features available in the command line with <code>&lt;script type=&quot;text/jsx;harmony=true&quot;&gt;</code></li>
-<li>Scripts are downloaded in parallel for more speed. They are still executed in order (as you would expect with normal script tags)</li>
-<li>Fixed a bug preventing sourcemaps from working in Firefox</li>
-</ul></li>
-</ul>
-<h3><a class="anchor" name="react-tools-module"></a>React Tools Module <a class="hash-link" href="#react-tools-module">#</a></h3>
-<ul>
-<li>Improved readme with usage and API information</li>
-<li>Improved ES6 transforms available with <code>--harmony</code> option</li>
-<li>Added <code>--source-map-inline</code> option to the <code>jsx</code> executable</li>
-<li>New <code>transformWithDetails</code> API which gives access to the raw sourcemap data</li>
-</ul>
-
-        </div>
-      </div>
-    
-      <div class="post-list-item">
-        <h1><a href="/react/blog/2014/07/13/react-v0.11-rc1.html">React v0.11 RC</a></h1>
-        <p class="meta">July 13, 2014 by Paul O’Shannessy</p>
-        <hr />
-        <div class="post">
-         <p>It&#39;s that time again… we&#39;re just about ready to ship a new React release! v0.11 includes a wide array of bug fixes and features. We highlighted some of the most important changes below, along with the full changelog.</p>
-
-<p>The release candidate is available for download from the CDN:</p>
-
-<ul>
-<li><strong>React</strong><br>
-Dev build with warnings: <a href="http://fb.me/react-0.11.0-rc1.js">http://fb.me/react-0.11.0-rc1.js</a><br>
-Minified build for production: <a href="http://fb.me/react-0.11.0-rc1.min.js">http://fb.me/react-0.11.0-rc1.min.js</a><br></li>
-<li><strong>React with Add-Ons</strong><br>
-Dev build with warnings: <a href="http://fb.me/react-with-addons-0.11.0-rc1.js">http://fb.me/react-with-addons-0.11.0-rc1.js</a><br>
-Minified build for production: <a href="http://fb.me/react-with-addons-0.11.0-rc1.min.js">http://fb.me/react-with-addons-0.11.0-rc1.min.js</a><br></li>
-<li><strong>In-Browser JSX transformer</strong><br>
-<a href="http://fb.me/JSXTransformer-0.11.0-rc1.js">http://fb.me/JSXTransformer-0.11.0-rc1.js</a></li>
-</ul>
-
-<p>We&#39;ve also published version <code>0.11.0-rc1</code> of the <code>react</code> and <code>react-tools</code> packages on npm and the <code>react</code> package on bower.</p>
-
-<p>Please try these builds out and <a href="https://github.com/facebook/react/issues/new">file an issue on GitHub</a> if you see anything awry.</p>
-<h2><a class="anchor" name="getdefaultprops"></a><code>getDefaultProps</code> <a class="hash-link" href="#getdefaultprops">#</a></h2>
-<p>Starting in React 0.11, <code>getDefaultProps()</code> is called only once when <code>React.createClass()</code> is called, instead of each time a component is rendered. This means that <code>getDefaultProps()</code> can no longer vary its return value based on <code>this.props</code> and any objects will be shared across all instances. This change improves performance and will make it possible in the future to do PropTypes checks earlier in the rendering process, allowing us to give better error messages.</p>
-<h2><a class="anchor" name="rendering-to-null"></a>Rendering to <code>null</code> <a class="hash-link" href="#rendering-to-null">#</a></h2>
-<p>Since React&#39;s release, people have been using work arounds to &quot;render nothing&quot;. Usually this means returning an empty <code>&lt;div/&gt;</code> or <code>&lt;span/&gt;</code>. Some people even got clever and started returning <code>&lt;noscript/&gt;</code> to avoid extraneous DOM nodes. We finally provided a &quot;blessed&quot; solution that allows developers to write meaningful code. Returning <code>null</code> is an explicit indication to React that you do not want anything rendered. Behind the scenes we make this work with a <code>&lt;noscript&gt;</code> element, though in the future we hope to not put anything in the document. In the mean time, <code>&lt;noscript&gt;</code> elements do not affect layout in any way, so you can feel safe using <code>null</code> today!</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Before</span>
-<span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">visible</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">span</span><span class="o">/&gt;</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="c1">// ...</span>
-<span class="p">}</span>
-
-<span class="c1">// After</span>
-<span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">visible</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="c1">// ...</span>
-<span class="p">}</span>
-</code></pre></div><h2><a class="anchor" name="jsx-namespacing"></a>JSX Namespacing <a class="hash-link" href="#jsx-namespacing">#</a></h2>
-<p>Another feature request we&#39;ve been hearing for a long time is the ability to have namespaces in JSX. Given that JSX is just JavaScript, we didn&#39;t want to use XML namespacing. Instead we opted for a standard JS approach: object property access. Instead of assigning variables to access components stored in an object (such as a component library), you can now use the component directly as <code>&lt;Namespace.Component/&gt;</code>.</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Before</span>
-<span class="kd">var</span> <span class="nx">UI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;UI&#39;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">UILayout</span> <span class="o">=</span> <span class="nx">UI</span><span class="p">.</span><span class="nx">Layout</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">UIButton</span> <span class="o">=</span> <span class="nx">UI</span><span class="p">.</span><span class="nx">Button</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">UILabel</span> <span class="o">=</span> <span class="nx">UI</span><span class="p">.</span><span class="nx">Label</span><span class="p">;</span>
-
-<span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">UILayout</span><span class="o">&gt;&lt;</span><span class="nx">UIButton</span> <span class="o">/&gt;&lt;</span><span class="nx">UILabel</span><span class="o">&gt;</span><span class="nx">text</span><span class="o">&lt;</span><span class="err">/UILabel&gt;&lt;/UILayout&gt;;</span>
-<span class="p">}</span>
-
-<span class="c1">// After</span>
-<span class="kd">var</span> <span class="nx">UI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;UI&#39;</span><span class="p">);</span>
-
-<span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Layout</span><span class="o">&gt;&lt;</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Button</span> <span class="o">/&gt;&lt;</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Label</span><span class="o">&gt;</span><span class="nx">text</span><span class="o">&lt;</span><span class="err">/UI.Label&gt;&lt;/UI.Layout&gt;;</span>
-<span class="p">}</span>
-</code></pre></div><h2><a class="anchor" name="improved-keyboard-event-normalization"></a>Improved keyboard event normalization <a class="hash-link" href="#improved-keyboard-event-normalization">#</a></h2>
-<p>Keyboard events now contain a normalized <code>e.key</code> value according to the <a href="http://www.w3.org/TR/DOM-Level-3-Events/#keys-special">DOM Level 3 Events spec</a>, allowing you to write simpler key handling code that works in all browsers, such as:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">handleKeyDown</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span> <span class="o">===</span> <span class="s1">&#39;Enter&#39;</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Handle enter key</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span> <span class="o">===</span> <span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Handle spacebar</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span> <span class="o">===</span> <span class="s1">&#39;ArrowLeft&#39;</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Handle left arrow</span>
-  <span class="p">}</span>
-<span class="p">},</span>
-</code></pre></div>
-<p>Keyboard and mouse events also now include a normalized <code>e.getModifierState()</code> that works consistently across browsers.</p>
-<h2><a class="anchor" name="changelog"></a>Changelog <a class="hash-link" href="#changelog">#</a></h2><h3><a class="anchor" name="react-core"></a>React Core <a class="hash-link" href="#react-core">#</a></h3><h4><a class="anchor" name="breaking-changes"></a>Breaking Changes <a class="hash-link" href="#breaking-changes">#</a></h4>
-<ul>
-<li><code>getDefaultProps()</code> is now called once per class and shared across all instances</li>
-</ul>
-<h4><a class="anchor" name="new-features"></a>New Features <a class="hash-link" href="#new-features">#</a></h4>
-<ul>
-<li>Rendering to <code>null</code></li>
-<li>Keyboard events include normalized <code>e.key</code> and <code>e.getModifierState()</code> properties</li>
-<li>New normalized <code>onBeforeInput</code> event</li>
-<li><code>React.Children.count</code> has been added as a helper for counting the number of children</li>
-</ul>
-<h4><a class="anchor" name="bug-fixes"></a>Bug Fixes <a class="hash-link" href="#bug-fixes">#</a></h4>
-<ul>
-<li>Re-renders are batched in more cases</li>
-<li>Events: <code>e.view</code> properly normalized</li>
-<li>Added Support for more HTML attributes (<code>coords</code>, <code>crossOrigin</code>, <code>download</code>, <code>hrefLang</code>, <code>mediaGroup</code>, <code>muted</code>, <code>scrolling</code>, <code>shape</code>, <code>srcSet</code>, <code>start</code>, <code>useMap</code>)</li>
-<li>Improved SVG support
-
-<ul>
-<li>Changing <code>className</code> on a mounted SVG component now works correctly</li>
-<li>Added support for elements <code>mask</code> and <code>tspan</code></li>
-<li>Added support for attributes <code>dx</code>, <code>dy</code>, <code>fillOpacity</code>, <code>fontFamily</code>, <code>fontSize</code>, <code>markerEnd</code>, <code>markerMid</code>, <code>markerStart</code>, <code>opacity</code>, <code>patternContentUnits</code>, <code>patternUnits</code>, <code>preserveAspectRatio</code>, <code>strokeDasharray</code>, <code>strokeOpacity</code></li>
-</ul></li>
-<li>CSS property names with vendor prefixes (<code>Webkit</code>, <code>ms</code>, <code>Moz</code>, <code>O</code>) are now handled properly</li>
-<li>Duplicate keys no longer cause a hard error; now a warning is logged (and only one of the children with the same key is shown)</li>
-<li><code>img</code> event listeners are now unbound properly, preventing the error &quot;Two valid but unequal nodes with the same <code>data-reactid</code>&quot;</li>
-<li>Added explicit warning when missing polyfills</li>
-</ul>
-<h3><a class="anchor" name="react-with-addons"></a>React With Addons <a class="hash-link" href="#react-with-addons">#</a></h3>
-<ul>
-<li>PureRenderMixin</li>
-<li>Perf: a new set of tools to help with performance analysis</li>
-<li>Update: New <code>$apply</code> command to transform values</li>
-<li>TransitionGroup bug fixes with null elements, Android</li>
-</ul>
-<h3><a class="anchor" name="react-npm-module"></a>React NPM Module <a class="hash-link" href="#react-npm-module">#</a></h3>
-<ul>
-<li>Now includes the pre-built packages under <code>dist/</code>.</li>
-<li><code>envify</code> is properly listed as a dependency instead of a peer dependency</li>
-</ul>
-<h3><a class="anchor" name="jsx"></a>JSX <a class="hash-link" href="#jsx">#</a></h3>
-<ul>
-<li>Added support for namespaces, eg <code>&lt;Components.Checkbox /&gt;</code></li>
-<li>JSXTransformer
-
-<ul>
-<li>Enable the same <code>harmony</code> features available in the command line with <code>&lt;script type=&quot;text/jsx;harmony=true&quot;&gt;</code></li>
-<li>Scripts are downloaded in parallel for more speed. They are still executed in order (as you would expect with normal script tags)</li>
-<li>Fixed a bug preventing sourcemaps from working in Firefox</li>
-</ul></li>
-</ul>
-<h3><a class="anchor" name="react-tools-module"></a>React Tools Module <a class="hash-link" href="#react-tools-module">#</a></h3>
-<ul>
-<li>Improved readme with usage and API information</li>
-<li>Improved ES6 transforms available with <code>--harmony</code> option</li>
-<li>Added <code>--source-map-inline</code> option to the <code>jsx</code> executable</li>
-<li>New <code>transformWithDetails</code> API which gives access to the raw sourcemap data</li>
-</ul>
-
-        </div>
-      </div>
-    
-      <div class="post-list-item">
-        <h1><a href="/react/blog/2014/06/27/community-roundup-19.html">Community Round-up #19</a></h1>
-        <p class="meta">June 27, 2014 by Cheng Lou</p>
-        <hr />
-        <div class="post">
-         <h2><a class="anchor" name="react-meetups"></a>React Meetups! <a class="hash-link" href="#react-meetups">#</a></h2>
-<p>Ever wanted to find developers who also share the same interest in React than you? Recently, there has been a React Meetup in <a href="http://www.meetup.com/ReactJS-San-Francisco/">San Francisco</a> (courtesy of <a href="http://www.telmate.com">Telmate</a>), and one in <a href="http://www.meetup.com/London-React-User-Group/">London</a> (courtesy of <a href="http://www.meetup.com/London-React-User-Group/members/105837542/">Stuart Harris</a>, <a href="http://www.meetup.com/London-React-User-Group/members/15509971/">Cain Ullah</a> and <a href="http://www.meetup.com/London-React-User-Group/members/137058242/">Zoe Merchant</a>). These two events have been big successes; a second one in London is <a href="http://www.meetup.com/London-React-User-Group/events/191406572/">already planned</a>.</p>
-
-<p>If you don&#39;t live near San Francisco or London, why not start one in your community?</p>
-<h2><a class="anchor" name="complementary-tools"></a>Complementary Tools <a class="hash-link" href="#complementary-tools">#</a></h2>
-<p>In case you haven&#39;t seen it, we&#39;ve consolidated the tooling solution around React on <a href="https://github.com/facebook/react/wiki/Complementary-Tools">this wiki page</a>. Some of the notable recent entries include:</p>
-
-<ul>
-<li><p><a href="https://github.com/rpflorence">Ryan Florence</a> and <a href="https://github.com/mjackson">Michael Jackson</a>&#39;s <a href="https://github.com/rpflorence/react-nested-router">react-nested-router</a>, which is a translation of the Ember router API to React.</p></li>
-<li><p><a href="https://github.com/stevoland">Stephen J. Collings</a>&#39;s <a href="https://github.com/react-bootstrap/react-bootstrap">react-bootstrap</a>, which wraps the popular framework with a bit of React goodness. The <a href="http://react-bootstrap.github.io/components.html">website</a> features live-editable demos.</p></li>
-<li><p><a href="https://github.com/andreypopp">Andrey Popp</a>&#39;s <a href="https://github.com/andreypopp/react-quickstart">react-quickstart</a>, which gives you a quick template for server-side rendering and routing, among other features.</p></li>
-</ul>
-
-<p>These are some of the links that often pop up on the #reactjs IRC channel. If you made something that you think deserves to be shown on the wiki, feel free to add it!</p>
-<h2><a class="anchor" name="react-in-interesting-places"></a>React in Interesting Places <a class="hash-link" href="#react-in-interesting-places">#</a></h2>
-<p>The core concepts React themselves is something very valuable that the community is exploring and pushing further. A year ago, we wouldn&#39;t have imagined something like <a href="http://rigsomelight.com">Bruce Hauman</a>&#39;s <a href="http://rigsomelight.com/2014/05/01/interactive-programming-flappy-bird-clojurescript.html">Flappy Bird ClojureScript port</a>, whose interactive programming has been made possible through React:</p>
-
-<iframe width="560" height="315" src="//www.youtube.com/embed/KZjFVdU8VLI" frameborder="0" allowfullscreen></iframe>
-
-<p>And don&#39;t forget <a href="https://github.com/petehunt">Pete Hunt</a>&#39;s Wolfenstein 3D rendering engine in React (<a href="https://github.com/petehunt/wolfenstein3D-react/blob/master/js/renderer.js#L183">source code</a>). While it&#39;s nearly a year old, it&#39;s still a nice demo.</p>
-
-<p><a href="http://www.petehunt.net/wolfenstein3D-react/wolf3d.html"><img src="/react/img/blog/wolfenstein_react.png" alt=""></a></p>
-
-<p>Give us a shoutout on IRC or <a href="https://groups.google.com/forum/#!forum/reactjs">React Google Groups</a> if you&#39;ve used React in some Interesting places.</p>
-<h2><a class="anchor" name="even-more-people-using-react"></a>Even More People Using React <a class="hash-link" href="#even-more-people-using-react">#</a></h2><h3><a class="anchor" name="prismatic"></a>Prismatic <a class="hash-link" href="#prismatic">#</a></h3>
-<p><a href="http://getprismatic.com/home">Prismatic</a> recently shrank their codebase fivefold with the help of React and its popular ClojureScript wrapper, <a href="https://github.com/swannodette/om">Om</a>. They detailed their very positive experience <a href="http://blog.getprismatic.com/om-sweet-om-high-functional-frontend-engineering-with-clojurescript-and-react/">here</a>.</p>
-
-<blockquote>
-<p>Finally, the state is normalized: each piece of information is represented in a single place. Since React ensures consistency between the DOM and the application data, the programmer can focus on ensuring that the state properly stays up to date in response to user input. If the application state is normalized, then this consistency is guaranteed by definition, completely avoiding the possibility of an entire class of common bugs.</p>
-</blockquote>
-<h3><a class="anchor" name="adobe-brackets"></a>Adobe Brackets <a class="hash-link" href="#adobe-brackets">#</a></h3>
-<p><a href="http://www.kevindangoor.com">Kevin Dangoor</a> works on <a href="http://brackets.io/?lang=en">Brackets</a>, the open-source code editor. After writing <a href="http://www.kevindangoor.com/2014/05/simplifying-code-with-react/">his first impression on React</a>, he followed up with another insightful <a href="http://www.kevindangoor.com/2014/05/react-in-brackets/">article</a> on how to gradually make the code transition, how to preserve the editor&#39;s good parts, and how to tune Brackets&#39; tooling around JSX.</p>
-
-<blockquote>
-<p>We don’t need to switch to React everywhere, all at once. It’s not a framework that imposes anything on the application structure. [...] Easy, iterative adoption is definitely something in React’s favor for us.</p>
-</blockquote>
-<h3><a class="anchor" name="storehouse"></a>Storehouse <a class="hash-link" href="#storehouse">#</a></h3>
-<p><a href="https://www.storehouse.co">Storehouse</a> (Apple Design Award 2014)&#39;s web presence is build with React. Here&#39;s <a href="https://www.storehouse.co/stories/y2ad-mexico-city-clouds">an example story</a>. Congratulations on the award!</p>
-<h3><a class="anchor" name="vim-awesome"></a>Vim Awesome <a class="hash-link" href="#vim-awesome">#</a></h3>
-<p><a href="http://vimawesome.com">Vim Awesome</a>, an open-source Vim plugins directory built on React, was just launched. Be sure to <a href="https://github.com/divad12/vim-awesome">check out the source code</a> if you&#39;re curious to see an example of how to build a small single-page React app.</p>
-<h2><a class="anchor" name="random-tweets"></a>Random Tweets <a class="hash-link" href="#random-tweets">#</a></h2>
-<blockquote class="twitter-tweet" lang="en"><p>Spent 12 hours so far with <a href="https://twitter.com/hashtag/reactjs?src=hash">#reactjs</a>. Spent another 2 wondering why we&#39;ve been doing JS frameworks wrong until now. React makes me happy.</p>&mdash; Paul Irwin (@paulirwin) <a href="https://twitter.com/paulirwin/statuses/481263947589242882">June 24, 2014</a></blockquote>
-
-        </div>
-      </div>
-    
 
     <div class="pagination">
       
@@ -584,7 +385,7 @@ Minified build for production: <a href="http://fb.me/react-with-addons-0.11.0-rc
       </div>
       <div class="right">
         &copy; 2013&ndash;2015 Facebook Inc.<br>
-        Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+        Documentation licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
       </div>
     </footer>
   </div>
