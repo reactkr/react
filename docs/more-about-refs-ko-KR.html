@@ -209,6 +209,10 @@
                   </li>
                 
                   <li>
+                    <a href="/react/docs/create-fragment.html">키가 할당된 프래그먼트</a>
+                  </li>
+                
+                  <li>
                     <a href="/react/docs/update-ko-KR.html">불변성 헬퍼들</a>
                   </li>
                 
@@ -450,8 +454,8 @@
 <p>이 반례에서 <code>&lt;input /&gt;</code>은 단지 <code>&lt;input /&gt;</code>의 <em>서술</em>일 뿐입니다. 이 서술은 <code>&lt;input /&gt;</code>에 대한 <em>진짜</em> <strong>지원 인스턴스(backing instance)</strong>를 생성하는 데 사용됩니다.</p>
 
 <p>자 그럼 어떻게 <em>진짜</em> input의 지원 인스턴스를 다룰까요?</p>
-<h2><a class="anchor" name="ref-"></a>ref 어트리뷰트 <a class="hash-link" href="#ref-">#</a></h2>
-<p>React는 <code>render()</code>로 출력된 컴포넌트에 추가할 수 있는 아주 특별한 프로퍼티를 지원합니다. 이 특별한 프로퍼티는 <code>render()</code>에서 반환된 모든 것들에 대해 각각에 대응하는 <strong>지원 인스턴스</strong>를 참조할 수 있습니다. 이는 항상 어떤 시점에서든 올바른 인스턴스를 보장합니다.</p>
+<h2><a class="anchor" name="ref--"></a>ref 문자열 어트리뷰트 <a class="hash-link" href="#ref--">#</a></h2>
+<p>React는 <code>render()</code>로 출력된 컴포넌트에 추가할 수 있는 아주 특별한 프로퍼티를 지원합니다. 이 특별한 프로퍼티는 <code>render()</code>에서 반환한 모든 것들에 대해 각각에 대응하는 <strong>지원 인스턴스</strong>를 참조할 수 있습니다. 이는 항상 어떤 시점에서든 올바른 인스턴스를 보장합니다.</p>
 
 <p>간단합니다:</p>
 
@@ -466,7 +470,12 @@
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">myInput</span>
 </code></pre></div>
 <p><code>React.findDOMNode(this.refs.myInput)</code>를 호출해 컴포넌트의 DOM 노드에 접근할 수 있습니다.</p>
-<h2><a class="anchor" name="-"></a>예제 완성하기 <a class="hash-link" href="#-">#</a></h2><div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">var</span> <span class="nx">App</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+<h2><a class="anchor" name="ref--"></a>ref 콜백 어트리뷰트 <a class="hash-link" href="#ref--">#</a></h2>
+<p><code>ref</code> 어트리뷰트는 이름 대신 콜백 함수가 될 수도 있습니다. 이 콜백은 컴포넌트가 마운트 된 뒤 즉시 실행될 것입니다. 참조된 컴포넌트는 매개 변수로 전달되며 콜백은 이를 즉시 사용하거나, 앞으로 사용하기 위해 참조를 저장해 놓거나, 혹은 둘 다 할 것입니다.</p>
+
+<p><code>render</code>에서 반환한 모든 것에 간단하게 <code>ref</code> 어트리뷰트를 할당할 수 있습니다:</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">  <span class="nt">&lt;input</span> <span class="na">ref=</span><span class="s">{</span> <span class="na">function</span><span class="err">(</span><span class="na">component</span><span class="err">){</span> <span class="na">React</span><span class="err">.</span><span class="na">findDOMNode</span><span class="err">(</span><span class="na">component</span><span class="err">).</span><span class="na">focus</span><span class="err">();}</span> <span class="err">}</span> <span class="nt">/&gt;</span>
+</code></pre></div><h2><a class="anchor" name="-"></a>예제 완성하기 <a class="hash-link" href="#-">#</a></h2><div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="kd">var</span> <span class="nx">App</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
     <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
       <span class="k">return</span> <span class="p">{</span><span class="nx">userInput</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">};</span>
     <span class="p">},</span>

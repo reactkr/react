@@ -209,6 +209,10 @@
                   </li>
                 
                   <li>
+                    <a href="/react/docs/create-fragment.html">키가 할당된 프래그먼트</a>
+                  </li>
+                
+                  <li>
                     <a href="/react/docs/update-ko-KR.html">불변성 헬퍼들</a>
                   </li>
                 
@@ -427,6 +431,8 @@
 권장하지 않습니다. 대신, React DOM 컴포넌트는 각각 <code>className</code>, <code>htmlFor</code>같은
 DOM 프로퍼티 이름을 기대합니다.</p>
 </blockquote>
+
+<p><a name="the-transform"></a></p>
 <h2><a class="anchor" name=""></a>변환 <a class="hash-link" href="#">#</a></h2>
 <p>React JSX는 XML같은 문법에서 네이티브 JavaScript로 변환됩니다. XML 엘리먼트, 어트리뷰트, 자식은 <code>React.createElement</code>에 넘겨지는 인자로 변환됩니다.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">Nav</span><span class="p">;</span>
@@ -447,6 +453,12 @@ DOM 프로퍼티 이름을 기대합니다.</p>
   <span class="p">{</span><span class="nx">color</span><span class="o">:</span><span class="s2">&quot;blue&quot;</span><span class="p">},</span>
   <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">Profile</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;click&quot;</span><span class="p">)</span>
 <span class="p">);</span>
+</code></pre></div>
+<p>클래스에 <a href="/react/docs/component-specs-ko-KR.html#displayName">displayName</a>이 정의되어 있지 않으면 JSX는 변수명을 displayName으로 간주할 것입니다:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 입력 (JSX):</span>
+<span class="kd">var</span> <span class="nx">Nav</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span> <span class="p">});</span>
+<span class="c1">// 출력 (JS):</span>
+<span class="kd">var</span> <span class="nx">Nav</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span><span class="nx">displayName</span><span class="o">:</span> <span class="s2">&quot;Nav&quot;</span><span class="p">,</span> <span class="p">});</span>
 </code></pre></div>
 <p><a href="/react/jsx-compiler.html">JSX 컴파일러</a>를 보면 JSX에서 어떻게 네이티브 JavaScript로 변환(desugars)하는지 볼 수 있고, <a href="/react/html-jsx.html">HTML-JSX 변환기</a>는 이미 있는 HTML을 JSX로 변환해 줍니다.</p>
 
