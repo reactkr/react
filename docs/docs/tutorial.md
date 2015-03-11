@@ -27,7 +27,7 @@ It'll also have a few neat features:
 
 While it's not necessary to get started with this tutorial, later on we'll be adding functionality that requires `POST`ing to a running server. If this is something you are intimately familiar with and want to create your own server, please do. For the rest of you who might want to focus on learning about React without having to worry about the server-side aspects, we have written simple servers in a number of languages - JavaScript (using Node.js), Python, Ruby, Go, and PHP. These are all available on GitHub. You can [view the source](https://github.com/reactjs/react-tutorial/) or [download a zip file](https://github.com/reactjs/react-tutorial/archive/master.zip) to get started.
 
-To get started using the tutorial download, just start editing `public/index.html`.
+To get started using the tutorial, just start editing `public/index.html`.
 
 ### Getting started
 
@@ -487,14 +487,15 @@ Let's make the form interactive. When the user submits the form, we should clear
 var CommentForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
-    var author = this.refs.author.getDOMNode().value.trim();
-    var text = this.refs.text.getDOMNode().value.trim();
+    var author = React.findDOMNode(this.refs.author).value.trim();
+    var text = React.findDOMNode(this.refs.text).value.trim();
     if (!text || !author) {
       return;
     }
     // TODO: send request to the server
-    this.refs.author.getDOMNode().value = '';
-    this.refs.text.getDOMNode().value = '';
+    React.findDOMNode(this.refs.author).value = '';
+    React.findDOMNode(this.refs.text).value = '';
+    return;
   },
   render: function() {
     return (
@@ -516,7 +517,7 @@ Call `preventDefault()` on the event to prevent the browser's default action of 
 
 ##### Refs
 
-We use the `ref` attribute to assign a name to a child component and `this.refs` to reference the component. We can call `getDOMNode()` on a component to get the native browser DOM element.
+We use the `ref` attribute to assign a name to a child component and `this.refs` to reference the component. We can call `React.findDOMNode(component)` on a component to get the native browser DOM element.
 
 ##### Callbacks as props
 
@@ -568,14 +569,15 @@ Let's call the callback from the `CommentForm` when the user submits the form:
 var CommentForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
-    var author = this.refs.author.getDOMNode().value.trim();
-    var text = this.refs.text.getDOMNode().value.trim();
+    var author = React.findDOMNode(this.refs.author).value.trim();
+    var text = React.findDOMNode(this.refs.text).value.trim();
     if (!text || !author) {
       return;
     }
     this.props.onCommentSubmit({author: author, text: text});
-    this.refs.author.getDOMNode().value = '';
-    this.refs.text.getDOMNode().value = '';
+    React.findDOMNode(this.refs.author).value = '';
+    React.findDOMNode(this.refs.text).value = '';
+    return;
   },
   render: function() {
     return (

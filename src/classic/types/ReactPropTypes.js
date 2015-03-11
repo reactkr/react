@@ -12,6 +12,7 @@
 'use strict';
 
 var ReactElement = require('ReactElement');
+var ReactFragment = require('ReactFragment');
 var ReactPropTypeLocationNames = require('ReactPropTypeLocationNames');
 
 var emptyFunction = require('emptyFunction');
@@ -65,9 +66,6 @@ var emptyFunction = require('emptyFunction');
 
 var ANONYMOUS = '<<anonymous>>';
 
-var elementTypeChecker = createElementTypeChecker();
-var nodeTypeChecker = createNodeChecker();
-
 var ReactPropTypes = {
   array: createPrimitiveTypeChecker('array'),
   bool: createPrimitiveTypeChecker('boolean'),
@@ -78,9 +76,9 @@ var ReactPropTypes = {
 
   any: createAnyTypeChecker(),
   arrayOf: createArrayOfTypeChecker,
-  element: elementTypeChecker,
+  element: createElementTypeChecker(),
   instanceOf: createInstanceTypeChecker,
-  node: nodeTypeChecker,
+  node: createNodeChecker(),
   objectOf: createObjectOfTypeChecker,
   oneOf: createEnumTypeChecker,
   oneOfType: createUnionTypeChecker,
@@ -291,6 +289,7 @@ function isNode(propValue) {
   switch (typeof propValue) {
     case 'number':
     case 'string':
+    case 'undefined':
       return true;
     case 'boolean':
       return !propValue;
@@ -298,9 +297,10 @@ function isNode(propValue) {
       if (Array.isArray(propValue)) {
         return propValue.every(isNode);
       }
-      if (ReactElement.isValidElement(propValue)) {
+      if (propValue === null || ReactElement.isValidElement(propValue)) {
         return true;
       }
+      propValue = ReactFragment.extractIfFragment(propValue);
       for (var k in propValue) {
         if (!isNode(propValue[k])) {
           return false;

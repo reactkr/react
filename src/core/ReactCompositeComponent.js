@@ -133,6 +133,20 @@ var ReactCompositeComponentMixin = {
 
     // Initialize the public class
     var inst = new Component(publicProps, publicContext);
+
+    if (__DEV__) {
+      // This will throw later in _renderValidatedComponent, but add an early
+      // warning now to help debugging
+      warning(
+        inst.render != null,
+        '%s(...): No `render` method found on the returned component ' +
+        'instance: you may have forgotten to define `render` in your ' +
+        'component or you may have accidentally tried to render an element ' +
+        'whose type is a function that isn\'t a React component.',
+        Component.displayName || Component.name || 'Component'
+      );
+    }
+
     // These should be set up in the constructor, but as a convenience for
     // simpler class abstractions, we set them up after the fact.
     inst.props = publicProps;
@@ -449,14 +463,16 @@ var ReactCompositeComponentMixin = {
             // Preface gives us something to blacklist in warning module
             warning(
               false,
-              'Failed Composite propType: %s',
-              error.message + addendum
+              'Failed Composite propType: %s%s',
+              error.message,
+              addendum
             );
           } else {
             warning(
               false,
-              'Failed Context Types: %s',
-              error.message + addendum
+              'Failed Context Types: %s%s',
+              error.message,
+              addendum
             );
           }
         }
