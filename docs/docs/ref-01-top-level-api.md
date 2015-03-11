@@ -11,6 +11,15 @@ redirect_from: "/docs/reference.html"
 `React` is the entry point to the React library. If you're using one of the prebuilt packages it's available as a global; if you're using CommonJS modules you can `require()` it.
 
 
+### React.Component
+
+```javascript
+class Component
+```
+
+This is the base class for React Components when they're defined using ES6 classes. See [Reusable Components](/react/docs/reusable-components.html#es6-classes) for how to use ES6 classes with React. For what methods are actually provided by the base class, see the [Component API](/react/docs/component-api.html).
+
+
 ### React.createClass
 
 ```javascript
@@ -34,6 +43,19 @@ ReactElement createElement(
 
 Create and return a new `ReactElement` of the given type. The type argument can be either an
 html tag name string (eg. 'div', 'span', etc), or a `ReactClass` (created via `React.createClass`).
+
+
+### React.cloneElement
+
+```
+ReactElement cloneElement(
+  ReactElement element,
+  [object props],
+  [children ...]
+)
+```
+
+Clone and return a new `ReactElement` using `element` as the starting point. The resulting element will have the original element's props with the new props merged in shallowly. New children will replace existing children. Unlike `React.addons.cloneWithProps`, `key` and `ref` from the original element will be preserved. There is no special behavior for merging any props (unlike `cloneWithProps`). See the [v0.13 RC2 blog post](/react/blog/2015/03/03/react-v0.13-rc2.html) for additional details.
 
 
 ### React.createFactory
@@ -108,6 +130,14 @@ boolean isValidElement(* object)
 ```
 
 Verifies the object is a ReactElement.
+
+
+### React.findDOMNode
+
+```javascript
+DOMElement findDOMNode(ReactComponent component)
+```
+If this component has been mounted into the DOM, this returns the corresponding native browser DOM element. This method is useful for reading values out of the DOM, such as form field values and performing DOM measurements. When `render` returns `null` or `false`, `this.getDOMNode()` returns `null`.
 
 
 ### React.DOM

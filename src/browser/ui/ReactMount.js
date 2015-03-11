@@ -387,7 +387,9 @@ var ReactMount = {
       '_renderNewRootComponent(): Render methods should be a pure function ' +
       'of props and state; triggering nested component updates from ' +
       'render is not allowed. If necessary, trigger nested updates in ' +
-      'componentDidUpdate.'
+      'componentDidUpdate. Check the render method of %s.',
+      ReactCurrentOwner.current && ReactCurrentOwner.current.getName() ||
+        'ReactCompositeComponent'
     );
 
     var componentInstance = instantiateReactComponent(nextElement, null);
@@ -446,6 +448,14 @@ var ReactMount = {
           'copies of React.' :
           ''
       )
+    );
+
+    warning(
+      container && container.tagName !== 'BODY',
+      'render(): Rendering components directly into document.body is ' +
+      'discouraged, since its children are often manipulated by third-party ' +
+      'scripts and browser extensions. This may lead to subtle reconciliation ' +
+      'issues. Try rendering into a container element created for your app.'
     );
 
     var prevComponent = instancesByReactRootID[getReactRootID(container)];
@@ -569,10 +579,12 @@ var ReactMount = {
     // render but we still don't expect to be in a render call here.)
     warning(
       ReactCurrentOwner.current == null,
-      'unmountComponentAtNode(): Render methods should be a pure function of ' +
-      'props and state; triggering nested component updates from render is ' +
-      'not allowed. If necessary, trigger nested updates in ' +
-      'componentDidUpdate.'
+      'unmountComponentAtNode(): Render methods should be a pure function ' +
+      'of props and state; triggering nested component updates from render ' +
+      'is not allowed. If necessary, trigger nested updates in ' +
+      'componentDidUpdate. Check the render method of %s.',
+      ReactCurrentOwner.current && ReactCurrentOwner.current.getName() ||
+        'ReactCompositeComponent'
     );
 
     invariant(
@@ -633,13 +645,12 @@ var ReactMount = {
     if (__DEV__) {
       var rootElement = rootElementsByReactRootID[reactRootID];
       if (rootElement && rootElement.parentNode !== container) {
-        invariant(
+        warning(
           // Call internalGetID here because getID calls isValid which calls
           // findReactContainerForID (this function).
           internalGetID(rootElement) === reactRootID,
           'ReactMount: Root element ID differed from reactRootID.'
         );
-
         var containerChild = container.firstChild;
         if (containerChild &&
             reactRootID === internalGetID(containerChild)) {

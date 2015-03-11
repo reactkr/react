@@ -303,11 +303,13 @@ describe('ReactDOMComponent', function() {
   });
 
   describe('mountComponent', function() {
+    var React;
     var mountComponent;
 
     beforeEach(function() {
       require('mock-modules').dumpCache();
 
+      React = require('React');
       var ReactMultiChild = require('ReactMultiChild');
       var ReactDOMComponent = require('ReactDOMComponent');
       var ReactReconcileTransaction = require('ReactReconcileTransaction');
@@ -328,6 +330,46 @@ describe('ReactDOMComponent', function() {
         });
         return stubComponent.mountComponent('test', transaction, {});
       };
+    });
+
+    it("should warn against children for void elements", function() {
+      spyOn(console, 'warn');
+
+      var container = document.createElement('div');
+
+      React.render(<input>children</input>, container);
+
+      expect(console.warn.argsForCall.length).toBe(1);
+      expect(console.warn.argsForCall[0][0]).toContain('void element');
+    });
+
+    it("should warn against dangerouslySetInnerHTML for void elements", function() {
+      spyOn(console, 'warn');
+
+      var container = document.createElement('div');
+
+      React.render(
+        <input dangerouslySetInnerHTML={{__html: 'content'}} />,
+        container
+      );
+
+      expect(console.warn.argsForCall.length).toBe(1);
+      expect(console.warn.argsForCall[0][0]).toContain('void element');
+    });
+
+    it("should treat menuitem as a void element but still create the closing tag", function() {
+      spyOn(console, 'warn');
+
+      var container = document.createElement('div');
+
+      React.render(<menuitem />, container);
+
+      expect(container.innerHTML).toContain('</menuitem>');
+
+      React.render(<menuitem>children</menuitem>, container);
+
+      expect(console.warn.argsForCall.length).toBe(1);
+      expect(console.warn.argsForCall[0][0]).toContain('void element');
     });
 
     it("should validate against multiple children props", function() {
@@ -385,6 +427,59 @@ describe('ReactDOMComponent', function() {
         'style={{marginRight: spacing + \'em\'}} when using JSX.'
       );
     });
+
+    it("should execute custom event plugin listening behavior", function() {
+      var React = require('React');
+      var SimpleEventPlugin = require('SimpleEventPlugin');
+
+      SimpleEventPlugin.didPutListener = mocks.getMockFunction();
+      SimpleEventPlugin.willDeleteListener = mocks.getMockFunction();
+
+      var container = document.createElement('div');
+      React.render(
+        <div onClick={() => true} />,
+        container
+      );
+
+      expect(SimpleEventPlugin.didPutListener.mock.calls.length).toBe(1);
+
+      React.unmountComponentAtNode(container);
+
+      expect(SimpleEventPlugin.willDeleteListener.mock.calls.length).toBe(1);
+    });
+
+    it("should handle null and missing properly with event hooks", function() {
+      var React = require('React');
+      var SimpleEventPlugin = require('SimpleEventPlugin');
+
+      SimpleEventPlugin.didPutListener = mocks.getMockFunction();
+      SimpleEventPlugin.willDeleteListener = mocks.getMockFunction();
+      var container = document.createElement('div');
+
+      React.render(<div onClick={null} />, container);
+      expect(SimpleEventPlugin.didPutListener.mock.calls.length).toBe(0);
+      expect(SimpleEventPlugin.willDeleteListener.mock.calls.length).toBe(0);
+
+      React.render(<div onClick={() => 'apple'} />, container);
+      expect(SimpleEventPlugin.didPutListener.mock.calls.length).toBe(1);
+      expect(SimpleEventPlugin.willDeleteListener.mock.calls.length).toBe(0);
+
+      React.render(<div onClick={() => 'banana'} />, container);
+      expect(SimpleEventPlugin.didPutListener.mock.calls.length).toBe(2);
+      expect(SimpleEventPlugin.willDeleteListener.mock.calls.length).toBe(0);
+
+      React.render(<div onClick={null} />, container);
+      expect(SimpleEventPlugin.didPutListener.mock.calls.length).toBe(2);
+      expect(SimpleEventPlugin.willDeleteListener.mock.calls.length).toBe(1);
+
+      React.render(<div />, container);
+      expect(SimpleEventPlugin.didPutListener.mock.calls.length).toBe(2);
+      expect(SimpleEventPlugin.willDeleteListener.mock.calls.length).toBe(1);
+
+      React.unmountComponentAtNode(container);
+      expect(SimpleEventPlugin.didPutListener.mock.calls.length).toBe(2);
+      expect(SimpleEventPlugin.willDeleteListener.mock.calls.length).toBe(1);
+    });
   });
 
   describe('updateComponent', function() {
@@ -394,6 +489,29 @@ describe('ReactDOMComponent', function() {
     beforeEach(function() {
       React = require('React');
       container = document.createElement('div');
+    });
+
+    it("should warn against children for void elements", function() {
+      spyOn(console, 'warn');
+
+      React.render(<input />, container);
+      React.render(<input>children</input>, container);
+
+      expect(console.warn.argsForCall.length).toBe(1);
+      expect(console.warn.argsForCall[0][0]).toContain('void element');
+    });
+
+    it("should warn against dangerouslySetInnerHTML for void elements", function() {
+      spyOn(console, 'warn');
+
+      React.render(<input />, container);
+      React.render(
+        <input dangerouslySetInnerHTML={{__html: 'content'}} />,
+        container
+      );
+
+      expect(console.warn.argsForCall.length).toBe(1);
+      expect(console.warn.argsForCall[0][0]).toContain('void element');
     });
 
     it("should validate against multiple children props", function() {
