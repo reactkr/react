@@ -868,7 +868,7 @@ describe('ReactCompositeComponent', function() {
       'Warning: _renderNewRootComponent(): Render methods should ' +
       'be a pure function of props and state; triggering nested component ' +
       'updates from render is not allowed. If necessary, trigger nested ' +
-      'updates in componentDidUpdate.'
+      'updates in componentDidUpdate. Check the render method of Outer.'
     );
   });
 
@@ -952,6 +952,19 @@ describe('ReactCompositeComponent', function() {
     React.render(<Component />, container);
     React.unmountComponentAtNode(container);
     expect(a).toBe(b);
+  });
+
+  it('should warn when using non-React functions in JSX', function() {
+    function NotAComponent() {
+      return [<div />, <div />];
+    }
+    expect(function() {
+      ReactTestUtils.renderIntoDocument(<div><NotAComponent /></div>);
+    }).toThrow();  // has no method 'render'
+    expect(console.warn.calls.length).toBe(1);
+    expect(console.warn.calls[0].args[0]).toContain(
+      'NotAComponent(...): No `render` method found'
+    );
   });
 
 });
