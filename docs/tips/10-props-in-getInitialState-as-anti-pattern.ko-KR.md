@@ -7,7 +7,7 @@ prev: componentWillReceiveProps-not-triggered-after-mounting-ko-KR.html
 next: dom-event-listeners-ko-KR.html
 ---
 
-> 노트 : 
+> 주의 : 
 >
 > 이것은 React에만 국한된 팁이 아니고 안티패턴은 평범한 코드 속 에서도 종종 발생합니다. 이 글에서는 React로 간단하게 설명해 보겠습니다.
 
