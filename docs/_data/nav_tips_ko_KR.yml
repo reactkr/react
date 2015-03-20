@@ -1,0 +1,40 @@
+- title: Tips
+  items:
+  - id: introduction-ko-KR
+    title: 개요
+  - id: inline-styles-ko-KR
+    title: 인라인 스타일
+  - id: if-else-in-JSX-ko-KR
+    title: JSX에서 If-Else
+  - id: self-closing-tag-ko-KR
+    title: 자기 자신을 닫는 태그
+  - id: maximum-number-of-jsx-root-nodes-ko-KR
+    title: JSX 루트 노드의 최대 갯수
+  - id: style-props-value-px-ko-KR
+    title: 스타일 속성에서 특정 픽셀 값 넣는 간단한 방법
+  - id: children-props-type-ko-KR
+    title: 자식 속성들의 타입
+  - id: controlled-input-null-value-ko-KR
+    title: 제어되는 input 내의 null 값
+  - id: componentWillReceiveProps-not-triggered-after-mounting-ko-KR
+    title: 마운트 후에는 componentWillReceiveProps가 실행되지 않음
+  - id: props-in-getInitialState-as-anti-pattern-ko-KR
+    title: getInitialState의 Props는 안티패턴
+  - id: dom-event-listeners-ko-KR
+    title: 컴포넌트에서 DOM 이벤트 리스너
+  - id: initial-ajax-ko-KR
+    title: AJAX를 통해 초기 데이터 읽어오기
+  - id: false-in-jsx-ko-KR
+    title: JSX에서 False
+  - id: communicate-between-components-ko-KR
+    title: 컴포넌트간의 통신
+  - id: expose-component-functions-ko-KR
+    title: 컴포넌트 함수 드러내기
+  - id: references-to-components-ko-KR
+    title: 컴포넌트 참조
+  - id: children-undefined-ko-KR
+    title: 정의되지 않은 this.props.children
+  - id: use-react-with-other-libraries-ko-KR
+    title: React와 다른 라이브러리를 함께 사용하기
+  - id: dangerously-set-inner-html-ko-KR
+    title: Dangerously Set innerHTML
