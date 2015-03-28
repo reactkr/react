@@ -45,12 +45,16 @@
           <img class="nav-logo" src="/react/img/logo.svg" width="36" height="36">
           React
         </a>
-        <ul class="nav-site">
-          <li><a href="/react/docs/getting-started.html" class="active">docs</a></li>
-          <li><a href="/react/support.html">support</a></li>
-          <li><a href="/react/downloads.html">download</a></li>
-          <li><a href="/react/blog/">blog</a></li>
-          <li><a href="https://github.com/facebook/react">github</a>
+        <ul class="nav-site nav-site-internal">
+          <li><a href="/react/docs/getting-started.html" class="active">Docs</a></li>
+          <li><a href="/react/support.html">Support</a></li>
+          <li><a href="/react/downloads.html">Download</a></li>
+          <li><a href="/react/blog/">Blog</a></li>
+        </ul>
+
+        <ul class="nav-site nav-site-external">
+          <li><a href="https://github.com/facebook/react">GitHub</a>
+          <li><a href="http://facebook.github.io/react-native/">React Native</a>
         </ul>
       </div>
     </div>
@@ -454,7 +458,7 @@
     <span class="k">return</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="o">/&gt;</span><span class="p">;</span>
   <span class="p">}</span>
 </code></pre></div>
-<p>이것은 빈 값으로 시작되는 input을 랜더합니다. 임의의 사용자 입력은 즉시 렌더된 엘리먼트에 반영됩니다. 값의 업데이트를 감시하길 원한다면, 제어되는 컴포넌트처럼 <code>onChange</code> 이벤트를 사용할 수 있습니다.</p>
+<p>이것은 빈 값으로 시작되는 input을 렌더합니다. 임의의 사용자 입력은 즉시 렌더된 엘리먼트에 반영됩니다. 값의 업데이트를 감시하길 원한다면, 제어되는 컴포넌트처럼 <code>onChange</code> 이벤트를 사용할 수 있습니다.</p>
 
 <p>비어 있지 않은 값으로 초기화하길 원한다면, <code>defaultValue</code> prop로 할 수 있습니다. 예를 들어,</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript">  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>

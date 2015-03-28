@@ -45,12 +45,16 @@
           <img class="nav-logo" src="/react/img/logo.svg" width="36" height="36">
           React
         </a>
-        <ul class="nav-site">
-          <li><a href="/react/docs/getting-started.html" class="active">docs</a></li>
-          <li><a href="/react/support.html">support</a></li>
-          <li><a href="/react/downloads.html">download</a></li>
-          <li><a href="/react/blog/">blog</a></li>
-          <li><a href="https://github.com/facebook/react">github</a>
+        <ul class="nav-site nav-site-internal">
+          <li><a href="/react/docs/getting-started.html" class="active">Docs</a></li>
+          <li><a href="/react/support.html">Support</a></li>
+          <li><a href="/react/downloads.html">Download</a></li>
+          <li><a href="/react/blog/">Blog</a></li>
+        </ul>
+
+        <ul class="nav-site nav-site-external">
+          <li><a href="https://github.com/facebook/react">GitHub</a>
+          <li><a href="http://facebook.github.io/react-native/">React Native</a>
         </ul>
       </div>
     </div>
@@ -423,7 +427,7 @@
   <span class="nx">a</span><span class="o">:</span> <span class="nx">extend</span><span class="p">(</span><span class="nx">myData</span><span class="p">.</span><span class="nx">a</span><span class="p">,</span> <span class="p">{</span><span class="nx">b</span><span class="o">:</span> <span class="nx">myData</span><span class="p">.</span><span class="nx">a</span><span class="p">.</span><span class="nx">b</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="mi">9</span><span class="p">)})</span>
 <span class="p">});</span>
 </code></pre></div>
-<p>While this is fairly performant (since it only shallow copies <code>log n</code> objects and reuses the rest), it&#39;s a big pain to write. Look at all the repetition! This is not only annoying, but also provides a large surface area for bugs.</p>
+<p>While this is fairly performant (since it only makes a shallow copy of <code>log n</code> objects and reuses the rest), it&#39;s a big pain to write. Look at all the repetition! This is not only annoying, but also provides a large surface area for bugs.</p>
 
 <p><code>update()</code> provides simple syntactic sugar around this pattern to make writing this code easier. This code becomes:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">newData</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">addons</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">myData</span><span class="p">,</span> <span class="p">{</span>

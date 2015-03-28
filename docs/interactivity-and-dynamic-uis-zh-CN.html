@@ -45,12 +45,16 @@
           <img class="nav-logo" src="/react/img/logo.svg" width="36" height="36">
           React
         </a>
-        <ul class="nav-site">
-          <li><a href="/react/docs/getting-started.html" class="active">docs</a></li>
-          <li><a href="/react/support.html">support</a></li>
-          <li><a href="/react/downloads.html">download</a></li>
-          <li><a href="/react/blog/">blog</a></li>
-          <li><a href="https://github.com/facebook/react">github</a>
+        <ul class="nav-site nav-site-internal">
+          <li><a href="/react/docs/getting-started.html" class="active">Docs</a></li>
+          <li><a href="/react/support.html">Support</a></li>
+          <li><a href="/react/downloads.html">Download</a></li>
+          <li><a href="/react/blog/">Blog</a></li>
+        </ul>
+
+        <ul class="nav-site nav-site-external">
+          <li><a href="https://github.com/facebook/react">GitHub</a>
+          <li><a href="http://facebook.github.io/react-native/">React Native</a>
         </ul>
       </div>
     </div>
@@ -425,8 +429,6 @@
 <span class="p">);</span>
 </code></pre></div><h2><a class="anchor" name="synthetic-events"></a>事件处理与合成事件（Synthetic Events） <a class="hash-link" href="#synthetic-events">#</a></h2>
 <p>React 里只需把事件处理器（event handler）以骆峰命名（camelCased）形式当作组件的 props 传入即可，就像使用普通 HTML 那样。React 内部创建一套合成事件系统来使所有事件在 IE8 和以上浏览器表现一致。也就是说，React 知道如何冒泡和捕获事件，而且你的事件处理器接收到的 events 参数与 <a href="http://www.w3.org/TR/DOM-Level-3-Events/">W3C 规范</a> 一致，无论你使用哪种浏览器。</p>
-
-<p>如果需要在手机或平板等触摸设备上使用 React，需要调用 <code>React.initializeTouchEvents(true);</code> 启用触摸事件处理。</p>
 <h2><a class="anchor" name="autobindingevent-delegation"></a>幕后原理：自动绑定（Autobinding）和事件代理（Event Delegation） <a class="hash-link" href="#autobindingevent-delegation">#</a></h2>
 <p>在幕后，React 做了一些操作来让代码高效运行且易于理解。</p>
 

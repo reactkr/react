@@ -45,12 +45,16 @@
           <img class="nav-logo" src="/react/img/logo.svg" width="36" height="36">
           React
         </a>
-        <ul class="nav-site">
-          <li><a href="/react/docs/getting-started.html">docs</a></li>
-          <li><a href="/react/support.html">support</a></li>
-          <li><a href="/react/downloads.html">download</a></li>
-          <li><a href="/react/blog/" class="active">blog</a></li>
-          <li><a href="https://github.com/facebook/react">github</a>
+        <ul class="nav-site nav-site-internal">
+          <li><a href="/react/docs/getting-started.html">Docs</a></li>
+          <li><a href="/react/support.html">Support</a></li>
+          <li><a href="/react/downloads.html">Download</a></li>
+          <li><a href="/react/blog/" class="active">Blog</a></li>
+        </ul>
+
+        <ul class="nav-site nav-site-external">
+          <li><a href="https://github.com/facebook/react">GitHub</a>
+          <li><a href="http://facebook.github.io/react-native/">React Native</a>
         </ul>
       </div>
     </div>
@@ -62,6 +66,12 @@
   <div class="nav-docs-section">
     <h3>Recent posts</h3>
     <ul>
+      
+        <li><a href="/react/blog/2015/03/26/introducing-react-native.html">Introducing React Native</a></li>
+      
+        <li><a href="/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html">Building The Facebook News Feed With Relay</a></li>
+      
+        <li><a href="/react/blog/2015/03/16/react-v0.13.1.html">React v0.13.1</a></li>
       
         <li><a href="/react/blog/2015/03/10/react-v0.13.html">React v0.13</a></li>
       
@@ -76,12 +86,6 @@
         <li><a href="/react/blog/2015/02/20/introducing-relay-and-graphql.html">Introducing Relay and GraphQL</a></li>
       
         <li><a href="/react/blog/2015/02/18/react-conf-roundup-2015.html">React.js Conf Round-up 2015</a></li>
-      
-        <li><a href="/react/blog/2015/01/27/react-v0.13.0-beta-1.html">React v0.13.0 Beta 1</a></li>
-      
-        <li><a href="/react/blog/2014/12/19/react-js-conf-diversity-scholarship.html">React.js Conf Diversity Scholarship</a></li>
-      
-        <li><a href="/react/blog/2014/12/18/react-v0.12.2.html">React v0.12.2</a></li>
       
       <li><a href="/react/blog/all.html">All posts ...</a></li>
     </ul>
@@ -114,7 +118,7 @@
 </code></pre></div>
 <p>There are other features of ES6 we&#39;re already using in core. I&#39;m sure we&#39;ll see more of that. The <code>jsx</code> executable we ship with <code>react-tools</code> already supports transforming many parts of ES6 into code that will run on older browsers.</p>
 <h2><a class="anchor" name="context"></a>Context <a class="hash-link" href="#context">#</a></h2>
-<p>While we haven&#39;t documented <code>context</code>, it exists in some form in React already. It exists as a way to pass values through a tree without having to use props at every single point. We&#39;ve seen this need crop up time and time again, so we want to make this as easy as possible. It&#39;s use has performance tradeoffs, and there are known weaknesses in our implementation, so we want to make sure this is a solid feature.</p>
+<p>While we haven&#39;t documented <code>context</code>, it exists in some form in React already. It exists as a way to pass values through a tree without having to use props at every single point. We&#39;ve seen this need crop up time and time again, so we want to make this as easy as possible. Its use has performance tradeoffs, and there are known weaknesses in our implementation, so we want to make sure this is a solid feature.</p>
 <h2><a class="anchor" name="addons"></a>Addons <a class="hash-link" href="#addons">#</a></h2>
 <p>As you may know, we ship a separate build of React with some extra features we called &quot;addons&quot;. While this has served us fine, it&#39;s not great for our users. It&#39;s made testing harder, but also results in more cache misses for people using a CDN. The problem we face is that many of these &quot;addons&quot; need access to parts of React that we don&#39;t expose publicly. Our goal is to ship each addon on its own and let each hook into React as needed. This would also allow others to write and distribute &quot;addons&quot;.</p>
 <h2><a class="anchor" name="browser-support"></a>Browser Support <a class="hash-link" href="#browser-support">#</a></h2>

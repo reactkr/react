@@ -45,12 +45,16 @@
           <img class="nav-logo" src="/react/img/logo.svg" width="36" height="36">
           React
         </a>
-        <ul class="nav-site">
-          <li><a href="/react/docs/getting-started.html" class="active">docs</a></li>
-          <li><a href="/react/support.html">support</a></li>
-          <li><a href="/react/downloads.html">download</a></li>
-          <li><a href="/react/blog/">blog</a></li>
-          <li><a href="https://github.com/facebook/react">github</a>
+        <ul class="nav-site nav-site-internal">
+          <li><a href="/react/docs/getting-started.html" class="active">Docs</a></li>
+          <li><a href="/react/support.html">Support</a></li>
+          <li><a href="/react/downloads.html">Download</a></li>
+          <li><a href="/react/blog/">Blog</a></li>
+        </ul>
+
+        <ul class="nav-site nav-site-external">
+          <li><a href="https://github.com/facebook/react">GitHub</a>
+          <li><a href="http://facebook.github.io/react-native/">React Native</a>
         </ul>
       </div>
     </div>
@@ -425,8 +429,6 @@
 <span class="p">);</span>
 </code></pre></div><h2><a class="anchor" name="--synthetic-"></a>이벤트 핸들링과 통합적인(Synthetic) 이벤트 <a class="hash-link" href="#--synthetic-">#</a></h2>
 <p>React에서의 이벤트 핸들러는 HTML에서 그러던 것처럼 간단히 카멜케이스 프로퍼티(camelCased prop)로 넘기면 됩니다. React의 모든 이벤트는 통합적인 이벤트 시스템의 구현으로 IE8 이상에서는 같은 행동이 보장됩니다. 즉, React는 사양에 따라 어떻게 이벤트를 일으키고(bubble) 잡는지 알고 있고, 당신이 사용하는 브라우저와 관계없이 이벤트 핸들러에 전달되는 이벤트는 <a href="http://www.w3.org/TR/DOM-Level-3-Events/">W3C 사양</a>과 같도록 보장됩니다.</p>
-
-<p>React를 폰이나 테블릿같은 터치 디바이스에서 사용하려 한다면, 간단히 <code>React.initializeTouchEvents(true);</code>로 터치 이벤트 핸들링을 켜면 됩니다.</p>
 <h2><a class="anchor" name="----"></a>기본 구현: 오토바인딩과 이벤트 델리게이션 <a class="hash-link" href="#----">#</a></h2>
 <p>코드를 고성능으로 유지하고 이해하기 쉽게 하기 위해, React는 보이지 않는 곳에서 몇 가지 일을 수행합니다.</p>
 

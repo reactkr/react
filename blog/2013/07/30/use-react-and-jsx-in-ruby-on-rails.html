@@ -45,12 +45,16 @@
           <img class="nav-logo" src="/react/img/logo.svg" width="36" height="36">
           React
         </a>
-        <ul class="nav-site">
-          <li><a href="/react/docs/getting-started.html">docs</a></li>
-          <li><a href="/react/support.html">support</a></li>
-          <li><a href="/react/downloads.html">download</a></li>
-          <li><a href="/react/blog/" class="active">blog</a></li>
-          <li><a href="https://github.com/facebook/react">github</a>
+        <ul class="nav-site nav-site-internal">
+          <li><a href="/react/docs/getting-started.html">Docs</a></li>
+          <li><a href="/react/support.html">Support</a></li>
+          <li><a href="/react/downloads.html">Download</a></li>
+          <li><a href="/react/blog/" class="active">Blog</a></li>
+        </ul>
+
+        <ul class="nav-site nav-site-external">
+          <li><a href="https://github.com/facebook/react">GitHub</a>
+          <li><a href="http://facebook.github.io/react-native/">React Native</a>
         </ul>
       </div>
     </div>
@@ -62,6 +66,12 @@
   <div class="nav-docs-section">
     <h3>Recent posts</h3>
     <ul>
+      
+        <li><a href="/react/blog/2015/03/26/introducing-react-native.html">Introducing React Native</a></li>
+      
+        <li><a href="/react/blog/2015/03/19/building-the-facebook-news-feed-with-relay.html">Building The Facebook News Feed With Relay</a></li>
+      
+        <li><a href="/react/blog/2015/03/16/react-v0.13.1.html">React v0.13.1</a></li>
       
         <li><a href="/react/blog/2015/03/10/react-v0.13.html">React v0.13</a></li>
       
@@ -76,12 +86,6 @@
         <li><a href="/react/blog/2015/02/20/introducing-relay-and-graphql.html">Introducing Relay and GraphQL</a></li>
       
         <li><a href="/react/blog/2015/02/18/react-conf-roundup-2015.html">React.js Conf Round-up 2015</a></li>
-      
-        <li><a href="/react/blog/2015/01/27/react-v0.13.0-beta-1.html">React v0.13.0 Beta 1</a></li>
-      
-        <li><a href="/react/blog/2014/12/19/react-js-conf-diversity-scholarship.html">React.js Conf Diversity Scholarship</a></li>
-      
-        <li><a href="/react/blog/2014/12/18/react-v0.12.2.html">React v0.12.2</a></li>
       
       <li><a href="/react/blog/all.html">All posts ...</a></li>
     </ul>
@@ -117,7 +121,7 @@
 </code></pre></div><h2><a class="anchor" name="writing-jsx"></a>Writing JSX <a class="hash-link" href="#writing-jsx">#</a></h2>
 <p>When you name your file with <code>myfile.js.jsx</code>, <code>react-rails</code> will automatically try to transform that file. For the time being, we still require that you include the docblock at the beginning of the file. For example, this file will get transformed on request.</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="cm">/** @jsx React.DOM */</span>
-<span class="nx">React</span><span class="p">.</span><span class="nx">renderComponent</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">MyComponent</span><span class="o">/&gt;</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span>
+<span class="nx">React</span><span class="p">.</span><span class="nx">renderComponent</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">MyComponent</span><span class="o">/&gt;</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">))</span>
 </code></pre></div><h2><a class="anchor" name="asset-pipeline"></a>Asset Pipeline <a class="hash-link" href="#asset-pipeline">#</a></h2>
 <p><code>react-rails</code> takes advantage of the <a href="http://guides.rubyonrails.org/asset_pipeline.html">asset pipeline</a> that was introduced in Rails 3.1. A very important part of that pipeline is the <code>assets:precompile</code> Rake task. <code>react-rails</code> will ensure that your JSX files will be transformed into regular JS before all of your assets are minified and packaged.</p>
 <h2><a class="anchor" name="installation"></a>Installation <a class="hash-link" href="#installation">#</a></h2>
