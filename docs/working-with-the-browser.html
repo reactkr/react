@@ -357,15 +357,15 @@
           </li>
         
           <li>
-            <a href="/react/tips/dom-event-listeners.html">DOM Event Listeners in a Component</a>
+            <a href="/react/tips/dom-event-listeners-ko-KR.html">컴포넌트에서 DOM 이벤트 리스너</a>
           </li>
         
           <li>
-            <a href="/react/tips/initial-ajax.html">Load Initial Data via AJAX</a>
+            <a href="/react/tips/initial-ajax-ko-KR.html">AJAX를 통해 초기 데이터 읽어오기</a>
           </li>
         
           <li>
-            <a href="/react/tips/false-in-jsx.html">False in JSX</a>
+            <a href="/react/tips/false-in-jsx-ko-KR.html">JSX에서 False</a>
           </li>
         
           <li>
@@ -486,9 +486,9 @@
 <h2><a class="anchor" name="browser-support-and-polyfills"></a>Browser Support and Polyfills <a class="hash-link" href="#browser-support-and-polyfills">#</a></h2>
 <p>At Facebook, we support older browsers, including IE8. We&#39;ve had polyfills in place for a long time to allow us to write forward-thinking JS. This means we don&#39;t have a bunch of hacks scattered throughout our codebase and we can still expect our code to &quot;just work&quot;. For example, instead of seeing <code>+new Date()</code>, we can just write <code>Date.now()</code>. Since the open source React is the same as what we use internally, we&#39;ve carried over this philosophy of using forward thinking JS.</p>
 
-<p>In addition to that philosophy, we&#39;ve also taken the stance that we, as authors of a JS library, should not be shipping polyfills as a part of our library. If every library did this, there&#39;s a good chance you&#39;d be sending down the same polyfill multiple times, which could be a sizable chunk of dead code. If your product needs to support older browsers, chances are you&#39;re already using something like <a href="https://github.com/kriskowal/es5-shim">es5-shim</a>.</p>
+<p>In addition to that philosophy, we&#39;ve also taken the stance that we, as authors of a JS library, should not be shipping polyfills as a part of our library. If every library did this, there&#39;s a good chance you&#39;d be sending down the same polyfill multiple times, which could be a sizable chunk of dead code. If your product needs to support older browsers, chances are you&#39;re already using something like <a href="https://github.com/es-shims/es5-shim">es5-shim</a>.</p>
 <h3><a class="anchor" name="polyfills-needed-to-support-older-browsers"></a>Polyfills Needed to Support Older Browsers <a class="hash-link" href="#polyfills-needed-to-support-older-browsers">#</a></h3>
-<p><code>es5-shim.js</code> from <a href="https://github.com/kriskowal/es5-shim">kriskowal&#39;s es5-shim</a> provides the following that React needs:</p>
+<p><code>es5-shim.js</code> from <a href="https://github.com/es-shims/es5-shim">kriskowal&#39;s es5-shim</a> provides the following that React needs:</p>
 
 <ul>
 <li><code>Array.isArray</code></li>
@@ -503,7 +503,7 @@
 <li><code>String.prototype.trim</code></li>
 </ul>
 
-<p><code>es5-sham.js</code>, also from <a href="https://github.com/kriskowal/es5-shim">kriskowal&#39;s es5-shim</a>, provides the following that React needs:</p>
+<p><code>es5-sham.js</code>, also from <a href="https://github.com/es-shims/es5-shim">kriskowal&#39;s es5-shim</a>, provides the following that React needs:</p>
 
 <ul>
 <li><code>Object.create</code></li>

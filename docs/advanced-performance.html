@@ -357,15 +357,15 @@
           </li>
         
           <li>
-            <a href="/react/tips/dom-event-listeners.html">DOM Event Listeners in a Component</a>
+            <a href="/react/tips/dom-event-listeners-ko-KR.html">컴포넌트에서 DOM 이벤트 리스너</a>
           </li>
         
           <li>
-            <a href="/react/tips/initial-ajax.html">Load Initial Data via AJAX</a>
+            <a href="/react/tips/initial-ajax-ko-KR.html">AJAX를 통해 초기 데이터 읽어오기</a>
           </li>
         
           <li>
-            <a href="/react/tips/false-in-jsx.html">False in JSX</a>
+            <a href="/react/tips/false-in-jsx-ko-KR.html">JSX에서 False</a>
           </li>
         
           <li>
@@ -409,7 +409,7 @@
 <h2><a class="anchor" name="avoiding-reconciling-the-dom"></a>Avoiding reconciling the DOM <a class="hash-link" href="#avoiding-reconciling-the-dom">#</a></h2>
 <p>React makes use of a <em>virtual DOM</em>, which is a descriptor of a DOM subtree rendered in the browser. This parallel representation allows React to avoid creating DOM nodes and accessing existing ones, which is slower than operations on JavaScript objects. When a component&#39;s props or state change, React decides whether an actual DOM update is necessary by constructing a new virtual DOM and comparing it to the old one. Only in the case they are not equal, will React <a href="http://facebook.github.io/react/docs/reconciliation.html">reconcile</a> the DOM, applying as few mutations as possible.</p>
 
-<p>On top of this, React provides a component lifecycle function, <code>shouldComponentUpdate</code>, which is triggered before the re-rendering process starts, giving the developer the ability to short circuit this process. The default implementation of this function returns <code>true</code>, leaving React to perform the update:</p>
+<p>On top of this, React provides a component lifecycle function, <code>shouldComponentUpdate</code>, which is triggered before the re-rendering process starts (virtual DOM comparison and possible eventual DOM reconciliation), giving the developer the ability to short circuit this process. The default implementation of this function returns <code>true</code>, leaving React to perform the update:</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">shouldComponentUpdate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
 <span class="p">}</span>
@@ -428,7 +428,7 @@
 
 <figure><img src="/react/img/docs/should-component-update.png" /></figure>
 
-<p>In the example above, since <code>shouldComponentUpdate</code> returned <code>false</code> for the subtree rooted at C2, React had no need to generate the new virtual DOM, and therefore, it neither needed to reconcile the DOM. Note that React didn&#39;t even had to invoke <code>shouldComponentUpdate</code> on C4 and C5.</p>
+<p>In the example above, since <code>shouldComponentUpdate</code> returned <code>false</code> for the subtree rooted at C2, React had no need to generate the new virtual DOM, and therefore, it neither needed to reconcile the DOM. Note that React didn&#39;t even have to invoke <code>shouldComponentUpdate</code> on C4 and C5.</p>
 
 <p>For C1 and C3 <code>shouldComponentUpdate</code> returned <code>true</code>, so React had to go down to the leaves and check them. For C6 it returned <code>true</code>; since the virtual DOMs weren&#39;t equivalent it had to reconcile the DOM.
 The last interesting case is C8. For this node React had to compute the virtual DOM, but since it was equal to the old one, it didn&#39;t have to reconcile it&#39;s DOM.</p>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>AJAX를 통해 초기 데이터 읽어오기 | React</title>
+  <meta name="viewport" content="width=device-width">
+  <meta property="og:title" content="AJAX를 통해 초기 데이터 읽어오기 | React">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://facebook.github.io/react/tips/initial-ajax-ko-KR.html">
+  <meta property="og:image" content="http://facebook.github.io/react/img/logo_og.png">
+  <meta property="og:description" content="A JavaScript library for building user interfaces">
+  <meta property="fb:app_id" content="623268441017527">
+
+  <link rel="shortcut icon" href="/react/favicon.ico">
+  <link rel="alternate" type="application/rss+xml" title="React" href="http://facebook.github.io/react/feed.xml">
+
+  <link rel="stylesheet" href="/react/css/syntax.css">
+  <link rel="stylesheet" href="/react/css/codemirror.css">
+  <link rel="stylesheet" href="/react/css/react.css">
+
+  <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+  <!--[if lte IE 8]>
+  <script type="text/javascript" src="/react/js/html5shiv.min.js"></script>
+  <script type="text/javascript" src="/react/js/es5-shim.min.js"></script>
+  <script type="text/javascript" src="/react/js/es5-sham.min.js"></script>
+  <![endif]-->
+  <script type="text/javascript" src="/react/js/codemirror.js"></script>
+  <script type="text/javascript" src="/react/js/javascript.js"></script>
+  <script type="text/javascript" src="/react/js/react.js"></script>
+  <script type="text/javascript" src="/react/js/JSXTransformer.js"></script>
+  <script type="text/javascript" src="/react/js/live_editor.js"></script>
+  <script type="text/javascript" src="/react/js/showdown.js"></script>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="nav-main">
+      <div class="wrap">
+        <a class="nav-home" href="/react/index.html">
+          <img class="nav-logo" src="/react/img/logo.svg" width="36" height="36">
+          React
+        </a>
+        <ul class="nav-site nav-site-internal">
+          <li><a href="/react/docs/getting-started.html" class="active">Docs</a></li>
+          <li><a href="/react/support.html">Support</a></li>
+          <li><a href="/react/downloads.html">Download</a></li>
+          <li><a href="/react/blog/">Blog</a></li>
+        </ul>
+
+        <ul class="nav-site nav-site-external">
+          <li><a href="https://github.com/facebook/react">GitHub</a>
+          <li><a href="http://facebook.github.io/react-native/">React Native</a>
+        </ul>
+      </div>
+    </div>
+
+    
+
+    <section class="content wrap documentationContent">
+  <div class="nav-docs">
+  <!-- Docs Nav -->
+  
+    <div class="nav-docs-section">
+      <h3>Quick Start</h3>
+      <ul>
+        
+          <li>
+            <a href="/react/docs/getting-started-ko-KR.html">시작해보기</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/tutorial-ko-KR.html">튜토리얼</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/thinking-in-react-ko-KR.html">리액트로 생각해보기</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  
+    <div class="nav-docs-section">
+      <h3>Community Resources</h3>
+      <ul>
+        
+          <li>
+            <a href="/react/docs/conferences-ko-KR.html">컨퍼런스들</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/videos-ko-KR.html">비디오들</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/complementary-tools-ko-KR.html">상호 보완적인 도구들</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/examples-ko-KR.html">예제들</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  
+    <div class="nav-docs-section">
+      <h3>Guides</h3>
+      <ul>
+        
+          <li>
+            <a href="/react/docs/why-react-ko-KR.html">왜 React인가?</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/displaying-data-ko-KR.html">데이터를 표시하기</a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="/react/docs/jsx-in-depth-ko-KR.html">JSX 깊이보기</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/jsx-spread-ko-KR.html">JSX 스프레드 어트리뷰트</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/jsx-gotchas-ko-KR.html">JSX Gotchas</a>
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/interactivity-and-dynamic-uis-ko-KR.html">상호 작용 및 동적 UI</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/multiple-components-ko-KR.html">복합 컴포넌트</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/reusable-components-ko-KR.html">재사용가능한 컴포넌트</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/transferring-props-ko-KR.html">Props 전달</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/forms-ko-KR.html">폼</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/working-with-the-browser-ko-KR.html">브라우저에서의 동작</a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="/react/docs/more-about-refs-ko-KR.html">refs 심화</a>
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/tooling-integration-ko-KR.html">툴 통합</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/addons-ko-KR.html">애드온</a>
+            
+              <ul>
+                
+                  <li>
+                    <a href="/react/docs/animation-ko-KR.html">애니메이션</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/two-way-binding-helpers-ko-KR.html">양방향 바인딩 핼퍼</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/class-name-manipulation-ko-KR.html">클래스 이름 조작</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/test-utils-ko-KR.html">테스트 유틸리티</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/clone-with-props-ko-KR.html">ReactElement 클론하기</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/create-fragment-ko-KR.html">키가 할당된 프래그먼트</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/update-ko-KR.html">불변성 헬퍼들</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/pure-render-mixin-ko-KR.html">PureRenderMixin</a>
+                  </li>
+                
+                  <li>
+                    <a href="/react/docs/perf-ko-KR.html">성능 도구</a>
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/advanced-performance-ko-KR.html">성능 심화</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  
+    <div class="nav-docs-section">
+      <h3>Reference</h3>
+      <ul>
+        
+          <li>
+            <a href="/react/docs/top-level-api-ko-KR.html">최상위 API</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/component-api-ko-KR.html">컴포넌트 API</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/component-specs-ko-KR.html">컴포넌트 명세와 생명주기</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/tags-and-attributes-ko-KR.html">태그와 어트리뷰트</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/events-ko-KR.html">이벤트 시스템</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/dom-differences-ko-KR.html">DOM과의 차이점</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/special-non-dom-attributes-ko-KR.html">DOM이 아닌 특별한 어트리뷰트</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/reconciliation-ko-KR.html">비교조정</a>
+            
+          </li>
+        
+          <li>
+            <a href="/react/docs/glossary-ko-KR.html">React (가상) DOM 용어</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  
+    <div class="nav-docs-section">
+      <h3>Flux</h3>
+      <ul>
+        
+          <li>
+            <a href="http://facebook.github.io/flux/docs/overview.html">Flux Overview</a>
+            
+          </li>
+        
+          <li>
+            <a href="http://facebook.github.io/flux/docs/todo-list.html">Flux TodoMVC Tutorial</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  
+
+  <!-- Tips Nav -->
+  
+    <div class="nav-docs-section">
+      <h3>Tips</h3>
+      <ul>
+        
+          <li>
+            <a href="/react/tips/introduction-ko-KR.html">개요</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/inline-styles-ko-KR.html">인라인 스타일</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/if-else-in-JSX-ko-KR.html">JSX에서 If-Else</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/self-closing-tag-ko-KR.html">자기 자신을 닫는 태그</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/maximum-number-of-jsx-root-nodes-ko-KR.html">JSX 루트 노드의 최대 갯수</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/style-props-value-px-ko-KR.html">스타일 속성에서 특정 픽셀 값 넣는 간단한 방법</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/children-props-type-ko-KR.html">자식 속성들의 타입</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/controlled-input-null-value-ko-KR.html">제어되는 input 내의 null 값</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/componentWillReceiveProps-not-triggered-after-mounting-ko-KR.html">마운트 후에는 componentWillReceiveProps가 실행되지 않음</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/props-in-getInitialState-as-anti-pattern-ko-KR.html">getInitialState의 Props는 안티패턴</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/dom-event-listeners-ko-KR.html">컴포넌트에서 DOM 이벤트 리스너</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/initial-ajax-ko-KR.html" class="active">AJAX를 통해 초기 데이터 읽어오기</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/false-in-jsx-ko-KR.html">JSX에서 False</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/communicate-between-components-ko-KR.html">컴포넌트간의 통신</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/expose-component-functions-ko-KR.html">컴포넌트 함수 드러내기</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/references-to-components-ko-KR.html">컴포넌트 참조</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/children-undefined-ko-KR.html">정의되지 않은 this.props.children</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/use-react-with-other-libraries-ko-KR.html">React와 다른 라이브러리를 함께 사용하기</a>
+          </li>
+        
+          <li>
+            <a href="/react/tips/dangerously-set-inner-html.html">Dangerously Set innerHTML</a>
+          </li>
+        
+      </ul>
+    </div>
+  
+</div>
+
+
+  <div class="inner-content">
+    <h1>AJAX를 통해 초기 데이터 읽어오기</h1>
+    <div class="subHeader"></div>
+    <p><code>componentDidMount</code>에서 데이터를 가져옵니다. 응답이 올 때 데이터가 state에 저장되고 렌더링을 시작하여 UI를 갱신합니다.</p>
+
+<p>비동기 요청의 응답을 처리하여 state를 변경하기 전에, 컴포넌트가 여전히 마운트되었는지를 확인하기 위해 <code>this.isMounted()</code>를 사용합니다.</p>
+
+<p>이 예제는 희망하는 Github 사용자의 최근 gist를 가져옵니다.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">UserGist</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+      <span class="nx">lastGistUrl</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
+    <span class="p">};</span>
+  <span class="p">},</span>
+
+  <span class="nx">componentDidMount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">source</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">lastGist</span> <span class="o">=</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isMounted</span><span class="p">())</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+          <span class="nx">username</span><span class="o">:</span> <span class="nx">lastGist</span><span class="p">.</span><span class="nx">owner</span><span class="p">.</span><span class="nx">login</span><span class="p">,</span>
+          <span class="nx">lastGistUrl</span><span class="o">:</span> <span class="nx">lastGist</span><span class="p">.</span><span class="nx">html_url</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+  <span class="p">},</span>
+
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">username</span><span class="p">}</span><span class="err">&#39;</span><span class="nx">s</span> <span class="nx">last</span> <span class="nx">gist</span> <span class="nx">is</span>
+        <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">lastGistUrl</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">here</span><span class="o">&lt;</span><span class="err">/a&gt;.</span>
+      <span class="o">&lt;</span><span class="err">/div&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">UserGist</span> <span class="nx">source</span><span class="o">=</span><span class="s2">&quot;https://api.github.com/users/octocat/gists&quot;</span> <span class="o">/&gt;</span><span class="p">,</span>
+  <span class="nx">mountNode</span>
+<span class="p">);</span>
+</code></pre></div>
+
+    <div class="docs-prevnext">
+      
+        <a class="docs-prev" href="/react/tips/dom-event-listeners-ko-KR.html">&larr; Prev</a>
+      
+      
+        <a class="docs-next" href="/react/tips/false-in-jsx-ko-KR.html">Next &rarr;</a>
+      
+    </div>
+  </div>
+</section>
+
+
+    <footer class="wrap">
+      <div class="left">
+        A Facebook &amp; Instagram collaboration.<br>
+        <a href="/react/acknowledgements.html">Acknowledgements</a>
+      </div>
+      <div class="right">
+        &copy; 2013&ndash;2015 Facebook Inc.<br>
+        Documentation licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+      </div>
+    </footer>
+  </div>
+  <div id="fb-root"></div>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-41298772-1', 'facebook.github.io');
+    ga('send', 'pageview');
+
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=623268441017527";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+</body>
+</html>

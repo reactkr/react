@@ -357,15 +357,15 @@
           </li>
         
           <li>
-            <a href="/react/tips/dom-event-listeners.html">DOM Event Listeners in a Component</a>
+            <a href="/react/tips/dom-event-listeners-ko-KR.html">컴포넌트에서 DOM 이벤트 리스너</a>
           </li>
         
           <li>
-            <a href="/react/tips/initial-ajax.html">Load Initial Data via AJAX</a>
+            <a href="/react/tips/initial-ajax-ko-KR.html">AJAX를 통해 초기 데이터 읽어오기</a>
           </li>
         
           <li>
-            <a href="/react/tips/false-in-jsx.html">False in JSX</a>
+            <a href="/react/tips/false-in-jsx-ko-KR.html">JSX에서 False</a>
           </li>
         
           <li>
@@ -456,7 +456,7 @@ names like <code>className</code> and <code>htmlFor</code>, respectively.</p>
   <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">Profile</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;click&quot;</span><span class="p">)</span>
 <span class="p">);</span>
 </code></pre></div>
-<p>JSX will infer the class&#39;s <a href="/react/docs/component-specs.html#displayName">displayName</a> from the variable assignment when the displayName is undefined:</p>
+<p>JSX will infer the class&#39;s <a href="/react/docs/component-specs.html#displayname">displayName</a> from the variable assignment when the displayName is undefined:</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// Input (JSX):</span>
 <span class="kd">var</span> <span class="nx">Nav</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span> <span class="p">});</span>
 <span class="c1">// Output (JS):</span>
@@ -473,7 +473,7 @@ JSX.</p>
 <p>Note:</p>
 
 <p>The JSX expression always evaluates to a ReactElement. The actual
-implementation details may vary. An optimized mode could inline the 
+implementation details may vary. An optimized mode could inline the
 ReactElement as an object literal to bypass the validation code in
 <code>React.createElement</code>.</p>
 </blockquote>
@@ -515,9 +515,9 @@ ReactElement as an object literal to bypass the validation code in
 </code></pre></div>
 <p>JSX will handle this properly when compiling your code.</p>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">(</span>
-  <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">Form</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> 
-    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">Form</span><span class="p">.</span><span class="nx">Row</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> 
-      <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">Form</span><span class="p">.</span><span class="nx">Label</span><span class="p">,</span> <span class="kc">null</span><span class="p">),</span> 
+  <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">Form</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">Form</span><span class="p">.</span><span class="nx">Row</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">Form</span><span class="p">.</span><span class="nx">Label</span><span class="p">,</span> <span class="kc">null</span><span class="p">),</span>
       <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">Form</span><span class="p">.</span><span class="nx">Input</span><span class="p">,</span> <span class="kc">null</span><span class="p">)</span>
     <span class="p">)</span>
   <span class="p">)</span>
