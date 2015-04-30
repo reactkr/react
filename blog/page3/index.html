@@ -8,13 +8,13 @@
   <meta name="viewport" content="width=device-width">
   <meta property="og:title" content="Blog | React">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://facebook.github.io/react/blog/page3/index.html">
-  <meta property="og:image" content="http://facebook.github.io/react/img/logo_og.png">
+  <meta property="og:url" content="https://facebook.github.io/react/blog/page3/index.html">
+  <meta property="og:image" content="https://facebook.github.io/react/img/logo_og.png">
   <meta property="og:description" content="A JavaScript library for building user interfaces">
   <meta property="fb:app_id" content="623268441017527">
 
   <link rel="shortcut icon" href="/react/favicon.ico">
-  <link rel="alternate" type="application/rss+xml" title="React" href="http://facebook.github.io/react/feed.xml">
+  <link rel="alternate" type="application/rss+xml" title="React" href="https://facebook.github.io/react/feed.xml">
 
   <link rel="stylesheet" href="/react/css/syntax.css">
   <link rel="stylesheet" href="/react/css/codemirror.css">
@@ -33,7 +33,6 @@
   <script type="text/javascript" src="/react/js/react.js"></script>
   <script type="text/javascript" src="/react/js/JSXTransformer.js"></script>
   <script type="text/javascript" src="/react/js/live_editor.js"></script>
-  <script type="text/javascript" src="/react/js/showdown.js"></script>
 </head>
 <body>
 
@@ -54,7 +53,7 @@
 
         <ul class="nav-site nav-site-external">
           <li><a href="https://github.com/facebook/react">GitHub</a>
-          <li><a href="http://facebook.github.io/react-native/">React Native</a>
+          <li><a href="https://facebook.github.io/react-native/">React Native</a>
         </ul>
       </div>
     </div>
@@ -66,6 +65,10 @@
   <div class="nav-docs-section">
     <h3>Recent posts</h3>
     <ul>
+      
+        <li><a href="/react/blog/2015/04/18/react-v0.13.2.html">React v0.13.2</a></li>
+      
+        <li><a href="/react/blog/2015/04/17/react-native-v0.4.html">React Native v0.4</a></li>
       
         <li><a href="/react/blog/2015/03/30/community-roundup-26.html">Community Round-up #26</a></li>
       
@@ -83,16 +86,225 @@
       
         <li><a href="/react/blog/2015/02/24/react-v0.13-rc1.html">React v0.13 RC</a></li>
       
-        <li><a href="/react/blog/2015/02/24/streamlining-react-elements.html">Streamlining React Elements</a></li>
-      
-        <li><a href="/react/blog/2015/02/20/introducing-relay-and-graphql.html">Introducing Relay and GraphQL</a></li>
-      
       <li><a href="/react/blog/all.html">All posts ...</a></li>
     </ul>
   </div>
 </div>
 
   <div class="inner-content">
+    
+      <div class="post-list-item">
+        <h1><a href="/react/blog/2015/02/24/streamlining-react-elements.html">Streamlining React Elements</a></h1>
+        <p class="meta">February 24, 2015 by Sebastian Markbåge</p>
+        <hr />
+        <div class="post">
+         <p>React v0.13 is right around the corner and so we wanted to discuss some upcoming changes to ReactElement. In particular, we added several warnings to some esoteric use cases of ReactElement. There are no runtime behavior changes for ReactElement - we&#39;re adding these warnings in the hope that we can change some behavior in v0.14 if the changes are valuable to the community.</p>
+
+<p>If you use React in an idiomatic way, chances are, you’ll never see any of these warnings. In that case, you can skip this blog post. You can just enjoy the benefits! These changes will unlock simplified semantics, better error messages, stack traces and compiler optimizations!</p>
+<h2><a class="anchor" name="immutable-props"></a>Immutable Props <a class="hash-link" href="#immutable-props">#</a></h2>
+<p>In React 0.12, the props object was mutable. It allows you to do patterns like this:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">Foo</span> <span class="nx">bar</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">shouldUseFoo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">element</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="nx">element</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The problem is that we don’t have a convenient way to tell when you’re done mutating.</p>
+<h3><a class="anchor" name="problem-mutating-props-you-dont-own"></a>Problem: Mutating Props You Don’t Own <a class="hash-link" href="#problem-mutating-props-you-dont-own">#</a></h3>
+<p>If you mutate something, you destroy the original value. Therefore, there is nothing to diff against. Imagine something like this:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">child</span><span class="p">;</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span>
+<span class="k">return</span> <span class="nx">element</span><span class="p">;</span>
+</code></pre></div>
+<p>You take a ReactElement through <code>props.child</code> and mutate its property before rendering it. If this component&#39;s state updates, this render function won&#39;t actually get a new ReactElement in <code>props.child</code>. It will be the same one. You&#39;re mutating the same props.</p>
+
+<p>You could imagine that this would work. However, this disables the ability for any component to use <code>shouldComponentUpdate</code>. It looks like the component never changed because the previous value is always the same as the next one. Since the DOM layer does diffing, this pattern doesn&#39;t even work in this case. The change will never propagate down to the DOM except the first time.</p>
+
+<p>Additionally, if this element is reused in other places or used to switch back and forth between two modes, then you have all kinds of weird race conditions.</p>
+
+<p>It has always been broken to mutate the props of something passed into you. The problem is that we can’t warn you about this special case if you accidentally do this.</p>
+<h3><a class="anchor" name="problem-too-late-validation"></a>Problem: Too Late Validation <a class="hash-link" href="#problem-too-late-validation">#</a></h3>
+<p>In React 0.12, we do PropType validation very deep inside React during mounting. This means that by the time you get an error, the debugger stack is long gone. This makes it difficult to find complex issues during debugging. We have to do this since it is fairly common for extra props to be added between the call to React.createElement and the mount time. So the type is incomplete until then.</p>
+
+<p>The static analysis in Flow is also impaired by this. There is no convenient place in the code where Flow can determine that the props are finalized.</p>
+<h3><a class="anchor" name="solution-immutable-props"></a>Solution: Immutable Props <a class="hash-link" href="#solution-immutable-props">#</a></h3>
+<p>Therefore, we would like to be able to freeze the element.props object so that it is immediately immutable at the JSX callsite (or createElement). In React 0.13 we will start warning you if you mutate <code>element.props</code> after this point.</p>
+
+<p>You can generally refactor these pattern to simply use two different JSX calls:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">if</span> <span class="p">(</span><span class="nx">shouldUseFoo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Foo</span> <span class="nx">foo</span><span class="o">=</span><span class="p">{</span><span class="mi">10</span><span class="p">}</span> <span class="nx">bar</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Foo</span> <span class="nx">bar</span><span class="o">=</span><span class="p">{</span><span class="kc">false</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>However, if you really need to dynamically build up your props you can just use a temporary object and spread it into JSX:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">props</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">bar</span><span class="o">:</span> <span class="kc">false</span> <span class="p">};</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">shouldUseFoo</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">props</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="nx">props</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="o">&lt;</span><span class="nx">Foo</span> <span class="p">{...</span><span class="nx">props</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>It is still OK to do deep mutations of objects. E.g:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">return</span> <span class="o">&lt;</span><span class="nx">Foo</span> <span class="nx">nestedObject</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">myModel</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>In this case it&#39;s still ok to mutate the myModel object in state. We recommend that you use fully immutable models. E.g. by using immutable-js. However, we realize that mutable models are still convenient in many cases. Therefore we&#39;re only considering shallow freezing the props object that belongs to the ReactElement itself. Not nested objects.</p>
+<h3><a class="anchor" name="solution-early-proptype-warnings"></a>Solution: Early PropType Warnings <a class="hash-link" href="#solution-early-proptype-warnings">#</a></h3>
+<p>We will also start warning you for PropTypes at the JSX or createElement callsite. This will help debugging as you’ll have the stack trace right there. Similarly, Flow also validates PropTypes at this callsite.</p>
+
+<p>Note: There are valid patterns that clones a ReactElement and adds additional props to it. In that case these additional props needs to be optional.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">element1</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">Foo</span> <span class="o">/&gt;</span><span class="p">;</span> <span class="c1">// extra prop is optional</span>
+<span class="kd">var</span> <span class="nx">element2</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">addons</span><span class="p">.</span><span class="nx">cloneWithProps</span><span class="p">(</span><span class="nx">element1</span><span class="p">,</span> <span class="p">{</span> <span class="nx">extra</span><span class="o">:</span> <span class="s1">&#39;prop&#39;</span> <span class="p">});</span>
+</code></pre></div><h2><a class="anchor" name="owner"></a>Owner <a class="hash-link" href="#owner">#</a></h2>
+<p>In React each child has both a &quot;parent&quot; and an “owner”. The owner is the component that created a ReactElement. I.e. the render method which contains the JSX or createElement callsite.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">Foo</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="o">/&gt;&lt;</span><span class="err">/div&gt;;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In this example, the owner of the <code>span</code> is <code>Foo</code> but the parent is the <code>div</code>.</p>
+
+<p>There is also an undocumented feature called &quot;context&quot; that also relies on the concept of an “owner” to pass hidden props down the tree.</p>
+<h3><a class="anchor" name="problem-the-semantics-are-opaque-and-confusing"></a>Problem: The Semantics are Opaque and Confusing <a class="hash-link" href="#problem-the-semantics-are-opaque-and-confusing">#</a></h3>
+<p>The problem is that these are hidden artifacts attached to the ReactElement. In fact, you probably didn’t even know about it. It silently changes semantics. Take this for example:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="kr">class</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">bar</span> <span class="o">?</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span> <span class="o">/&gt;</span> <span class="o">:</span> <span class="nx">foo</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>These two inputs have different owners, therefore React will not keep its state when the conditional switches. There is nothing in the code to indicate that. Similarly, if you use <code>React.addons.cloneWithProps</code>, the owner changes.</p>
+<h3><a class="anchor" name="problem-timing-matters"></a>Problem: Timing Matters <a class="hash-link" href="#problem-timing-matters">#</a></h3>
+<p>The owner is tracked by the currently executing stack. This means that the semantics of a ReactElement varies depending on when it is executed. Take this example:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kr">class</span> <span class="nx">A</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">B</span> <span class="nx">renderer</span><span class="o">=</span><span class="p">{</span><span class="nx">text</span> <span class="o">=&gt;</span> <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">text</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/span&gt;} /</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="kr">class</span> <span class="nx">B</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">renderer</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The owner of the <code>span</code> is actually <code>B</code>, not <code>A</code> because of the timing of the callback. This all adds complexity and suffers from similar problems as mutation.</p>
+<h3><a class="anchor" name="problem-it-couples-jsx-to-react"></a>Problem: It Couples JSX to React <a class="hash-link" href="#problem-it-couples-jsx-to-react">#</a></h3>
+<p>Have you wondered why JSX depends on React? Couldn’t the transpiler have that built-in to its runtime? The reason you need to have <code>React.createElement</code> in scope is because we depend on internal state of React to capture the current &quot;owner&quot;. Without this, you wouldn’t need to have React in scope.</p>
+<h3><a class="anchor" name="solution-make-context-parent-based-instead-of-owner-based"></a>Solution: Make Context Parent-Based Instead of Owner-Based <a class="hash-link" href="#solution-make-context-parent-based-instead-of-owner-based">#</a></h3>
+<p>The first thing we’re doing is warning you if you’re using the &quot;owner&quot; feature in a way that relies on it propagating through owners. Instead, we’re planning on propagating it through parents to its children. In almost all cases, this shouldn’t matter. In fact, parent-based contexts is simply a superset.</p>
+<h3><a class="anchor" name="solution-remove-the-semantic-implications-of-owner"></a>Solution: Remove the Semantic Implications of Owner <a class="hash-link" href="#solution-remove-the-semantic-implications-of-owner">#</a></h3>
+<p>It turns out that there are very few cases where owners are actually important part of state-semantics. As a precaution, we’ll warn you if it turns out that the owner is important to determine state. In almost every case this shouldn’t matter. Unless you’re doing some weird optimizations, you shouldn’t see this warning.</p>
+<h3><a class="anchor" name="pending-change-the-refs-semantics"></a>Pending: Change the refs Semantics <a class="hash-link" href="#pending-change-the-refs-semantics">#</a></h3>
+<p>Refs are still based on &quot;owner&quot;. We haven’t fully solved this special case just yet.</p>
+
+<p>In 0.13 we introduced a new callback-refs API that doesn’t suffer from these problems but we’ll keep on a nice declarative alternative to the current semantics for refs. As always, we won’t deprecate something until we’re sure that you’ll have a nice upgrade path.</p>
+<h2><a class="anchor" name="keyed-objects-as-maps"></a>Keyed Objects as Maps <a class="hash-link" href="#keyed-objects-as-maps">#</a></h2>
+<p>In React 0.12, and earlier, you could use keyed objects to provide an external key to an element or a set. This pattern isn’t actually widely used. It shouldn’t be an issue for most of you.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">span</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">span</span> <span class="o">/&gt;</span><span class="p">}</span> <span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+</code></pre></div><h3><a class="anchor" name="problem-relies-on-enumeration-order"></a>Problem: Relies on Enumeration Order <a class="hash-link" href="#problem-relies-on-enumeration-order">#</a></h3>
+<p>The problem with this pattern is that it relies on enumeration order of objects. This is technically unspecified, even though implementations now agree to use insertion order. Except for the special case when numeric keys are used.</p>
+<h3><a class="anchor" name="problem-using-objects-as-maps-is-bad"></a>Problem: Using Objects as Maps is Bad <a class="hash-link" href="#problem-using-objects-as-maps-is-bad">#</a></h3>
+<p>It is generally accepted that using objects as maps screw up type systems, VM optimizations, compilers etc. It is much better to use a dedicated data structure like ES6 Maps.</p>
+
+<p>More importantly, this can have important security implications. For example this has a potential security problem:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">children</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">items</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="nx">children</span><span class="p">[</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">span</span> <span class="o">/&gt;</span><span class="p">);</span>
+<span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+</code></pre></div>
+<p>Imagine if <code>item.title === &#39;__proto__&#39;</code> for example.</p>
+<h3><a class="anchor" name="problem-cant-be-differentiated-from-arbitrary-objects"></a>Problem: Can’t be Differentiated from Arbitrary Objects <a class="hash-link" href="#problem-cant-be-differentiated-from-arbitrary-objects">#</a></h3>
+<p>Since these objects can have any keys with almost any value, we can’t differentiate them from a mistake. If you put some random object, we will try our best to traverse it and render it, instead of failing with a helpful warning. In fact, this is one of the few places where you can accidentally get an infinite loop in React.</p>
+
+<p>To differentiate ReactElements from one of these objects, we have to tag them with <code>_isReactElement</code>. This is another issue preventing us from inlining ReactElements as simple object literals.</p>
+<h3><a class="anchor" name="solution-just-use-an-array-and-key"></a>Solution: Just use an Array and key={…} <a class="hash-link" href="#solution-just-use-an-array-and-key">#</a></h3>
+<p>Most of the time you can just use an array with keyed ReactElements.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">children</span> <span class="o">=</span> <span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+</code></pre></div><h3><a class="anchor" name="solution-react.addons.createfragment"></a>Solution: React.addons.createFragment <a class="hash-link" href="#solution-react.addons.createfragment">#</a></h3>
+<p>However, this is not always possible if you’re trying to add a prefix key to an unknown set (e.g. this.props.children). It is also not always the easiest upgrade path. Therefore, we are adding a helper to <code>React.addons</code> called <code>createFragment()</code>. This accepts a keyed object and returns an opaque type.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">React</span><span class="p">.</span><span class="nx">addons</span><span class="p">.</span><span class="nx">createFragment</span><span class="p">({</span> <span class="nx">a</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span> <span class="p">})}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+</code></pre></div>
+<p>The exact signature of this kind of fragment will be determined later. It will likely be some kind of immutable sequence.</p>
+
+<p>Note: This will still not be valid as the direct return value of <code>render()</code>. Unfortunately, they still need to be wrapped in a <code>&lt;div /&gt;</code> or some other element.</p>
+<h2><a class="anchor" name="compiler-optimizations-unlocked"></a>Compiler Optimizations: Unlocked! <a class="hash-link" href="#compiler-optimizations-unlocked">#</a></h2>
+<p>These changes also unlock several possible compiler optimizations for static content in React 0.14. These optimizations were previously only available to template-based frameworks. They will now also be possible for React code! Both for JSX and <code>React.createElement/Factory</code>*!</p>
+
+<p>See these GitHub Issues for a deep dive into compiler optimizations:</p>
+
+<ul>
+<li><a href="https://github.com/facebook/react/issues/3226">Reuse Constant Value Types</a></li>
+<li><a href="https://github.com/facebook/react/issues/3227">Tagging ReactElements</a></li>
+<li><a href="https://github.com/facebook/react/issues/3228">Inline ReactElements</a></li>
+</ul>
+
+<p>* If you use the recommended pattern of explicit React.createFactory calls on the consumer side - since they are easily statically analyzed.</p>
+<h2><a class="anchor" name="rationale"></a>Rationale <a class="hash-link" href="#rationale">#</a></h2>
+<p>I thought that these changes were particularly important because the mere existence of these patterns means that even components that DON’T use these patterns have to pay the price. There are other problematic patterns such as mutating state, but they’re at least localized to a component subtree so they don’t harm the ecosystem.</p>
+
+<p>As always, we’d love to hear your feedback and if you have any trouble upgrading, please let us know.</p>
+
+        </div>
+      </div>
+    
+      <div class="post-list-item">
+        <h1><a href="/react/blog/2015/02/20/introducing-relay-and-graphql.html">Introducing Relay and GraphQL</a></h1>
+        <p class="meta">February 20, 2015 by Greg Hurrell</p>
+        <hr />
+        <div class="post">
+         <h2><a class="anchor" name="data-fetching-for-react-applications"></a>Data fetching for React applications <a class="hash-link" href="#data-fetching-for-react-applications">#</a></h2>
+<p>There&#39;s more to building an application than creating a user interface. Data fetching is still a tricky problem, especially as applications become more complicated. At <a href="http://conf.reactjs.com/">React.js Conf</a> we announced two projects we&#39;ve created at Facebook to make data fetching simple for developers, even as a product grows to include dozens of contributors and the application becomes as complex as Facebook itself.</p>
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/9sc8Pyc51uU" frameborder="0" allowfullscreen></iframe>
+
+<p>The two projects &mdash; Relay and GraphQL &mdash; have been in use in production at Facebook for some time, and we&#39;re excited to be bringing them to the world as open source in the future. In the meantime, we wanted to share some additional information about the projects here.</p>
+
+<script async class="speakerdeck-embed" data-id="7af7c2f33bf9451a892dcd91de55b7c2" data-ratio="1.29456384323641" src="//speakerdeck.com/assets/embed.js"></script>
+<h2><a class="anchor" name="what-is-relay"></a>What is Relay? <a class="hash-link" href="#what-is-relay">#</a></h2>
+<p>Relay is a new framework from Facebook that provides data-fetching functionality for React applications. It was announced at React.js Conf (January 2015).</p>
+
+<p>Each component specifies its own data dependencies declaratively using a query language called GraphQL. The data is made available to the component via properties on <code>this.props</code>.</p>
+
+<p>Developers compose these React components naturally, and Relay takes care of composing the data queries into efficient batches, providing each component with exactly the data that it requested (and no more), updating those components when the data changes, and maintaining a client-side store (cache) of all data.</p>
+<h2><a class="anchor" name="what-is-graphql"></a>What is GraphQL? <a class="hash-link" href="#what-is-graphql">#</a></h2>
+<p>GraphQL is a data querying language designed to describe the complex, nested data dependencies of modern applications. It&#39;s been in production use in Facebook&#39;s native apps for several years.</p>
+
+<p>On the server, we configure the GraphQL system to map queries to underlying data-fetching code. This configuration layer allows GraphQL to work with arbitrary underlying storage mechanisms. Relay uses GraphQL as its query language, but it is not tied to a specific implementation of GraphQL.</p>
+<h2><a class="anchor" name="the-value-proposition"></a>The value proposition <a class="hash-link" href="#the-value-proposition">#</a></h2>
+<p>Relay was born out of our experiences building large applications at Facebook. Our overarching goal is to enable developers to create correct, high-performance applications in a straightforward and obvious way. The design enables even large teams to make changes with a high degree of isolation and confidence. Fetching data is hard, dealing with ever-changing data is hard, and performance is hard. Relay aims to reduce these problems to simple ones, moving the tricky bits into the framework and freeing you to concentrate on building your application.</p>
+
+<p>By co-locating the queries with the view code, the developer can reason about what a component is doing by looking at it in isolation; it&#39;s not necessary to consider the context where the component was rendered in order to understand it. Components can be moved anywhere in a render hierarchy without having to apply a cascade of modifications to parent components or to the server code which prepares the data payload.</p>
+
+<p>Co-location leads developers to fall into the &quot;pit of success&quot;, because they get exactly the data they asked for and the data they asked for is explicitly defined right next to where it is used. This means that performance becomes the default (it becomes much harder to accidentally over-fetch), and components are more robust (under-fetching is also less likely for the same reason, so components won&#39;t try to render missing data and blow up at runtime).</p>
+
+<p>Relay provides a predictable environment for developers by maintaining an invariant: a component won&#39;t be rendered until all the data it requested is available. Additionally, queries are defined statically (ie. we can extract queries from a component tree before rendering) and the GraphQL schema provides an authoritative description of what queries are valid, so we can validate queries early and fail fast when the developer makes a mistake.</p>
+
+<p>Only the fields of an object that a component explicitly asks for will be accessible to that component, even if other fields are known and cached in the store (because another component requested them). This makes it impossible for implicit data dependency bugs to exist latently in the system.</p>
+
+<p>By handling all data-fetching via a single abstraction, we&#39;re able to handle a bunch of things that would otherwise have to be dealt with repeatedly and pervasively across the application:</p>
+
+<ul>
+<li><strong>Performance:</strong> All queries flow through the framework code, where things that would otherwise be inefficient, repeated query patterns get automatically collapsed and batched into efficient, minimal queries. Likewise, the framework knows which data have been previously requested, or for which requests are currently &quot;in flight&quot;, so queries can be automatically de-duplicated and the minimal queries can be produced.</li>
+<li><strong>Subscriptions:</strong> All data flows into a single store, and all reads from the store are via the framework. This means the framework knows which components care about which data and which should be re-rendered when data changes; components never have to set up individual subscriptions.</li>
+<li><strong>Common patterns:</strong> We can make common patterns easy. Pagination is the example that <a href="https://twitter.com/jingc">Jing</a> gave at the conference: if you have 10 records initially, getting the next page just means declaring you want 15 records in total, and the framework automatically constructs the minimal query to grab the delta between what you have and what you need, requests it, and re-renders your view when the data become available.</li>
+<li><strong>Simplified server implementation:</strong> Rather than having a proliferation of end-points (per action, per route), a single GraphQL endpoint can serve as a facade for any number of underlying resources.</li>
+<li><strong>Uniform mutations:</strong> There is one consistent pattern for performing mutations (writes), and it is conceptually baked into the data querying model itself. You can think of a mutation as a query with side-effects: you provide some parameters that describe the change to be made (eg. attaching a comment to a record) and a query that specifies the data you&#39;ll need to update your view of the world after the mutation completes (eg. the comment count on the record), and the data flows through the system using the normal flow. We can do an immediate &quot;optimistic&quot; update on the client (ie. update the view under the assumption that the write will succeed), and finally commit it, retry it or roll it back in the event of an error when the server payload comes back.</li>
+</ul>
+<h2><a class="anchor" name="how-does-it-relate-to-flux"></a>How does it relate to Flux? <a class="hash-link" href="#how-does-it-relate-to-flux">#</a></h2>
+<p>In some ways Relay is inspired by Flux, but the mental model is much simpler. Instead of multiple stores, there is one central store that caches all GraphQL data. Instead of explicit subscriptions, the framework itself can track which data each component requests, and which components should be updated whenever the data change. Instead of actions, modifications take the form of mutations.</p>
+
+<p>At Facebook, we have apps built entirely using Flux, entirely using Relay, or with both. One pattern we see emerging is letting Relay manage the bulk of the data flow for an application, but using Flux stores on the side to handle a subset of application state.</p>
+<h2><a class="anchor" name="open-source-plans"></a>Open source plans <a class="hash-link" href="#open-source-plans">#</a></h2>
+<p>We&#39;re working very hard right now on getting both GraphQL (a spec, and a reference implementation) and Relay ready for public release (no specific dates yet, but we are super excited about getting these out there).</p>
+
+<p>In the meantime, we&#39;ll be providing more and more information in the form of blog posts (and in <a href="https://gist.github.com/wincent/598fa75e22bdfa44cf47">other channels</a>). As we get closer to the open source release, you can expect more concrete details, syntax and API descriptions and more.</p>
+
+<p>Watch this space!</p>
+
+        </div>
+      </div>
     
       <div class="post-list-item">
         <h1><a href="/react/blog/2015/02/18/react-conf-roundup-2015.html">React.js Conf Round-up 2015</a></h1>
@@ -109,7 +321,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/KVZ-P-ZI6W4" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/KVZ-P-ZI6W4" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -121,7 +333,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/yaymfLj5tjA" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/yaymfLj5tjA" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -133,7 +345,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/OZGgVxFxSIs" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/OZGgVxFxSIs" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -145,7 +357,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/9sc8Pyc51uU" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/9sc8Pyc51uU" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -157,7 +369,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/W2DgDNQZOwo" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/W2DgDNQZOwo" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -169,7 +381,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/XZfvW1a8Xac" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/XZfvW1a8Xac" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -181,7 +393,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/KtmjkCuV-EU" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/KtmjkCuV-EU" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -189,11 +401,11 @@
   <div class="skinny-col">
     <h3 style="margin-top:0"><a class="anchor" name="talk-performance"></a>High-performance <a class="hash-link" href="#talk-performance">#</a></h3>
     <p>
-      <strong>Jason Bonta</strong> showed us how complex user interfaces can get, and how his team keeps them performant as they scale. He also had the pleasure of open-sourcing his team’s work on <a href="http://facebook.github.io/fixed-data-table/">FixedDataTable</a>.
+      <strong>Jason Bonta</strong> showed us how complex user interfaces can get, and how his team keeps them performant as they scale. He also had the pleasure of open-sourcing his team’s work on <a href="https://facebook.github.io/fixed-data-table/">FixedDataTable</a>.
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/KYzlpRvWZ6c" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/KYzlpRvWZ6c" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -205,7 +417,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/Sla-DkvmIHY" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/Sla-DkvmIHY" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -217,7 +429,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/z5e7kWSHWTg" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/z5e7kWSHWTg" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -229,7 +441,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/7rDsRXj9-cU" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/7rDsRXj9-cU" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -241,7 +453,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/g0TD0efcwVg" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/g0TD0efcwVg" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -253,7 +465,7 @@
     </p>
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/I7IdS-PbEgI" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/I7IdS-PbEgI" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -264,7 +476,7 @@
       <strong>Jafar Husain</strong> told us a story about how Netflix was able to push React into places where the DOM could not go.
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/eNC0mRYGWgc" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/eNC0mRYGWgc" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -275,7 +487,7 @@
       <strong>Zach Nation</strong> showed us how we can produce visualizations from over 45 million data points without breaking a sweat.
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/2ii1lEkIv1s" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/2ii1lEkIv1s" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -286,7 +498,7 @@
       <strong>David Nolen</strong> gave us a view of React from a non-JavaScript perspective, challenging some common intuition along the way.
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/5hGHdETNteE" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/5hGHdETNteE" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -297,7 +509,7 @@
       <strong>Bill Fisher</strong> coordinated a Flux panel together with <strong>Michael Ridgway</strong>, <strong>Spike Brehm</strong>, <strong>Andres Suarez</strong>, <strong>Jing Chen</strong>, <strong>Ian Obermiller</strong>, and <strong>Kyle Davis</strong>.
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/LTj4O7WJJ98" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/LTj4O7WJJ98" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -308,7 +520,7 @@
       <strong>Bonnie Eisenman</strong> led us through the ‘adapter’ approach to inter-component communication taken by her team at Codecademy.
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/ZM6wXoFTY3o" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/ZM6wXoFTY3o" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -319,7 +531,7 @@
       <strong>James Brantly</strong> demonstrated how we can reap the benefits of static typing using both Flow and TypeScript.
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/9PTa9-PPVAc" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/9PTa9-PPVAc" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 
@@ -330,7 +542,7 @@
       <strong>Tom Occhino</strong>, <strong>Ben Alpert</strong>, <strong>Lee Byron</strong>, <strong>Christopher Chedeau</strong>, <strong>Sebastian Markbåge</strong>, <strong>Jing Chen</strong>, and <strong>Dan Schafer</strong> closed the conference with a Q&amp;A session.
   </div>
   <div class="skinny-col">
-    <iframe width="305" height="171" src="https://www.youtube.com/embed/EPpkboSKvPI" frameborder="0" allowfullscreen></iframe>
+    <iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/EPpkboSKvPI" frameborder="0" allowfullscreen></iframe>
   </div>
 </div>
 <h2><a class="anchor" name="reactions"></a>Reactions <a class="hash-link" href="#reactions">#</a></h2>
@@ -358,7 +570,7 @@
 
 <p><strong>All proceeds from React.js Conf 2015 were donated to the wonderful programs at <a href="http://code.org">code.org</a></strong>. These programs aim to increase access to the field of computer science by underrepresented members of our community. Watch this video to learn more.</p>
 
-<iframe width="305" height="171" src="https://www.youtube.com/embed/FC5FbmsH4fw" frameborder="0" allowfullscreen></iframe>
+<iframe width="305" height="171" src="https://www.youtube-nocookie.com/embed/FC5FbmsH4fw" frameborder="0" allowfullscreen></iframe>
 
         </div>
       </div>
@@ -512,7 +724,7 @@
 
 <p>The Diversity Team at Facebook is excited to announce that we are now accepting applications for the React.js Conf scholarship!</p>
 
-<p>Beginning today, those studying or working in computer science or a related field can apply for an all-expense paid scholarship to attend the React.js Conf at Facebook’s Headquarters in Menlo Park, CA on January 28 &amp; 29, 2015. React opens a world of new possibilities such as server-side rendering, real-time updates, different rendering targets like SVG and canvas. Join us at React.js Conf to shape the future of client-side applications! For more information about the React.js conference, please see the <a href="http://conf.reactjs.com/">website</a> and <a href="http://facebook.github.io/react/blog/2014/10/27/react-js-conf.html">previous</a> <a href="http://facebook.github.io/react/blog/2014/11/24/react-js-conf-updates.html">updates</a> on our blog.</p>
+<p>Beginning today, those studying or working in computer science or a related field can apply for an all-expense paid scholarship to attend the React.js Conf at Facebook’s Headquarters in Menlo Park, CA on January 28 &amp; 29, 2015. React opens a world of new possibilities such as server-side rendering, real-time updates, different rendering targets like SVG and canvas. Join us at React.js Conf to shape the future of client-side applications! For more information about the React.js conference, please see the <a href="http://conf.reactjs.com/">website</a> and <a href="/react/blog/2014/10/27/react-js-conf.html">previous</a> <a href="/react/blog/2014/11/24/react-js-conf-updates.html">updates</a> on our blog.</p>
 
 <p>At Facebook, we believe that anyone anywhere can make a positive impact by developing products to make the world more open and connected to the people and things they care about. Given the current realities of the tech industry and the lack of representation of communities we seek to serve, applicants currently under-represented in Computer Science and related fields are strongly encouraged to apply.
 Facebook will make determinations on scholarship recipients in its sole discretion. Facebook complies with all equal opportunity laws.</p>
@@ -536,127 +748,6 @@ Facebook will make determinations on scholarship recipients in its sole discreti
 <li>International applicants are welcome, but you will be responsible for securing your own visa to attend the conference</li>
 <li>You must be available to attend the full duration of React.js conf on January 28 and 29 at Facebook Headquarters in Menlo Park</li>
 </ul>
-
-        </div>
-      </div>
-    
-      <div class="post-list-item">
-        <h1><a href="/react/blog/2014/12/18/react-v0.12.2.html">React v0.12.2</a></h1>
-        <p class="meta">December 18, 2014 by Paul O’Shannessy</p>
-        <hr />
-        <div class="post">
-         <p>We just shipped React v0.12.2, bringing the 0.12 branch up to date with a few small fixes that landed in master over the past 2 months.</p>
-
-<p>You may have noticed that we did not do an announcement for v0.12.1. That release was snuck out in anticipation of <a href="http://flowtype.org/">Flow</a>, with only transform-related changes. Namely we added a flag to the <code>jsx</code> executable which allowed you to safely transform Flow-based code to vanilla JS. If you didn&#39;t update for that release, you can safely skip it and move directly to v0.12.2.</p>
-
-<p>The release is available for download from the CDN:</p>
-
-<ul>
-<li><strong>React</strong><br>
-Dev build with warnings: <a href="http://fb.me/react-0.12.2.js">http://fb.me/react-0.12.2.js</a><br>
-Minified build for production: <a href="http://fb.me/react-0.12.2.min.js">http://fb.me/react-0.12.2.min.js</a><br></li>
-<li><strong>React with Add-Ons</strong><br>
-Dev build with warnings: <a href="http://fb.me/react-with-addons-0.12.2.js">http://fb.me/react-with-addons-0.12.2.js</a><br>
-Minified build for production: <a href="http://fb.me/react-with-addons-0.12.2.min.js">http://fb.me/react-with-addons-0.12.2.min.js</a><br></li>
-<li><strong>In-Browser JSX transformer</strong><br>
-<a href="http://fb.me/JSXTransformer-0.12.2.js">http://fb.me/JSXTransformer-0.12.2.js</a></li>
-</ul>
-
-<p>We&#39;ve also published version <code>0.12.2</code> of the <code>react</code> and <code>react-tools</code> packages on npm and the <code>react</code> package on bower. <code>0.12.1</code> is also available in the same locations if need those.</p>
-
-<p>Please try these builds out and <a href="https://github.com/facebook/react/issues/new">file an issue on GitHub</a> if you see anything awry.</p>
-<h2><a class="anchor" name="changelog"></a>Changelog <a class="hash-link" href="#changelog">#</a></h2><h3><a class="anchor" name="react-core"></a>React Core <a class="hash-link" href="#react-core">#</a></h3>
-<ul>
-<li>Added support for more HTML attributes: <code>formAction</code>, <code>formEncType</code>, <code>formMethod</code>, <code>formTarget</code>, <code>marginHeight</code>, <code>marginWidth</code></li>
-<li>Added <code>strokeOpacity</code> to the list of unitless CSS properties</li>
-<li>Removed trailing commas (allows npm module to be bundled and used in IE8)</li>
-<li>Fixed bug resulting in error when passing <code>undefined</code> to <code>React.createElement</code> - now there is a useful warning</li>
-</ul>
-<h3><a class="anchor" name="react-tools"></a>React Tools <a class="hash-link" href="#react-tools">#</a></h3>
-<ul>
-<li>JSX-related transforms now always use double quotes for props and <code>displayName</code></li>
-</ul>
-
-        </div>
-      </div>
-    
-      <div class="post-list-item">
-        <h1><a href="/react/blog/2014/11/25/community-roundup-24.html">Community Round-up #24</a></h1>
-        <p class="meta">November 25, 2014 by Steven Luscher</p>
-        <hr />
-        <div class="post">
-         <h2><a class="anchor" name="keep-it-simple"></a>Keep it Simple <a class="hash-link" href="#keep-it-simple">#</a></h2>
-<p>Pedro Nauck (<a href="https://github.com/pedronauck">pedronauck</a>) delivered an impeccably illustrated deck at Brazil&#39;s <em>Front in Floripa</em> conference. Watch him talk about how to keep delivering value as your app scales, by keeping your development process simple.</p>
-
-<script async class="speakerdeck-embed" data-id="44129b9054c901328b89221e99b278fe" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
-
-<p>Murilo Pereira (<a href="https://github.com/mpereira">mpereira</a>) tussles with the topic of complexity in this blog post about <a href="http://www.techsonian.net/2014/09/from-backbone-to-react-our-experience-scaling-a-web-application/">coping with scaling up</a>, where he describes how his team used React to make possible the “nearly impossible.”</p>
-
-<p>I (<a href="https://github.com/steveluscher">steveluscher</a>) spoke at Manning Publications&#39; “Powered By JavaScript” Strangeloop pre-conf in St. Louis. There, I proposed a new notation to talk about development complexity – Big-Coffee Notation ☕(n) – and spoke about the features of React that help keep our Big-Coffee from going quadratic, as our user interfaces get more complex.</p>
-
-<iframe width="560" height="315" src="//www.youtube.com/embed/rI0GQc__0SM" frameborder="0" allowfullscreen></iframe>
-
-<p>James Pearce (<a href="https://github.com/jamesgpearce">jamesgpearce</a>) carried Big-Coffee all the way to Raleigh, NC. At the <em>All Things Open</em> conference, he spoke about some of the design decisions that went into React, particularly those that lend themselves to simpler, more reliable code.</p>
-
-<iframe width="560" height="315" src="//www.youtube.com/embed/m2fuO2wl_3c" frameborder="0" allowfullscreen></iframe>
-<h2><a class="anchor" name="all-about-isomorphism"></a>All About Isomorphism <a class="hash-link" href="#all-about-isomorphism">#</a></h2>
-<p>Michael Ridgway (<a href="https://github.com/mridgway">mridgway</a>) shows us how Yahoo! (who recently <a href="http://www.slideshare.net/rmsguhan/react-meetup-mailonreact">moved Yahoo! Mail to React</a>) renders their React+Flux application, server-side.</p>
-
-<script async class="speakerdeck-embed" data-id="87ecaa3048750132f42542ffc18c6fcf" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
-
-<p>Péter Márton (<a href="https://github.com/hekike">hekike</a>) helps us brew a cold one (literally) using an application that&#39;s server-client <a href="http://blog.risingstack.com/from-angularjs-to-react-the-isomorphic-way/">isomorphic and indexable</a>. Demo and sample code included – cold ones sold separately.</p>
-
-<p>And, lest you think that client-server isomorphism exists in pursuit of crawalable, indexable HTML alone, watch as Nate Hunzaker (<a href="https://github.com/nhunzaker">nhunzaker</a>) <a href="http://viget.com/extend/visualization-is-for-sharing-using-react-for-portable-data-visualization">server renders data visualizations as SVG</a> with React.</p>
-<h2><a class="anchor" name="react-router-mows-the-lawn"></a>React Router Mows the Lawn <a class="hash-link" href="#react-router-mows-the-lawn">#</a></h2>
-<p>Ryan Florence (<a href="https://github.com/rpflorence%5D">rpflorence</a>) and Michael Jackson (<a href="https://github.com/mjackson">mjackson</a>) unveiled a new API for <a href="https://github.com/rackt/react-router">React Router</a> that solves some of its user&#39;s problems by eliminating the problems themselves. Read all about what React Router learned from its community of users, and how they&#39;ve <a href="https://github.com/rackt/react-router/wiki/Announcements">rolled your ideas into their latest release</a>.</p>
-<h2><a class="anchor" name="react-in-practice"></a>React in Practice <a class="hash-link" href="#react-in-practice">#</a></h2>
-<p>Jonathan Beebe (<a href="https://github.com/somethingkindawierd">somethingkindawierd</a>) spoke about how he uses React to build tools that deliver hope to those trying to make the best of a bad situation. Watch his talk from this year&#39;s <em>Nodevember</em> conference in Nashville</p>
-
-<iframe width="420" height="315" src="//www.youtube.com/embed/uZgAq1CZ1N8" frameborder="0" allowfullscreen></iframe>
-
-<p>If you take a peek under the covers, you&#39;ll find that React powers <a href="https://blog.carousel.com/2014/11/introducing-carousel-for-web-ipad-and-android-tablet/">Carousel</a>, Dropbox&#39;s new photo and video gallery app.</p>
-
-<p>We enjoyed a cinematic/narrative experience with this React-powered, interactive story by British author William Boyd. Dive into “<a href="https://thevanishinggame.wellstoried.com">The Vanishing Game</a>” and see for yourself.</p>
-<h2><a class="anchor" name="be-kind-rewind"></a>Be Kind, Rewind <a class="hash-link" href="#be-kind-rewind">#</a></h2>
-<p>Spend the next 60 seconds watching Daniel Woelfel (<a href="https://github.com/dwwoelfel">dwwoelfel</a>) serialize a React app&#39;s state as a string, then deserialize it to produce a working UI. Read about how he uses this technique to <a href="http://blog.circleci.com/local-state-global-concerns/">reproduce bugs</a> reported to him by his users.</p>
-
-<iframe width="420" height="315" src="//www.youtube.com/embed/5yHFTN-_mOo" frameborder="0" allowfullscreen></iframe>
-<h2><a class="anchor" name="community-components"></a>Community Components <a class="hash-link" href="#community-components">#</a></h2>
-<p>Tom Chen (<a href="https://github.com/tomchentw">tomchentw</a>) brings us a <a href="http://tomchentw.github.io/react-google-maps/">react-google-maps</a> component, and a way to syntax highlight source code using Prism and the <a href="http://tomchentw.github.io/react-prism/">react-prism</a> component, for good measure.</p>
-
-<p>Jed Watson (<a href="https://github.com/JedWatson">jedwatson</a>) helps you manage touch, tap, and press events using the <a href="https://github.com/JedWatson/react-tappable">react-tappable</a> component.</p>
-
-<p>To find these, and more community-built components, consult the <a href="http://react-components.com/">React Components</a> and <a href="http://react.rocks">React Rocks</a> component directories. React Rocks recently exceeded one-hundred listed components and counting. See one missing? Add the keyword <code>react-component</code> to your <code>package.json</code> to get listed on React Components, and <a href="https://docs.google.com/forms/d/1TpnwJmLcmmGj-_TI68upu_bKBViYeiKx7Aj9uKmV6wY/viewform">submit a link to React Rocks</a>.</p>
-<h2><a class="anchor" name="waiter-theres-a-css-in-my-javascript"></a>Waiter, There&#39;s a CSS In My JavaScript <a class="hash-link" href="#waiter-theres-a-css-in-my-javascript">#</a></h2>
-<p>The internet is abuzz with talk of styling React components using JavaScript instead of CSS. Christopher Chedeau (<a href="https://github.com/vjeux">vjeux</a>) talks about some of the <a href="https://speakerdeck.com/vjeux/react-css-in-js">fundamental style management challenges</a> we grapple with, at Facebook scale. A number of implementations of JavaScript centric style management solutions have appeared in the wild, including the React-focused <a href="https://github.com/js-next/react-style">react-style</a>.</p>
-<h2><a class="anchor" name="test-isolation"></a>Test Isolation <a class="hash-link" href="#test-isolation">#</a></h2>
-<p>Yahoo! shows us how they make use of <code>iframe</code> elements to <a href="http://yahooeng.tumblr.com/post/102274727496/to-testutil-or-not-to-testutil">unit test React components in isolation</a>.</p>
-<h2><a class="anchor" name="youve-got-the-hang-of-flux-now-lets-flow"></a>You&#39;ve Got The Hang of Flux, Now Let&#39;s Flow <a class="hash-link" href="#youve-got-the-hang-of-flux-now-lets-flow">#</a></h2>
-<p>Facebook Open Source released <a href="https://code.facebook.com/posts/1505962329687926/flow-a-new-static-type-checker-for-javascript/">Flow</a> this month – a static type checker for JavaScript. Naturally, Flow supports JSX, and you can use it to <a href="https://code.facebook.com/posts/1505962329687926/flow-a-new-static-type-checker-for-javascript/#compatibility">type check React applications</a>. There&#39;s never been a better reason to start making use of <code>propTypes</code> in your component specifications!</p>
-<h2><a class="anchor" name="countdown-to-react.js-conf-2014"></a>Countdown to React.js Conf 2014 <a class="hash-link" href="#countdown-to-react.js-conf-2014">#</a></h2>
-<p>We&#39;re counting down the days until <a href="http://conf.reactjs.com">React.js Conf</a> at Facebook&#39;s headquarters in Menlo Park, California, on January 28th &amp; 29th, 2015. Thank you, to everyone who responded to the Call for Presenters. Mark the dates; tickets go on sale in three waves: at noon PST on November 28th, December 5th, and December 12th, 2014.</p>
-<h2><a class="anchor" name="react-meetups-around-the-world"></a>React Meetups Around the World <a class="hash-link" href="#react-meetups-around-the-world">#</a></h2>
-<blockquote class="twitter-tweet" lang="en"><p>React JS meetup having pretty good turn up rate today <a href="https://twitter.com/hashtag/londonreact?src=hash">#londonreact</a> <a href="http://t.co/c360dlVVAe">pic.twitter.com/c360dlVVAe</a></p>&mdash; Alexander Savin (@karismafilms) <a href="https://twitter.com/karismafilms/status/535152580377468928">November 19, 2014</a></blockquote>
-
-<div class="skinny-row">
-  <div class="skinny-col">
-    <blockquote class="twitter-tweet" lang="en"><p>60+ attendees at the second React.js Utah meetup. <a href="https://twitter.com/ryanflorence">@ryanflorence</a> doing a great job, even without the internet. <a href="http://t.co/fV59AQTOyu">pic.twitter.com/fV59AQTOyu</a></p>&mdash; ReactJS Utah (@reactjsutah) <a href="https://twitter.com/reactjsutah/status/527259410020573184">October 29, 2014</a></blockquote>
-  </div>
-  <div class="skinny-col">
-    <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/hashtag/ReactJS?src=hash">#ReactJS</a> meetup at <a href="https://twitter.com/Yahoo">@Yahoo</a> ! History of <a href="https://twitter.com/yahoomail">@yahoomail</a> and why we chose react and NodeJS <a href="http://t.co/Nm4EdTv45G">pic.twitter.com/Nm4EdTv45G</a></p>&mdash; rmsguhan (@rmsguhan) <a href="https://twitter.com/rmsguhan/status/515370950427029504">September 26, 2014</a></blockquote>
-  </div>
-</div>
-
-<div class="skinny-row">
-  <div class="skinny-col">
-    <blockquote class="twitter-tweet" data-cards="hidden" lang="en"><p>The very first ReactJS meetup in NYC tonight, I&#39;ll be speaking about the big ideas behind Om <a href="http://t.co/dvPrFqE9eP">http://t.co/dvPrFqE9eP</a></p>&mdash; David Nolen (@swannodette) <a href="https://twitter.com/swannodette/status/532190993463128064">November 11, 2014</a></blockquote>
-  </div>
-  <div class="skinny-col">
-    <blockquote class="twitter-tweet" lang="en"><p>If anyone in Sydney is curious about <a href="https://twitter.com/reactjs">@reactjs</a>, I&#39;m presenting at <a href="https://twitter.com/sydjs">@sydjs</a> tonight on how to use it and why it is the future. <a href="https://twitter.com/hashtag/javascript?src=hash">#javascript</a></p>&mdash; Jed Watson (@JedWatson) <a href="https://twitter.com/JedWatson/status/534943557568565248">November 19, 2014</a></blockquote>
-  </div>
-</div>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
         </div>
       </div>

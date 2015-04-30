@@ -8,13 +8,13 @@
   <meta name="viewport" content="width=device-width">
   <meta property="og:title" content="브라우저에서의 동작 | React">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://facebook.github.io/react/docs/working-with-the-browser-ko-KR.html">
-  <meta property="og:image" content="http://facebook.github.io/react/img/logo_og.png">
+  <meta property="og:url" content="https://facebook.github.io/react/docs/working-with-the-browser-ko-KR.html">
+  <meta property="og:image" content="https://facebook.github.io/react/img/logo_og.png">
   <meta property="og:description" content="A JavaScript library for building user interfaces">
   <meta property="fb:app_id" content="623268441017527">
 
   <link rel="shortcut icon" href="/react/favicon.ico">
-  <link rel="alternate" type="application/rss+xml" title="React" href="http://facebook.github.io/react/feed.xml">
+  <link rel="alternate" type="application/rss+xml" title="React" href="https://facebook.github.io/react/feed.xml">
 
   <link rel="stylesheet" href="/react/css/syntax.css">
   <link rel="stylesheet" href="/react/css/codemirror.css">
@@ -33,7 +33,6 @@
   <script type="text/javascript" src="/react/js/react.js"></script>
   <script type="text/javascript" src="/react/js/JSXTransformer.js"></script>
   <script type="text/javascript" src="/react/js/live_editor.js"></script>
-  <script type="text/javascript" src="/react/js/showdown.js"></script>
 </head>
 <body>
 
@@ -54,7 +53,7 @@
 
         <ul class="nav-site nav-site-external">
           <li><a href="https://github.com/facebook/react">GitHub</a>
-          <li><a href="http://facebook.github.io/react-native/">React Native</a>
+          <li><a href="https://facebook.github.io/react-native/">React Native</a>
         </ul>
       </div>
     </div>
@@ -389,7 +388,7 @@
           </li>
         
           <li>
-            <a href="/react/tips/dangerously-set-inner-html.html">Dangerously Set innerHTML</a>
+            <a href="/react/tips/dangerously-set-inner-html-ko-KR.html">Dangerously Set innerHTML</a>
           </li>
         
       </ul>
@@ -487,9 +486,9 @@
 <h2><a class="anchor" name="--polyfill"></a>브라우저 지원과 Polyfill <a class="hash-link" href="#--polyfill">#</a></h2>
 <p>페이스북에서 우리는 IE8을 포함한 구식 브라우저를 지원합니다. 미래지향적인 JS를 작성할 수 있도록 우리는 polyfill을 오랫동안 써왔습니다. 이는 우리의 코드베이스에 구식 브라우저를 위한 코드뭉치를 흩뿌려 놓을 필요가 없으며 그럼에도 우리의 코드가 &quot;잘 작동&quot;할 것이라 예상할 수 있음을 의미합니다. 예를 들어, <code>+new Date()</code> 대신에 그냥 <code>Date.now()</code>를 사용할 수 있습니다. 오픈소스 React는 우리가 내부에서 사용하는것과 동일하기 때문에, 우리는 이를 통해 미래지향적인 JS를 사용하는 철학을 전달했습니다.</p>
 
-<p>그 철학에 더하여, 우리는 또한 JS 라이브러리의 저자로서 polyfill을 라이브러리에 포함해서 배포하지 않습니다. 만약 모든 라이브러리가 이런 짓을 하면, 같은 polyfill을 여러 번 내리게 되어 쓸모없이 크기만 차지하는 죽은 코드들을 만들 것 입니다. 당신의 제품이 구식 브라우저를 지원해야한다면, <a href="https://github.com/kriskowal/es5-shim">es5-shim</a> 같은 녀석을 사용할 기회가 있었을 겁니다.</p>
+<p>그 철학에 더하여, 우리는 또한 JS 라이브러리의 저자로서 polyfill을 라이브러리에 포함해서 배포하지 않습니다. 만약 모든 라이브러리가 이런 짓을 하면, 같은 polyfill을 여러 번 내리게 되어 쓸모없이 크기만 차지하는 죽은 코드들을 만들 것 입니다. 당신의 제품이 구식 브라우저를 지원해야한다면, <a href="https://github.com/es-shims/es5-shim">es5-shim</a> 같은 녀석을 사용할 기회가 있었을 겁니다.</p>
 <h3><a class="anchor" name="polyfill-----"></a>Polyfill은 구식 브라우저를 지원하기 위해 필요하다 <a class="hash-link" href="#polyfill-----">#</a></h3>
-<p><a href="https://github.com/kriskowal/es5-shim">kriskowal&#39;s es5-shim</a>의 <code>es5-shim.js</code>는 React에 필요한 다음의 기능을 제공합니다:</p>
+<p><a href="https://github.com/es-shims/es5-shim">kriskowal&#39;s es5-shim</a>의 <code>es5-shim.js</code>는 React에 필요한 다음의 기능을 제공합니다:</p>
 
 <ul>
 <li><code>Array.isArray</code></li>
