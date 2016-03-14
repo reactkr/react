@@ -462,7 +462,7 @@ describe('ReactDOMSelect', function() {
     expect(node.options[2].selected).toBe(false);  // gorilla
   });
 
-  it('should throw warning message if value is null', function() {
+  it('should warn if value is null', function() {
     spyOn(console, 'error');
 
     ReactTestUtils.renderIntoDocument(<select value={null}><option value="test"/></select>);
@@ -489,5 +489,52 @@ describe('ReactDOMSelect', function() {
     ReactTestUtils.Simulate.change(node);
 
     expect(node.value).toBe('giraffe');
+  });
+
+  it('should warn if value and defaultValue props are specified', function() {
+    spyOn(console, 'error');
+    ReactTestUtils.renderIntoDocument(
+      <select value="giraffe" defaultValue="giraffe" readOnly={true}>
+        <option value="monkey">A monkey!</option>
+        <option value="giraffe">A giraffe!</option>
+        <option value="gorilla">A gorilla!</option>
+      </select>
+    );
+    expect(console.error.argsForCall[0][0]).toContain(
+      'Select elements must be either controlled or uncontrolled ' +
+      '(specify either the value prop, or the defaultValue prop, but not ' +
+      'both). Decide between using a controlled or uncontrolled select ' +
+      'element and remove one of these props. More info: ' +
+      'https://fb.me/react-controlled-components'
+    );
+
+    ReactTestUtils.renderIntoDocument(
+      <select value="giraffe" defaultValue="giraffe" readOnly={true}>
+        <option value="monkey">A monkey!</option>
+        <option value="giraffe">A giraffe!</option>
+        <option value="gorilla">A gorilla!</option>
+      </select>
+    );
+    expect(console.error.argsForCall.length).toBe(1);
+  });
+
+  it('should be able to safely remove select onChange', function() {
+    function changeView() {
+      ReactDOM.unmountComponentAtNode(container);
+    }
+
+    var container = document.createElement('div');
+    var stub =
+      <select value="giraffe" onChange={changeView}>
+        <option value="monkey">A monkey!</option>
+        <option value="giraffe">A giraffe!</option>
+        <option value="gorilla">A gorilla!</option>
+      </select>;
+    stub = ReactDOM.render(stub, container);
+    var node = ReactDOM.findDOMNode(stub);
+
+    expect(() => ReactTestUtils.Simulate.change(node)).not.toThrow(
+      "Cannot set property 'pendingUpdate' of null"
+    );
   });
 });

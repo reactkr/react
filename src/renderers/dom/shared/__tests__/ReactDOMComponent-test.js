@@ -188,7 +188,7 @@ describe('ReactDOMComponent', function() {
       expect(console.error.calls.length).toBe(2);
     });
 
-    it('should warn semi-nicely about NaN in style', function() {
+    it('should warn nicely about NaN in style', function() {
       spyOn(console, 'error');
 
       var style = {fontSize: NaN};
@@ -198,10 +198,7 @@ describe('ReactDOMComponent', function() {
 
       expect(console.error.argsForCall.length).toBe(1);
       expect(console.error.argsForCall[0][0]).toEqual(
-        'Warning: `span` was passed a style object that has previously been ' +
-        'mutated. Mutating `style` is deprecated. Consider cloning it ' +
-        'beforehand. Check the `render` using <span>. Previous style: ' +
-        '{fontSize: NaN}. Mutated style: {fontSize: NaN}.'
+        'Warning: `NaN` is an invalid value for the `fontSize` css style property',
       );
     });
 
@@ -258,75 +255,6 @@ describe('ReactDOMComponent', function() {
       expect(container.firstChild.hasAttribute('height')).toBe(true);
       ReactDOM.render(<img />, container);
       expect(container.firstChild.hasAttribute('height')).toBe(false);
-    });
-
-    it('should remove known SVG camel case attributes', function() {
-      var container = document.createElement('div');
-      ReactDOM.render(<svg viewBox="0 0 100 100" />, container);
-
-      expect(container.firstChild.hasAttribute('viewBox')).toBe(true);
-      ReactDOM.render(<svg />, container);
-      expect(container.firstChild.hasAttribute('viewBox')).toBe(false);
-    });
-
-    it('should remove known SVG hyphenated attributes', function() {
-      var container = document.createElement('div');
-      ReactDOM.render(<svg clip-path="0 0 100 100" />, container);
-
-      expect(container.firstChild.hasAttribute('clip-path')).toBe(true);
-      ReactDOM.render(<svg />, container);
-      expect(container.firstChild.hasAttribute('clip-path')).toBe(false);
-    });
-
-    it('should remove arbitrary SVG hyphenated attributes', function() {
-      var container = document.createElement('div');
-      ReactDOM.render(<svg the-word="the-bird" />, container);
-
-      expect(container.firstChild.hasAttribute('the-word')).toBe(true);
-      ReactDOM.render(<svg />, container);
-      expect(container.firstChild.hasAttribute('the-word')).toBe(false);
-    });
-
-    it('should remove arbitrary SVG camel case attributes', function() {
-      var container = document.createElement('div');
-      ReactDOM.render(<svg theWord="theBird" />, container);
-
-      expect(container.firstChild.hasAttribute('theWord')).toBe(true);
-      ReactDOM.render(<svg />, container);
-      expect(container.firstChild.hasAttribute('theWord')).toBe(false);
-    });
-
-    it('should remove SVG attributes that should have been hyphenated', function() {
-      spyOn(console, 'error');
-      var container = document.createElement('div');
-      ReactDOM.render(<svg clipPath="0 0 100 100" />, container);
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toContain('clipPath');
-      expect(console.error.argsForCall[0][0]).toContain('clip-path');
-
-      expect(container.firstChild.hasAttribute('clip-path')).toBe(true);
-      ReactDOM.render(<svg />, container);
-      expect(container.firstChild.hasAttribute('clip-path')).toBe(false);
-    });
-
-    it('should remove namespaced SVG attributes', function() {
-      var container = document.createElement('div');
-      ReactDOM.render(
-        <svg>
-          <image xlinkHref="http://i.imgur.com/w7GCRPb.png" />
-        </svg>,
-        container
-      );
-
-      expect(container.firstChild.firstChild.hasAttributeNS(
-        'http://www.w3.org/1999/xlink',
-        'href'
-      )).toBe(true);
-      ReactDOM.render(<svg><image /></svg>, container);
-      expect(container.firstChild.firstChild.hasAttributeNS(
-        'http://www.w3.org/1999/xlink',
-        'href'
-      )).toBe(false);
     });
 
     it('should remove properties', function() {
@@ -398,99 +326,6 @@ describe('ReactDOMComponent', function() {
       ReactDOM.render(afterUpdate, container);
 
       expect(container.childNodes[0].getAttribute('myattr')).toBe('myval');
-    });
-
-    it('should update known hyphenated attributes for SVG tags', function() {
-      var container = document.createElement('div');
-
-      var beforeUpdate = <svg />;
-      ReactDOM.render(beforeUpdate, container);
-
-      var afterUpdate = <svg clip-path="url(#starlet)" />;
-      ReactDOM.render(afterUpdate, container);
-
-      expect(container.childNodes[0].getAttribute('clip-path')).toBe(
-        'url(#starlet)'
-      );
-    });
-
-    it('should update camel case attributes for SVG tags', function() {
-      var container = document.createElement('div');
-
-      var beforeUpdate = <svg />;
-      ReactDOM.render(beforeUpdate, container);
-
-      var afterUpdate = <svg viewBox="0 0 100 100" />;
-      ReactDOM.render(afterUpdate, container);
-
-      expect(container.childNodes[0].getAttribute('viewBox')).toBe(
-        '0 0 100 100'
-      );
-    });
-
-    it('should warn camel casing hyphenated attributes for SVG tags', function() {
-      spyOn(console, 'error');
-      var container = document.createElement('div');
-
-      var beforeUpdate = <svg />;
-      ReactDOM.render(beforeUpdate, container);
-
-      var afterUpdate = <svg clipPath="url(#starlet)" />;
-      ReactDOM.render(afterUpdate, container);
-
-      expect(container.childNodes[0].getAttribute('clip-path')).toBe(
-        'url(#starlet)'
-      );
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toContain('clipPath');
-      expect(console.error.argsForCall[0][0]).toContain('clip-path');
-    });
-
-    it('should update arbitrary hyphenated attributes for SVG tags', function() {
-      var container = document.createElement('div');
-
-      var beforeUpdate = <svg />;
-      ReactDOM.render(beforeUpdate, container);
-
-      var afterUpdate = <svg the-word="the-bird" />;
-      ReactDOM.render(afterUpdate, container);
-
-      expect(container.childNodes[0].getAttribute('the-word')).toBe('the-bird');
-    });
-
-    it('should update arbitrary camel case attributes for SVG tags', function() {
-      var container = document.createElement('div');
-
-      var beforeUpdate = <svg />;
-      ReactDOM.render(beforeUpdate, container);
-
-      var afterUpdate = <svg theWord="theBird" />;
-      ReactDOM.render(afterUpdate, container);
-
-      expect(container.childNodes[0].getAttribute('theWord')).toBe('theBird');
-    });
-
-    it('should update namespaced SVG attributes', function() {
-      var container = document.createElement('div');
-
-      var beforeUpdate = (
-        <svg>
-          <image xlinkHref="http://i.imgur.com/w7GCRPb.png" />
-        </svg>
-      );
-      ReactDOM.render(beforeUpdate, container);
-
-      var afterUpdate = (
-        <svg>
-          <image xlinkHref="http://i.imgur.com/JvqCM2p.png" />
-        </svg>
-      );
-      ReactDOM.render(afterUpdate, container);
-
-      expect(container.firstChild.firstChild.getAttributeNS(
-        'http://www.w3.org/1999/xlink',
-        'href'
-      )).toBe('http://i.imgur.com/JvqCM2p.png');
     });
 
     it('should clear all the styles when removing `style`', function() {
@@ -573,7 +408,45 @@ describe('ReactDOMComponent', function() {
       expect(container.textContent).toEqual('bonjour');
     });
 
-    it('should not incur unnecessary DOM mutations', function() {
+    it('should not incur unnecessary DOM mutations for attributes', function() {
+      var container = document.createElement('div');
+      ReactDOM.render(<div id="" />, container);
+
+      var node = container.firstChild;
+      var nodeSetAttribute = node.setAttribute;
+      node.setAttribute = jest.genMockFn();
+      node.setAttribute.mockImpl(nodeSetAttribute);
+
+      var nodeRemoveAttribute = node.removeAttribute;
+      node.removeAttribute = jest.genMockFn();
+      node.removeAttribute.mockImpl(nodeRemoveAttribute);
+
+      ReactDOM.render(<div id="" />, container);
+      expect(node.setAttribute.mock.calls.length).toBe(0);
+      expect(node.removeAttribute.mock.calls.length).toBe(0);
+
+      ReactDOM.render(<div id="foo" />, container);
+      expect(node.setAttribute.mock.calls.length).toBe(1);
+      expect(node.removeAttribute.mock.calls.length).toBe(0);
+
+      ReactDOM.render(<div id="foo" />, container);
+      expect(node.setAttribute.mock.calls.length).toBe(1);
+      expect(node.removeAttribute.mock.calls.length).toBe(0);
+
+      ReactDOM.render(<div />, container);
+      expect(node.setAttribute.mock.calls.length).toBe(1);
+      expect(node.removeAttribute.mock.calls.length).toBe(1);
+
+      ReactDOM.render(<div id="" />, container);
+      expect(node.setAttribute.mock.calls.length).toBe(2);
+      expect(node.removeAttribute.mock.calls.length).toBe(1);
+
+      ReactDOM.render(<div />, container);
+      expect(node.setAttribute.mock.calls.length).toBe(2);
+      expect(node.removeAttribute.mock.calls.length).toBe(2);
+    });
+
+    it('should not incur unnecessary DOM mutations for string properties', function() {
       var container = document.createElement('div');
       ReactDOM.render(<div value="" />, container);
 
@@ -592,8 +465,52 @@ describe('ReactDOMComponent', function() {
       ReactDOM.render(<div value="" />, container);
       expect(nodeValueSetter.mock.calls.length).toBe(0);
 
+      ReactDOM.render(<div value="foo" />, container);
+      expect(nodeValueSetter.mock.calls.length).toBe(1);
+
+      ReactDOM.render(<div value="foo" />, container);
+      expect(nodeValueSetter.mock.calls.length).toBe(1);
+
+      ReactDOM.render(<div />, container);
+      expect(nodeValueSetter.mock.calls.length).toBe(2);
+
+      ReactDOM.render(<div value={null} />, container);
+      expect(nodeValueSetter.mock.calls.length).toBe(2);
+
+      ReactDOM.render(<div value="" />, container);
+      expect(nodeValueSetter.mock.calls.length).toBe(2);
+
+      ReactDOM.render(<div />, container);
+      expect(nodeValueSetter.mock.calls.length).toBe(2);
+    });
+
+    it('should not incur unnecessary DOM mutations for boolean properties', function() {
+      var container = document.createElement('div');
+      ReactDOM.render(<div checked={true} />, container);
+
+      var node = container.firstChild;
+      var nodeValue = true;
+      var nodeValueSetter = jest.genMockFn();
+      Object.defineProperty(node, 'checked', {
+        get: function() {
+          return nodeValue;
+        },
+        set: nodeValueSetter.mockImplementation(function(newValue) {
+          nodeValue = newValue;
+        }),
+      });
+
+      ReactDOM.render(<div checked={true} />, container);
+      expect(nodeValueSetter.mock.calls.length).toBe(0);
+
       ReactDOM.render(<div />, container);
       expect(nodeValueSetter.mock.calls.length).toBe(1);
+
+      ReactDOM.render(<div checked={false} />, container);
+      expect(nodeValueSetter.mock.calls.length).toBe(2);
+
+      ReactDOM.render(<div checked={true} />, container);
+      expect(nodeValueSetter.mock.calls.length).toBe(3);
     });
 
     it('should ignore attribute whitelist for elements with the "is: attribute', function() {
@@ -767,43 +684,44 @@ describe('ReactDOMComponent', function() {
     });
 
     it('should warn against children for void elements', function() {
-      spyOn(console, 'error');
-
       var container = document.createElement('div');
 
-      ReactDOM.render(<input>children</input>, container);
-
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toContain('void element');
+      expect(function() {
+        ReactDOM.render(<input>children</input>, container);
+      }).toThrow(
+        'input is a void element tag and must not have `children` or ' +
+        'use `props.dangerouslySetInnerHTML`.'
+      );
     });
 
     it('should warn against dangerouslySetInnerHTML for void elements', function() {
-      spyOn(console, 'error');
-
       var container = document.createElement('div');
 
-      ReactDOM.render(
-        <input dangerouslySetInnerHTML={{__html: 'content'}} />,
-        container
+      expect(function() {
+        ReactDOM.render(
+          <input dangerouslySetInnerHTML={{__html: 'content'}} />,
+          container
+        );
+      }).toThrow(
+        'input is a void element tag and must not have `children` or use ' +
+        '`props.dangerouslySetInnerHTML`.'
       );
-
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toContain('void element');
     });
 
     it('should treat menuitem as a void element but still create the closing tag', function() {
-      spyOn(console, 'error');
-
       var container = document.createElement('div');
 
       var returnedValue = ReactDOMServer.renderToString(<menu><menuitem /></menu>);
 
       expect(returnedValue).toContain('</menuitem>');
 
-      ReactDOM.render(<menu><menuitem>children</menuitem></menu>, container);
+      expect(function() {
+        ReactDOM.render(<menu><menuitem>children</menuitem></menu>, container);
+      }).toThrow(
+        'menuitem is a void element tag and must not have `children` or use ' +
+        '`props.dangerouslySetInnerHTML`.'
+      );
 
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toContain('void element');
     });
 
     it('should validate against multiple children props', function() {
@@ -853,6 +771,12 @@ describe('ReactDOMComponent', function() {
       mountComponent({contentEditable: true, children: ''});
       expect(console.error.argsForCall.length).toBe(1);
       expect(console.error.argsForCall[0][0]).toContain('contentEditable');
+    });
+
+    it('should respect suppressContentEditableWarning', function() {
+      spyOn(console, 'error');
+      mountComponent({contentEditable: true, children: '', suppressContentEditableWarning: true});
+      expect(console.error.argsForCall.length).toBe(0);
     });
 
     it('should validate against invalid styles', function() {
@@ -921,17 +845,17 @@ describe('ReactDOMComponent', function() {
     });
 
     it('should warn for children on void elements', function() {
-      spyOn(console, 'error');
       var X = React.createClass({
         render: function() {
           return <input>moo</input>;
         },
       });
+
       var container = document.createElement('div');
-      ReactDOM.render(<X />, container);
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toBe(
-        'Warning: input is a void element tag and must not have `children` ' +
+      expect(function() {
+        ReactDOM.render(<X />, container);
+      }).toThrow(
+        'input is a void element tag and must not have `children` ' +
         'or use `props.dangerouslySetInnerHTML`. Check the render method of X.'
       );
     });
@@ -945,26 +869,28 @@ describe('ReactDOMComponent', function() {
     });
 
     it('should warn against children for void elements', function() {
-      spyOn(console, 'error');
-
       ReactDOM.render(<input />, container);
-      ReactDOM.render(<input>children</input>, container);
 
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toContain('void element');
+      expect(function() {
+        ReactDOM.render(<input>children</input>, container);
+      }).toThrow(
+        'input is a void element tag and must not have `children` or use ' +
+        '`props.dangerouslySetInnerHTML`.'
+      );
     });
 
     it('should warn against dangerouslySetInnerHTML for void elements', function() {
-      spyOn(console, 'error');
-
       ReactDOM.render(<input />, container);
-      ReactDOM.render(
-        <input dangerouslySetInnerHTML={{__html: 'content'}} />,
-        container
-      );
 
-      expect(console.error.argsForCall.length).toBe(1);
-      expect(console.error.argsForCall[0][0]).toContain('void element');
+      expect(function() {
+        ReactDOM.render(
+          <input dangerouslySetInnerHTML={{__html: 'content'}} />,
+          container
+        );
+      }).toThrow(
+        'input is a void element tag and must not have `children` or use ' +
+        '`props.dangerouslySetInnerHTML`.'
+      );
     });
 
     it('should validate against multiple children props', function() {
@@ -1172,8 +1098,8 @@ describe('ReactDOMComponent', function() {
         'match the DOM tree generated by the browser.'
       );
       expect(console.error.argsForCall[1][0]).toBe(
-        'Warning: validateDOMNesting(...): <span> cannot appear as a child ' +
-        'of <table>. See Foo > table > span.'
+        'Warning: validateDOMNesting(...): #text cannot appear as a child ' +
+        'of <table>. See Foo > table > #text.'
       );
     });
 

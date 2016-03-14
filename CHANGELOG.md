@@ -1,3 +1,19 @@
+## 0.14.7 (January 28, 2016)
+
+### React
+- Fixed bug with `<option>` tags when using `dangerouslySetInnerHTML`
+- Fixed memory leak in synthetic event system
+
+### React TestUtils Add-on
+- Fixed bug with calling `setState` in `componentWillMount` when using shallow rendering
+
+
+## 0.14.6 (January 6, 2016)
+
+### React
+- Updated `fbjs` dependency to pick up change affecting handling of undefined document.
+
+
 ## 0.14.5 (December 29, 2015)
 
 ### React

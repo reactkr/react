@@ -201,7 +201,13 @@ describe('ReactTestUtils', function() {
         this.setState({ clicked: true });
       },
       render: function() {
-        return <div ref={() => {}} onClick={this.handleUserClick} className={this.state.clicked ? 'clicked' : ''}></div>;
+        return (
+          <div
+            ref={() => {}}
+            onClick={this.handleUserClick}
+            className={this.state.clicked ? 'clicked' : ''}
+          />
+        );
       },
     });
 
@@ -352,33 +358,6 @@ describe('ReactTestUtils', function() {
     expect(log).toEqual(['orangepurple', 'orange', 'purple']);
   });
 
-  it('does not warn for getDOMNode on ES6 classes', function() {
-    var Foo = React.createClass({
-      render: function() {
-        return <div />;
-      },
-    });
-
-    class Bar extends React.Component {
-      render() {
-        return <div />;
-      }
-    }
-
-    spyOn(console, 'error');
-
-    var foo = ReactTestUtils.renderIntoDocument(<Foo />);
-    expect(ReactTestUtils.isDOMComponent(foo)).toBe(false);
-
-    var bar = ReactTestUtils.renderIntoDocument(<Bar />);
-    expect(ReactTestUtils.isDOMComponent(bar)).toBe(false);
-
-    var div = ReactTestUtils.renderIntoDocument(<div />);
-    expect(ReactTestUtils.isDOMComponent(div)).toBe(true);
-
-    expect(console.error.calls.length).toBe(0);
-  });
-
   it('should support injected wrapper components as DOM components', function() {
     var getTestDocument = require('getTestDocument');
 
@@ -431,15 +410,20 @@ describe('ReactTestUtils', function() {
   });
 
   it('should change the value of an input field', function() {
-    var handler = jasmine.createSpy('spy');
+    var obj = {
+      handler: function(e) {
+        e.persist();
+      },
+    };
+    spyOn(obj, 'handler').andCallThrough();
     var container = document.createElement('div');
-    var instance = ReactDOM.render(<input type="text" onChange={handler} />, container);
+    var instance = ReactDOM.render(<input type="text" onChange={obj.handler} />, container);
 
     var node = ReactDOM.findDOMNode(instance);
     node.value = 'giraffe';
     ReactTestUtils.Simulate.change(node);
 
-    expect(handler).toHaveBeenCalledWith(jasmine.objectContaining({target: node}));
+    expect(obj.handler).toHaveBeenCalledWith(jasmine.objectContaining({target: node}));
   });
 
   it('should change the value of an input field in a component', function() {
@@ -453,15 +437,20 @@ describe('ReactTestUtils', function() {
       },
     });
 
-    var handler = jasmine.createSpy('spy');
+    var obj = {
+      handler: function(e) {
+        e.persist();
+      },
+    };
+    spyOn(obj, 'handler').andCallThrough();
     var container = document.createElement('div');
-    var instance = ReactDOM.render(<SomeComponent handleChange={handler} />, container);
+    var instance = ReactDOM.render(<SomeComponent handleChange={obj.handler} />, container);
 
     var node = ReactDOM.findDOMNode(instance.refs.input);
     node.value = 'zebra';
     ReactTestUtils.Simulate.change(node);
 
-    expect(handler).toHaveBeenCalledWith(jasmine.objectContaining({target: node}));
+    expect(obj.handler).toHaveBeenCalledWith(jasmine.objectContaining({target: node}));
   });
 
   it('should throw when attempting to use ReactTestUtils.Simulate with shallow rendering', function() {

@@ -393,7 +393,9 @@ NoopInternalComponent.prototype = {
   },
 };
 
-var ShallowComponentWrapper = function() { };
+var ShallowComponentWrapper = function(element) {
+  this.construct(element);
+};
 assign(
   ShallowComponentWrapper.prototype,
   ReactCompositeComponent.Mixin, {
@@ -448,7 +450,7 @@ ReactShallowRenderer.prototype.getRenderOutput = function() {
 
 ReactShallowRenderer.prototype.unmount = function() {
   if (this._instance) {
-    this._instance.unmountComponent();
+    this._instance.unmountComponent(false);
   }
 };
 
@@ -456,11 +458,8 @@ ReactShallowRenderer.prototype._render = function(element, transaction, context)
   if (this._instance) {
     this._instance.receiveComponent(element, transaction, context);
   } else {
-    var instance = new ShallowComponentWrapper(element.type);
-    instance.construct(element);
-
+    var instance = new ShallowComponentWrapper(element);
     instance.mountComponent(transaction, null, null, context);
-
     this._instance = instance;
   }
 };
