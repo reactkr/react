@@ -17,7 +17,7 @@ React 애드온은 React 앱을 만드는 데 유용한 유틸리티의 모음�
 
 밑에 있는 애드온은 React 개발 (압축되지 않은) 버전에서만 사용가능 합니다.
 
-- [`TestUtils`](test-utils-ko-KR.html)는 테스트 케이스를 적기 위한 간단한 헬퍼입니다. (압축되지 않은 빌드에서만 사용가능)
-- [`Perf`](perf-ko-KR.html)는 성능을 측정하고, 최적화를 위한 힌트를 제공합니다.
+- [`TestUtils`](test-utils-ko-KR.html)는 테스트 케이스를 적기 위한 간단한 헬퍼입니다.
+- [`Perf`](perf-ko-KR.html)는 최적화 가능성을 찾아주는 성능 프로파일링 도구입니다.
 
 애드온을 쓰려면, npm에서 각각 설치하세요.(예를 들면, `npm install react-addons-pure-render-mixin`) npm을 사용하지 않는 애드온 사용법에 대한 지원은 없습니다.

@@ -23,7 +23,7 @@ next: addons-ko-KR.html
 
 ### 브라우저에서 JSX 변환
 
-JSX를 사용하신다면, Babel에서 browser.js라는 [개발용 브라우저 ES6, JSX 변환기](http://babeljs.io/docs/usage/browser/)를 제공합니다. 이는 `babel-core`의 npm 릴리스나 [CDNJS](http://cdnjs.com/libraries/babel-core)로 넣을 수 있습니다. `<script type="text/babel">`를 넣으면 JSX 변환기가 작동합니다.
+JSX를 사용하신다면, Babel 5에서 browser.js라는 개발용 브라우저 ES6, JSX 변환기를 제공합니다. 이는 [CDNJS](http://cdnjs.com/libraries/babel-core/5.8.34)로 넣을 수 있습니다. `<script type="text/babel">`를 넣으면 JSX 변환기가 작동합니다.
 
 > 주의:
 >

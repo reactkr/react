@@ -18,11 +18,11 @@ React는 모든 공통 엘리먼트를 지원하려 합니다. 필요한 엘리�
 a abbr address area article aside audio b base bdi bdo big blockquote body br
 button canvas caption cite code col colgroup data datalist dd del details dfn
 dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5
-h6 head header hr html i iframe img input ins kbd keygen label legend li link
-main map mark menu menuitem meta meter nav noscript object ol optgroup option
-output p param picture pre progress q rp rt ruby s samp script section select
-small source span strong style sub summary sup table tbody td textarea tfoot th
-thead time title tr track u ul var video wbr
+h6 head header hgroup hr html i iframe img input ins kbd keygen label legend li
+link main map mark menu menuitem meta meter nav noscript object ol optgroup
+option output p param picture pre progress q rp rt ruby s samp script section
+select small source span strong style sub summary sup table tbody td textarea
+tfoot th thead time title tr track u ul var video wbr
 ```
 
 ### SVG 엘리먼트
@@ -30,11 +30,11 @@ thead time title tr track u ul var video wbr
 다음의 SVG 엘리먼트가 지원됩니다.
 
 ```
-circle clipPath defs ellipse g line linearGradient mask path pattern polygon polyline
-radialGradient rect stop svg text tspan
+circle clipPath defs ellipse g image line linearGradient mask path pattern
+polygon polyline radialGradient rect stop svg text tspan
 ```
 
-아마 Canvas, SVG, VML(IE8 전용)에 렌더할 때 쓰는 React의 드로잉 라이브러리인 [react-art](https://github.com/facebook/react-art)도 흥미 있으실 수 있습니다.
+아마 React를 위한 크로스 브라우저 드로잉 라이브러리인 [react-art](https://github.com/facebook/react-art)도 흥미 있으실 수 있습니다.
 
 
 ## 지원되는 어트리뷰트
@@ -52,26 +52,34 @@ React는 모든 `data-*`, `aria-*` 어트리뷰트와 밑에 있는 모든 어�
 이런 표준 어트리뷰트가 지원됩니다.
 
 ```
-accept acceptCharset accessKey action allowFullScreen allowTransparency alt
-async autoComplete autoFocus autoPlay capture cellPadding cellSpacing charSet
-challenge checked classID className cols colSpan content contentEditable contextMenu
-controls coords crossOrigin data dateTime defer dir disabled download draggable
-encType form formAction formEncType formMethod formNoValidate formTarget frameBorder
-headers height hidden high href hrefLang htmlFor httpEquiv icon id inputMode
-keyParams keyType label lang list loop low manifest marginHeight marginWidth max
-maxLength media mediaGroup method min minLength multiple muted name noValidate open
-optimum pattern placeholder poster preload radioGroup readOnly rel required role
-rows rowSpan sandbox scope scoped scrolling seamless selected shape size sizes
-span spellCheck src srcDoc srcSet start step style summary tabIndex target title
-type useMap value width wmode wrap
+async autoComplete autoFocus autoPlay capture cellPadding cellSpacing challenge
+charSet checked classID className colSpan cols content contentEditable
+contextMenu controls coords crossOrigin data dateTime default defer dir
+disabled download draggable encType form formAction formEncType formMethod
+formNoValidate formTarget frameBorder headers height hidden high href hrefLang
+htmlFor httpEquiv icon id inputMode integrity is keyParams keyType kind label
+lang list loop low manifest marginHeight marginWidth max maxLength media
+mediaGroup method min minLength multiple muted name noValidate nonce open
+optimum pattern placeholder poster preload radioGroup readOnly rel required
+reversed role rowSpan rows sandbox scope scoped scrolling seamless selected
+shape size sizes span spellCheck src srcDoc srcLang srcSet start step style
+summary tabIndex target title type useMap value width wmode wrap
+```
+
+다음의 RDFa 어트리뷰트가 지원됩니다. (표준 HTML 어트리뷰트와 중복되는 RDFa 어트리뷰트는 생략)
+
+```
+about datatype inlist prefix property resource typeof vocab
 ```
 
 덧붙여, 이런 비표준 어트리뷰트도 지원됩니다.
 
 - 모바일 사파리를 위한 `autoCapitalize autoCorrect`.
 - [오픈 그래프](http://ogp.me/) 메타 태그를 위한 `property`.
+- 사파리의 `<link rel="mask-icon" />`를 위한 `color`.
 - [HTML5 마이크로데이터](http://schema.org/docs/gs.html)를 위한 `itemProp itemScope itemType itemRef itemID`.
-- 인터넷 익스플로어를 위한 `unselectable`.
+- 구버전 인터넷 익스플로러를 위한 `security`.
+- 인터넷 익스플로러를 위한 `unselectable`.
 - WebKit/Blink의 `search` 타입 input 필드를 위한 `results autoSave` 
 
 컴포넌트에 직접 HTML 문자열을 넣을 때 사용하는, React 전용 어트리뷰트 `dangerouslySetInnerHTML`([자세한 정보는 여기](/react/docs/special-non-dom-attributes-ko-KR.html))도 있습니다.

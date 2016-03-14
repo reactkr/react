@@ -124,9 +124,9 @@ var MessageList = React.createClass({
 
 원한다면 전체 React 컴포넌트를 프로퍼티로 전달할 수도 있습니다. 
 
-## Referencing context in lifecycle methods
+## 생명주기 메소드에서 컨텍스트 참조하기
 
-If `contextTypes` is defined within a component, the following lifecycle methods will receive an additional parameter, the `context` object:
+`contextTypes`가 컴포넌트에 정의되어 있으면 다음의 생명주기 메소드는 `context` 객체를 추가 파라미터로 받습니다.
 
 ```javascript
 void componentWillReceiveProps(
@@ -146,9 +146,9 @@ void componentDidUpdate(
 )
 ```
 
-## Referencing context in stateless functional components
+## 상태 없는 함수 컴포넌트에서 컨텍스트 참조하기
 
-Stateless functional components are also able to reference `context` if `contextTypes` is defined as a property of the function. The following code shows the `Button` component above written as a stateless functional component.
+상태 없는 함수 컴포넌트에서도 함수의 프로퍼티로 `contextTypes`가 정의되어 있으면 `context`를 참조할 수 있습니다. 다음의 코드는 위의 `Button` 컴포넌트를 상태 없는 함수 컴포넌트로 작성한 것입니다.
 
 ```javascript
 function Button(props, context) {
@@ -159,6 +159,38 @@ function Button(props, context) {
   );
 }
 Button.contextTypes = {color: React.PropTypes.string};
+```
+
+## 컨텍스트 업데이트하기
+
+state나 props가 변경되면 `getChildContext` 함수가 호출됩니다. 컨텍스트에 있는 데이터를 업데이트하려면 `this.setState`로 지역 상태 업데이트를 발생시키면 됩니다. 이렇게 하면 새로운 컨텍스트가 만들어지고 변경 사항이 자식에 전달될 것입니다.
+
+```javascript
+var MediaQuery = React.createClass({
+  getInitialState: function(){
+    return {type:'desktop'};
+  },
+  childContextTypes: {
+    type: React.PropTypes.string
+  },
+  getChildContext: function() {
+    return {type: this.state.type};
+  },
+  componentDidMount: function(){
+    var checkMediaQuery = function(){
+      var type = window.matchMedia("(min-width: 1025px)").matches ? 'desktop' : 'mobile';
+      if (type !== this.state.type){
+        this.setState({type:type}); 
+      }
+    };
+    
+    window.addEventListener('resize', checkMediaQuery);
+    checkMediaQuery();
+  },
+  render: function(){
+    return this.props.children;
+  }
+});
 ```
 
 ## 컨텍스트를 사용하지 말아야 하는 경우

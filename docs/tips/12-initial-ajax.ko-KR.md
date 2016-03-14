@@ -9,7 +9,7 @@ next: false-in-jsx-ko-KR.html
 
 `componentDidMount`에서 데이터를 가져옵니다. 응답이 올 때 데이터가 state에 저장되고 렌더링을 시작하여 UI를 갱신합니다.
 
-비동기 요청의 응답을 처리하여 state를 변경하기 전에, 컴포넌트가 여전히 마운트되었는지를 확인하기 위해 `this.isMounted()`를 사용합니다.
+데이터를 비동기적으로 가져올 때는 `componentWillUnmount`를 사용하여 컴포넌트가 마운트 해제되기 전에 남아있는 요청을 취소합니다.
 
 이 예제는 희망하는 Github 사용자의 최근 gist를 가져옵니다.
 
@@ -23,15 +23,17 @@ var UserGist = React.createClass({
   },
 
   componentDidMount: function() {
-    $.get(this.props.source, function(result) {
+    this.serverRequest = $.get(this.props.source, function (result) {
       var lastGist = result[0];
-      if (this.isMounted()) {
-        this.setState({
-          username: lastGist.owner.login,
-          lastGistUrl: lastGist.html_url
-        });
-      }
+      this.setState({
+        username: lastGist.owner.login,
+        lastGistUrl: lastGist.html_url
+      });
     }.bind(this));
+  },
+
+  componentWillUnmount: function() {
+    this.serverRequest.abort();
   },
 
   render: function() {

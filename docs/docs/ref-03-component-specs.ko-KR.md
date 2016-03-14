@@ -149,6 +149,8 @@ componentWillReceiveProps: function(nextProps) {
 
 > 주의:
 >
+> 이 생명주기 함수에서 수행되는 코드에서 흔히 하는 실수 중 하나는 props가 변경되었다고 가정하는 것입니다. 그것이 잘못된 이유를 이해하려면 [A implies B does not imply B implies A](/react/blog/2016/01/08/A-implies-B-does-not-imply-B-implies-A.html)를 읽어보세요.
+>
 > `componentWillReceiveState`에 해당하는 메소드는 없습니다. prop이 변할 때 state가 바뀔 수는 있지만, 그 역은 불가능합니다. state의 변화에 따라 작업을 실행해야 하면 `componentWillUpdate`를 사용하세요.
 
 

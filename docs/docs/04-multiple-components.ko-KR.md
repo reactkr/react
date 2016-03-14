@@ -14,49 +14,49 @@ next: reusable-components-ko-KR.html
 
 ## 조합(Composition) 예제
 
-간단히 페이스북 그래프 API를 사용해 프로필 사진과 유저이름을 보여주는 아바타 컴포넌트를 만든다고 합시다.
+간단히 페이스북 그래프 API를 사용해 페이스북 페이지 사진과 이름을 보여주는 아바타 컴포넌트를 만든다고 합시다.
 
 ```javascript
 var Avatar = React.createClass({
   render: function() {
     return (
       <div>
-        <ProfilePic username={this.props.username} />
-        <ProfileLink username={this.props.username} />
+        <PagePic username={this.props.pagename} />
+        <PageLink username={this.props.pagename} />
       </div>
     );
   }
 });
 
-var ProfilePic = React.createClass({
+var PagePic = React.createClass({
   render: function() {
     return (
-      <img src={'https://graph.facebook.com/' + this.props.username + '/picture'} />
+      <img src={'https://graph.facebook.com/' + this.props.pagename + '/picture'} />
     );
   }
 });
 
-var ProfileLink = React.createClass({
+var PageLink = React.createClass({
   render: function() {
     return (
-      <a href={'https://www.facebook.com/' + this.props.username}>
-        {this.props.username}
+      <a href={'https://www.facebook.com/' + this.props.pagename}>
+        {this.props.pagename}
       </a>
     );
   }
 });
 
 ReactDOM.render(
-  <Avatar username="pwh" />,
+  <Avatar pagename="Engineering" />,
   document.getElementById('example')
 );
 ```
 
 ## 소유권(Ownership)
 
-위의 예제에서, `Avatar` 인스턴스는  `ProfilePic`과 `ProfileLink`인스턴스를 *가지고* 있습니다. React에서 **소유자는 다른 컴포넌트의 `props`를 설정하는 컴포넌트입니다**. 더 정식으로 말하면, `X` 컴포넌트가 `Y` 컴포넌트의 `render()` 메소드 안에서 만들어졌다면, `Y`가 `X`를 *소유하고* 있다고 합니다. 앞에서 설명한 바와 같이, 컴포넌트는 자신의 `props`를 변경할 수 없습니다. `props`는 언제나 소유자가 설정한 것과 일치합니다. 이와 같은 근본적인 불변성은 UI가 일관성 있도록 해줍니다.
+위의 예제에서, `Avatar` 인스턴스는  `PagePic`과 `PageLink`인스턴스를 *가지고* 있습니다. React에서 **소유자는 다른 컴포넌트의 `props`를 설정하는 컴포넌트입니다**. 더 정식으로 말하면, `X` 컴포넌트가 `Y` 컴포넌트의 `render()` 메소드 안에서 만들어졌다면, `Y`가 `X`를 *소유하고* 있다고 합니다. 앞에서 설명한 바와 같이, 컴포넌트는 자신의 `props`를 변경할 수 없습니다. `props`는 언제나 소유자가 설정한 것과 일치합니다. 이와 같은 근본적인 불변성은 UI가 일관성 있도록 해줍니다.
 
-소유(owner-ownee)관계와 부모·자식 관계를 구별하는 것은 중요합니다. 부모·자식 관계가 DOM에서부터 쓰던 익숙하고 이미 알고있던 단순한 것인 한편, 소유관계는 React 고유의 것입니다.  위의 예제에서, `Avatar`는 `div`, `ProfilePic`, `ProfileLink`인스턴스를 소유하고, `div`는 `ProfilePic`과 `ProfileLink`인스턴스의 (소유자가 아닌) **부모**입니다.
+소유(owner-ownee)관계와 부모·자식 관계를 구별하는 것은 중요합니다. 부모·자식 관계가 DOM에서부터 쓰던 익숙하고 이미 알고있던 단순한 것인 한편, 소유관계는 React 고유의 것입니다.  위의 예제에서, `Avatar`는 `div`, `PagePic`, `PageLink`인스턴스를 소유하고, `div`는 `PagePic`과 `PageLink`인스턴스의 (소유자가 아닌) **부모**입니다.
 
 ## 자식
 

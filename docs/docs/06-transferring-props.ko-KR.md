@@ -97,7 +97,7 @@ function FancyCheckbox(props) {
 
 ## 같은 Prop을 소비하고 전달하기
 
-컴포넌트가 프로퍼티를 사용하지만 계속 넘기길 원한다면, `checked={checked}`처럼 명시적으로 다시 넘길 수 있습니다. 리팩토링과 린트(lint)하기가 더 쉬우므로 이 방식이 `this.props` 객체 전부를 넘기는 것보다 낫습니다.
+컴포넌트가 프로퍼티를 사용하지만 계속 넘기길 원한다면, `checked={checked}`처럼 명시적으로 다시 넘길 수 있습니다. 리팩토링과 린트(lint)하기가 더 쉬우므로 이 방식이 `props` 객체 전부를 넘기는 것보다 낫습니다.
 
 ```javascript
 function FancyCheckbox(props) {
