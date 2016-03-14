@@ -28,16 +28,33 @@ ReactDOM.render(
 );
 ```
 
-browserify를 설치한 후에 React DOM을 설치하고 bundle을 빌드합니다.
+React DOM을 설치하고 browserify로 bundle을 빌드하려면 다음과 같이 합니다.
 
 ```sh
 $ npm install --save react react-dom babelify babel-preset-react
 $ browserify -t [ babelify --presets [ react ] ] main.js -o bundle.js
 ```
 
+React DOM을 설치하고 webpack으로 bundle을 빌드하려면 다음과 같이 합니다.
+
+```sh
+$ npm install --save react react-dom babel-preset-react
+$ webpack
+```
+
 > 주의:
 >
 > ES2015를 사용하고 있다면, `babel-preset-es2015` 패키지도 설치할 필요가 있습니다.
+
+**주의:** React는 기본적으로 느리고 실제 사용에는 추천되지 않는 개발 모드로 작동합니다. React를 프로덕션 모드로 사용하려면 `NODE_ENV` 환경 변수를 `production`으로 설정하세요. (envify나 webpack의 DefinePlugin 사용) 예를 들어,
+
+```js
+new webpack.DefinePlugin({
+  "process.env": {
+    NODE_ENV: JSON.stringify("production")
+  }
+});
+```
 
 ## npm 없이 Quick Start 하기
 
@@ -73,7 +90,7 @@ $ browserify -t [ babelify --presets [ react ] ] main.js -o bundle.js
 </html>
 ```
 
-JavaScript 안에 보이는 XML 구문은 JSX라고 합니다; 더 자세한 내용은 [JSX syntax](/react/docs/jsx-in-depth-ko-KR.html)을 확인하세요. 일반적인 JavaScript로 번역하기 위해 `<script type="text/babel">`를 사용하고 Babel을 포함하는 것으로 실제로 브라우저에서 변환작업을 수행합니다.
+JavaScript 안에 보이는 XML 구문은 JSX라고 합니다; 더 자세한 내용은 [JSX syntax](/react/docs/jsx-in-depth-ko-KR.html)을 확인하세요. 일반적인 JavaScript로 번역하기 위해 `<script type="text/babel">`를 사용하고 Babel을 포함하는 것으로 실제로 브라우저에서 변환작업을 수행합니다. HTML 파일을 브라우저에서 열면 바로 인사말을 보실 수 있습니다!
 
 ### 파일의 분리
 

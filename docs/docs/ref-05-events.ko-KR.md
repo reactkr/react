@@ -81,7 +81,7 @@ DOMDataTransfer clipboardData
 ```
 
 
-### Composition Events
+### 조합 이벤트
 
 이벤트 이름:
 
@@ -261,4 +261,38 @@ onAbort onCanPlay onCanPlayThrough onDurationChange onEmptied onEncrypted onEnde
 
 ```
 onLoad onError
+```
+
+
+### 애니메이션 이벤트
+
+이벤트 이름:
+
+```
+onAnimationStart onAnimationEnd onAnimationIteration
+```
+
+프로퍼티:
+
+```javascript
+string animationName
+string pseudoElement
+float elapsedTime
+```
+
+
+### 트랜지션 이벤트
+
+이벤트 이름:
+
+```
+onTransitionEnd
+```
+
+Properties:
+
+```javascript
+string propertyName
+string pseudoElement
+float elapsedTime
 ```

@@ -36,7 +36,7 @@ ReactDOM.render(
 
 ## 이벤트 핸들링과 통합적인(Synthetic) 이벤트
 
-React에서의 이벤트 핸들러는 HTML에서 그러던 것처럼 간단히 카멜케이스 프로퍼티(camelCased prop)로 넘기면 됩니다. React의 모든 이벤트는 통합적인 이벤트 시스템의 구현으로 IE8 이상에서는 같은 행동이 보장됩니다. 즉, React는 사양에 따라 어떻게 이벤트를 일으키고(bubble) 잡는지 알고 있고, 당신이 사용하는 브라우저와 관계없이 이벤트 핸들러에 전달되는 이벤트는 [W3C 사양](http://www.w3.org/TR/DOM-Level-3-Events/)과 같도록 보장됩니다.
+React에서의 이벤트 핸들러는 HTML에서 그러던 것처럼 간단히 카멜케이스 프로퍼티(camelCased prop)로 넘기면 됩니다. React의 모든 이벤트는 통합적인 이벤트 시스템의 구현으로 모든 브라우저에서 유사한 작동을 보장합니다. 즉, React는 사양에 따라 어떻게 이벤트를 일으키고(bubble) 잡는지 알고 있고, 당신이 사용하는 브라우저와 관계없이 이벤트 핸들러에 전달되는 이벤트는 [W3C 사양](http://www.w3.org/TR/DOM-Level-3-Events/)과 같도록 보장됩니다.
 
 ## 기본 구현: 오토바인딩과 이벤트 델리게이션
 <a name="under-the-hood-autobinding-and-event-delegation"></a>

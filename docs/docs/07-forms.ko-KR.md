@@ -35,7 +35,7 @@ HTML에서는 `<textarea>` 태그의 값을 설정할 때 `<textarea>` 태그의
 <a name="controlled-components"></a>
 ## 제어되는(controlled) 컴포넌트
 
-`value`가 설정된 `<input>`은 *제어되는* 컴포넌트입니다. 제어되는 `<input>`에서, 렌더 엘리먼트의 값은 항상 `value` prop을 반영합니다. 예를 들어,
+**제어되는** `<input>`은 `value` prop을 가집니다. 제어되는 `<input>`이 렌더되면 `value` prop의 값을 반영합니다. 예를 들어,
 
 ```javascript
   render: function() {
@@ -43,7 +43,7 @@ HTML에서는 `<textarea>` 태그의 값을 설정할 때 `<textarea>` 태그의
   }
 ```
 
-이것은 항상 `Hello!`의 값을 가지는 input을 렌더합니다. 어떤 사용자 입력도 렌더된 엘리먼트에는 영향을 주지 않는데, 왜냐하면 React가 값을 `Hello!`로 설정했기 때문입니다. 사용자 입력에 따라 값을 업데이트하길 원한다면, `onChange` 이벤트를 사용할 수 있습니다.
+사용자의 입력은 렌더된 엘리먼트에 영향을 주지 않는데, 왜냐하면 React가 값을 `Hello!`로 설정했기 때문입니다. 사용자 입력에 따라 값을 업데이트하길 원한다면, `onChange` 이벤트를 사용할 수 있습니다.
 
 ```javascript
   getInitialState: function() {
@@ -53,12 +53,17 @@ HTML에서는 `<textarea>` 태그의 값을 설정할 때 `<textarea>` 태그의
     this.setState({value: event.target.value});
   },
   render: function() {
-    var value = this.state.value;
-    return <input type="text" value={value} onChange={this.handleChange} />;
+    return (
+      <input
+        type="text"
+        value={this.state.value}
+        onChange={this.handleChange}
+      />
+    );
   }
 ```
 
-이 예제에서는, 단순히 사용자가 주는 최신값을 받고 `<input>` 컴포넌트의 `value` prop을 업데이트하고 있습니다. 이 패턴은 사용자의 상호작용에 반응하거나 검증하는 인터페이스를 쉽게 구현하게 합니다. 예를 들어,
+이 예제에서는, 사용자가 주는 값을 받아서 `<input>` 컴포넌트의 `value` prop을 업데이트하고 있습니다. 이 패턴은 사용자의 상호작용에 반응하거나 검증하는 인터페이스를 쉽게 구현하게 합니다. 예를 들어,
 
 ```javascript
   handleChange: function(event) {
@@ -68,13 +73,15 @@ HTML에서는 `<textarea>` 태그의 값을 설정할 때 `<textarea>` 태그의
 
 이것은 사용자 입력을 받아들이지만, 시작에서부터 140자로 값을 자릅니다.
 
+**제어되는** 컴포넌트는 자체적인 내부 상태를 가지지 않고 순수하게 prop만 사용하여 렌더됩니다.
+
 ### 체크박스와 라디오 버튼의 잠제적인 문제
 
 변경 핸들링을 일반화하기 위해 React는 `change` 이벤트 대신에 `click` 이벤트를 사용하는 것에 주의하세요. `change` 핸들러 안에서 `preventDefault`를 호출하는 경우를 재외하고 이 동작은 예상대로 동작합니다. 이런 경우 `preventDefault`를 제거하거나,  `setTimeout`에 `checked`의 전환을 넣어서 해결 가능합니다.
 
 ## 제어되지 않는(Uncontrolled) 컴포넌트
 
-`value` 가 없(거나 `null`로 설정되어 있)는 `<input>`은 *제어되지 않는* 컴포넌트입니다. 제어되지 않는 `<input>`에서 렌더된 엘리먼트의 value값은 사용자의 입력을 반영합니다. 예를 들어,
+`value` 프로퍼티가 없는 `<input>`은 *제어되지 않는* 컴포넌트입니다.
 
 ```javascript
   render: function() {
@@ -83,6 +90,8 @@ HTML에서는 `<textarea>` 태그의 값을 설정할 때 `<textarea>` 태그의
 ```
 
 이것은 빈 값으로 시작되는 input을 렌더합니다. 임의의 사용자 입력은 즉시 렌더된 엘리먼트에 반영됩니다. 값의 업데이트를 감시하길 원한다면, 제어되는 컴포넌트처럼 `onChange` 이벤트를 사용할 수 있습니다.
+
+**제어되지 않는** 컴포넌트는 자체적인 내부 상태를 가집니다.
 
 ### 기본 값
 
