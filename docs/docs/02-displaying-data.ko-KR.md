@@ -89,9 +89,9 @@ JSX를 이용하면:
 
 우리는 이것이 React 앱들을 만들기 쉽게 하고, 디자이너들이 이 문법을 더 선호하는 것을 발견했습니다, 하지만 모든 사람은 그들만의 선호하는 워크플로우가 있기 마련이므로, **JSX는 React를 사용하기 위해 필수적이지는 않습니다.**
 
-JSX는 매우 작은 언어입니다. 그것을 배우고 싶다면, [JSX 깊게 살펴보기](/react/docs/jsx-in-depth-ko-KR.html)를 살펴 보시기 바랍니다. 또는, [바벨 REPL](https://babeljs.io/repl/)를 통해 문법이 변환되는 것을 살펴 보시기 바랍니다.
+JSX는 매우 작은 언어입니다. 그것을 배우고 싶다면, [JSX 깊게 살펴보기](/docs/docs/02.1-jsx-in-depth.ko-KR.md)를 살펴 보시기 바랍니다. 또는, [바벨 REPL](https://babeljs.io/repl/)를 통해 문법이 변환되는 것을 살펴 보시기 바랍니다.
 
-JSX는 HTML과 비슷하지만, 완전히 똑같지는 않습니다. [JSX의 실수하기 쉬운 부분들](/react/docs/jsx-gotchas-ko-KR.html)에 중요한 차이점들에 대해 설명되어 있습니다.
+JSX는 HTML과 비슷하지만, 완전히 똑같지는 않습니다. [JSX의 실수하기 쉬운 부분들](/docs/docs/02.3-jsx-gotchas.ko-KR.md)에 중요한 차이점들에 대해 설명되어 있습니다.
 
 [바벨에서 JSX를 시작하는 여러 방법을 제공합니다](http://babeljs.io/docs/setup/). 여기에는 커맨드 라인 툴부터 루비 온 레일스 연동까지 다양한 방법이 있습니다. 가장 편한 툴을 사용하세요.
 
