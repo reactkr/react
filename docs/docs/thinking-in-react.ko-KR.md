@@ -39,7 +39,7 @@ React의 많은 뛰어난 점들 중 하나는 생각을 하면서 애플리케�
 
 주로 JSON 데이터 모델을 사용자에게 보여주기 때문에, 자료 모델이 잘 설계 되었다면, UI(혹은 컴포넌트 구조)가 잘 맞아 떨어진다는 것을 알게 될 겁니다. UI와 자료 모델은 같은 *정보 설계구조*로 따라가는 경향이 있기 때문입니다. 즉, UI를 컴포넌트들로 쪼개는 작업은 크게 어렵지 않습니다. 확실하게 각각 하나의 부분이 되도록 쪼개세요.
 
-![Component diagram](/react/blob/translation/docs/img/blog/thinking-in-react-components.png)
+![Component diagram](/docs/img/blog/thinking-in-react-components.png)
 
 이 간단한 애플리케이션에는 다섯개의 컴포넌트가 있습니다. 각 컴포넌트들이 대표하는 자료를 기울여 표기했습니다.
 
@@ -71,11 +71,11 @@ React의 많은 뛰어난 점들 중 하나는 생각을 하면서 애플리케�
 
 이 단계의 결과, 자료 모델을 그리는 재활용 가능한 컴포넌트의 라이브러리를 갖게 되었습니다. 정적버전 이후로 컴포넌트들은 오직 `render()` 메소드만 갖고 있습니다. 계층구조상 가장 위의 컴포넌트 (`FilterableProductTable`)은 자료 모델을 prop으로 취할 것입니다. 자료 모델이 변했을 때, `ReactDOM.render()`를 다시 부르면 UI가 업데이트 됩니다. 어떻게 UI가 업데이트 되는지 참 알기 쉽습니다. 자료가 바뀌어도 처리해야 할 복잡한 일이 아무것도 없습니다. React의 **단일 방향 자료 흐름** (혹은 *단일방향 바인딩*)이 모든것을 모듈식으로, 추론하기 쉽게, 그리고 빠르게 유지해줍니다.
 
-이 단계를 진행하는 데에 도움이 필요하시다면, [React 문서](/react/docs/getting-started-ko-KR.html)를 참조하세요.
+이 단계를 진행하는 데에 도움이 필요하시다면, [React 문서](/docs/getting-started-ko-KR.html)를 참조하세요.
 
 ### 잠시만: props vs state
 
-React 에는 두가지 타입의 자료 "모델"이 있습니다: props 와 state. 두가지의 구분점을 이해하는데 매우 중요합니다; 혹시 차이점을 확신하지 못한다면 걷어내세요 [공식 문서](/react/docs/interactivity-and-dynamic-uis-ko-KR.html).
+React 에는 두가지 타입의 자료 "모델"이 있습니다: props 와 state. 두가지의 구분점을 이해하는데 매우 중요합니다; 혹시 차이점을 확신하지 못한다면 걷어내세요 [공식 문서](/docs/interactivity-and-dynamic-uis-ko-KR.html).
 
 ## 3단계: UI state 의 표현을 작지만 완전하도록 확인하세요.
 
