@@ -8,7 +8,7 @@ next: component-specs-ko-KR.html
 
 ## React.Component
 
-React 컴포넌트의 인스턴스는 React가 렌더링 시에 내부적으로 만듭니다. 이때 만들어진 인스턴스는 이후의 렌더링에서 다시 사용되고 컴포넌트의 메소드들에서 `this` 변수로 접근할 수 있습니다. React 외부에서 React 컴포넌트의 핸들을 얻는 방법은 `ReactDOM.render`의 리턴값을 저장하는 것이 유일합니다. 다른 컴포넌트 안에서 비슷한 결과를 얻으려면 [refs](/react/docs/more-about-refs-ko-KR.html)를 사용해야 합니다.
+React 컴포넌트의 인스턴스는 React가 렌더링 시에 내부적으로 만듭니다. 이때 만들어진 인스턴스는 이후의 렌더링에서 다시 사용되고 컴포넌트의 메소드들에서 `this` 변수로 접근할 수 있습니다. React 외부에서 React 컴포넌트의 핸들을 얻는 방법은 `ReactDOM.render`의 리턴값을 저장하는 것이 유일합니다. 다른 컴포넌트 안에서 비슷한 결과를 얻으려면 [refs](/docs/docs/08.1-more-about-refs.ko-KR.md)를 사용해야 합니다.
 
 
 ### setState
@@ -92,7 +92,7 @@ DOMElement getDOMNode()
 
 > 주의:
 >
-> getDOMNode는 [ReactDOM.findDOMNode()](/react/docs/top-level-api.html#reactdom.finddomnode)로 교체되었습니다.
+> getDOMNode는 [ReactDOM.findDOMNode()](/docs/docs/ref-01-top-level-api.ko-KR.md#reactdom.finddomnode)로 교체되었습니다.
 >
 > 이 메소드는 `React.Component`를 확장한 ES6 `class` 컴포넌트에서는 사용할 수 없습니다. React의 미래 버전에서 이는 완전히 사라지게 될 것입니다.
 

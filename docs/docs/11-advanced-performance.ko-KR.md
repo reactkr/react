@@ -10,7 +10,7 @@ React를 도입하려 할 때 많은 사람이 묻는 첫 번째 질문은 React
 
 ## DOM 조정 회피
 
-React는 브라우저에서 렌더된 DOM 하위 트리의 서술자 개념인 *가상의 DOM*을 사용합니다. 이 병렬적인 서술체는 React가 DOM 노드를 생성하거나 이미 존재하는 DOM 노드에 접근하는 것(JavaScript 객체를 조작하는 것보다 느리죠)을 피하게 해 줍니다. 컴포넌트의 props나 state가 변경되면 React는 새로운 가상의 DOM을 구성해 이전의 것과 비교해서 실제 DOM 업데이트가 필요한지 결정합니다. 가능한 적게 변화를 적용하기 위해, React는 둘이 다를 경우에만 DOM을 [조정](/react/docs/reconciliation-ko-KR.html)할 것입니다.
+React는 브라우저에서 렌더된 DOM 하위 트리의 서술자 개념인 *가상의 DOM*을 사용합니다. 이 병렬적인 서술체는 React가 DOM 노드를 생성하거나 이미 존재하는 DOM 노드에 접근하는 것(JavaScript 객체를 조작하는 것보다 느리죠)을 피하게 해 줍니다. 컴포넌트의 props나 state가 변경되면 React는 새로운 가상의 DOM을 구성해 이전의 것과 비교해서 실제 DOM 업데이트가 필요한지 결정합니다. 가능한 적게 변화를 적용하기 위해, React는 둘이 다를 경우에만 DOM을 [조정](/docs/docs/ref-08-reconciliation.ko-KR.md)할 것입니다.
 
 이에 더해, React는 컴포넌트 생명주기 함수인 `shouldComponentUpdate`를 제공합니다. 이는 다시 렌더링하는 프로세스(가상 DOM 비교와 어쩌면 일어날 DOM 조정)가 일어나기 직전에 일어나며 개발자가 프로세스를 중단할 수 있게 합니다. 이 함수의 기본구현은 `true`를 반환해 React가 업데이트를 수행하도록 합니다.
 
@@ -36,7 +36,7 @@ shouldComponentUpdate: function(nextProps, nextState) {
 
 다음은 컴포넌트의 하위 트리입니다. 각각은 `shouldComponentUpdate`의 반환값(SCU)과 가상의 DOM과의 동일성(vDOMEq)을 표시합니다. 마지막으로, 원의 색은 컴포넌트가 조정되었는지를 표시합니다.
 
-<figure><img src="/react/img/docs/should-component-update.png" /></figure>
+<figure><img src="/docs/img/docs/should-component-update.png" /></figure>
 
 위의 예시에서, C2를 루트로 하는 하위 트리에 대해 `shouldComponentUpdate`가 `false`를 반환했기 때문에 React는 새로운 가상의 DOM을 만들 필요가 없습니다. 따라서 DOM을 조정할 필요도 없습니다. React가 C4와 C5에는 `shouldComponentUpdate`를 요청하지도 않은 것을 확인하세요.
 
@@ -66,7 +66,7 @@ shouldComponentUpdate: function(nextProps, nextState) {
 }
 ```
 
-여기까지는 좋습니다. 간단한 props/state 구조를 다루기는 쉽습니다. 단순한 등식비교 구현을 일반화하고 이를 컴포넌트에 혼합할 수도 있습니다. 사실, React는 이미 그런 구현을 제공합니다: [PureRenderMixin](/react/docs/pure-render-mixin-ko-KR.html).
+여기까지는 좋습니다. 간단한 props/state 구조를 다루기는 쉽습니다. 단순한 등식비교 구현을 일반화하고 이를 컴포넌트에 혼합할 수도 있습니다. 사실, React는 이미 그런 구현을 제공합니다: [PureRenderMixin](/docs/docs/10.8-pure-render-mixin.ko-KR.md).
 
 하지만 만약 컴포넌트의 props나 state가 가변적인 데이터 구조로 되어 있다면 어떨까요? 컴포넌트의 prop으로 `'bar'`같은 문자열 대신에 `{ foo: 'bar' }`처럼 문자열을 포함한 JavaScript 객체를 전달받는다고 해봅시다.
 

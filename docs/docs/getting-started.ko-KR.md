@@ -73,7 +73,7 @@ $ browserify -t [ babelify --presets [ react ] ] main.js -o bundle.js
 </html>
 ```
 
-JavaScript 안에 보이는 XML 구문은 JSX라고 합니다; 더 자세한 내용은 [JSX syntax](/react/docs/jsx-in-depth-ko-KR.html)을 확인하세요. 일반적인 JavaScript로 번역하기 위해 `<script type="text/babel">`를 사용하고 Babel을 포함하는 것으로 실제로 브라우저에서 변환작업을 수행합니다.
+JavaScript 안에 보이는 XML 구문은 JSX라고 합니다; 더 자세한 내용은 [JSX syntax](/docs/docs/02.1-jsx-in-depth-ko-KR.md)을 확인하세요. 일반적인 JavaScript로 번역하기 위해 `<script type="text/babel">`를 사용하고 Babel을 포함하는 것으로 실제로 브라우저에서 변환작업을 수행합니다.
 
 ### 파일의 분리
 
@@ -143,7 +143,7 @@ ReactDOM.render(
 
 ## 다음 단계로
 
-더 알아보려면 [튜토리얼](/react/docs/tutorial-ko-KR.html)과 초심자용 키트의 `examples` 디렉터리에서 다른 예제들을 확인해 보세요.
+더 알아보려면 [튜토리얼](/docs/docs/tutorial-ko-KR.md)과 초심자용 키트의 `examples` 디렉터리에서 다른 예제들을 확인해 보세요.
 
 커뮤니티의 기여로 운영되는 Wiki도 있습니다: [워크플로우, UI 컴포넌트, 라우팅, 데이터 관리 등](https://github.com/facebook/react/wiki/Complementary-Tools)
 

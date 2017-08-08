@@ -148,7 +148,7 @@ DOMEventTarget relatedTarget
 onChange onInput onSubmit
 ```
 
-onChange 이벤트에 대한 더 자세한 정보는 [폼](/react/docs/forms-ko-KR.html)에서 확인하세요.
+onChange 이벤트에 대한 더 자세한 정보는 [폼](/docs/docs/07-forms-ko-KR.md)에서 확인하세요.
 
 
 ### 마우스 이벤트
