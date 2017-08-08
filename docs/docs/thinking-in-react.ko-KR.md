@@ -16,7 +16,7 @@ React의 많은 뛰어난 점들 중 하나는 생각을 하면서 애플리케�
 
 우리가 이미 JSON API와 디자이너로부터 넘겨받은 모형을 이미 가지고 있다고 생각해봅시다. 보시다시피 우리 디자이너는 별로 좋지 않습니다:
 
-![Mockup](/react/blob/translation/docs/img/blog/thinking-in-react-mock.png)
+![Mockup](/docs/img/blog/thinking-in-react-mock.png)
 
 우리의 JSON API는 아래와 같은 데이터를 리턴합니다:
 
