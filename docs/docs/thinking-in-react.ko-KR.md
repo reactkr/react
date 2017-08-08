@@ -16,7 +16,7 @@ React의 많은 뛰어난 점들 중 하나는 생각을 하면서 애플리케�
 
 우리가 이미 JSON API와 디자이너로부터 넘겨받은 모형을 이미 가지고 있다고 생각해봅시다. 보시다시피 우리 디자이너는 별로 좋지 않습니다:
 
-![Mockup](/react/img/blog/thinking-in-react-mock.png)
+![Mockup](/react/blob/translation/docs/img/blog/thinking-in-react-mock.png)
 
 우리의 JSON API는 아래와 같은 데이터를 리턴합니다:
 
@@ -39,7 +39,7 @@ React의 많은 뛰어난 점들 중 하나는 생각을 하면서 애플리케�
 
 주로 JSON 데이터 모델을 사용자에게 보여주기 때문에, 자료 모델이 잘 설계 되었다면, UI(혹은 컴포넌트 구조)가 잘 맞아 떨어진다는 것을 알게 될 겁니다. UI와 자료 모델은 같은 *정보 설계구조*로 따라가는 경향이 있기 때문입니다. 즉, UI를 컴포넌트들로 쪼개는 작업은 크게 어렵지 않습니다. 확실하게 각각 하나의 부분이 되도록 쪼개세요.
 
-![Component diagram](/react/img/blog/thinking-in-react-components.png)
+![Component diagram](/react/blob/translation/docs/img/blog/thinking-in-react-components.png)
 
 이 간단한 애플리케이션에는 다섯개의 컴포넌트가 있습니다. 각 컴포넌트들이 대표하는 자료를 기울여 표기했습니다.
 
