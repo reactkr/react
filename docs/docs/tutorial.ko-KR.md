@@ -116,7 +116,7 @@ ReactDOM.render(
 );
 ```
 
-JSX의 사용은 선택적이지만 JSX 문법이 일반 JavsScript보다 사용하기 쉽습니다. [JSX 문법 문서](/react/docs/jsx-in-depth.html)에서 더 알아보세요.
+JSX의 사용은 선택적이지만 JSX 문법이 일반 JavsScript보다 사용하기 쉽습니다. [JSX 문법 문서](/docs/docs/02.1-jsx-in-depth.ko-KR.md)에서 더 알아보세요.
 
 #### 무슨 일이 일어나고 있는가
 

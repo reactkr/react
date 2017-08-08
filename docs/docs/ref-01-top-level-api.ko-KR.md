@@ -17,7 +17,7 @@ redirect_from: "/docs/reference-ko-KR.html"
 class Component
 ```
 
-ES6 클래스 구문을 사용해 React 컴포넌트를 정의했을 때 기본 클래스가 되는 부분입니다. 어떻게 ES6 클래스 구문을 사용해 React를 다루는지는 [재사용가능한 컴포넌트](/react/docs/reusable-components-ko-KR.html#es6-classes)를 확인하세요. 기본 클래스에서 실제 제공되는 메소드들에는 어떤것이 있는지 알아보려면 [컴포넌트 API](/react/docs/component-api-ko-KR.html)를 확인하세요.
+ES6 클래스 구문을 사용해 React 컴포넌트를 정의했을 때 기본 클래스가 되는 부분입니다. 어떻게 ES6 클래스 구문을 사용해 React를 다루는지는 [재사용가능한 컴포넌트](/docs/docs/05-reusable-components.ko-KR.md#es6-classes)를 확인하세요. 기본 클래스에서 실제 제공되는 메소드들에는 어떤것이 있는지 알아보려면 [컴포넌트 API](/docs/docs/ref-02-component-api.ko-KR.md)를 확인하세요.
 
 
 ### React.createClass
@@ -28,7 +28,7 @@ ReactClass createClass(object specification)
 
 주어진 명세에 따라 컴포넌트 클래스를 만듭니다. 컴포넌트는 단 하나의 자식만을 리턴하는 `render` 메소드를 구현합니다. 그 자식은 임의 깊이의 자식 구조를 가질 수 있습니다. 컴포넌트가 일반적인 프로토타입 기반의 클래스와 다른 점은 생성할 때 `new` 연산자를 사용하지 않아도 된다는 것입니다. 컴포넌트는 (`new` 연산자를 통해) 내부 인스턴스를 만들어 주는 편의 래퍼(wrapper)입니다.
 
-명세 객체에 대한 자세한 정보는 [컴포넌트 명세와 생명주기](/react/docs/component-specs-ko-KR.html)를 참고하세요.
+명세 객체에 대한 자세한 정보는 [컴포넌트 명세와 생명주기](/docs/docs/ref-03-component-specs.ko-KR.md)를 참고하세요.
 
 
 ### React.createElement
@@ -84,7 +84,7 @@ boolean isValidElement(* object)
 
 ### React.PropTypes
 
-`React.PropTypes`는 컴포넌트에 넘어오는 props가 올바른지 검사할 수 있는 컴포넌트의 `propTypes` 객체에 들어가는 타입을 가집니다. `propTypes`에 대한 자세한 정보는 [재사용 가능한 컴포넌트](/react/docs/reusable-components-ko-KR.html)를 참고하세요.
+`React.PropTypes`는 컴포넌트에 넘어오는 props가 올바른지 검사할 수 있는 컴포넌트의 `propTypes` 객체에 들어가는 타입을 가집니다. `propTypes`에 대한 자세한 정보는 [재사용 가능한 컴포넌트](/docs/docs/05-reusable-components.ko-KR.md)를 참고하세요.
 
 
 ### React.Children
@@ -145,7 +145,7 @@ ReactComponent render(
 )
 ```
 
-주어진 ReactElement를 `container` 인자에 넘어온 DOM 안에 렌더링하고 컴포넌트의 [레퍼런스](/react/docs/more-about-refs-ko-KR.html)를 컴포넌트에 리턴합니다. [상태가 없는 컴포넌트](/react/docs/reusable-components-ko-KR.html#stateless-functions)에서는 `null`을 리턴합니다. 
+주어진 ReactElement를 `container` 인자에 넘어온 DOM 안에 렌더링하고 컴포넌트의 [레퍼런스](/docs/docs/08.1-more-about-refs.ko-KR.md)를 컴포넌트에 리턴합니다. [상태가 없는 컴포넌트](/docs/docs/05-reusable-components.ko-KR.md#stateless-functions)에서는 `null`을 리턴합니다. 
 
 어떤 ReactElement가 이미 `container`에 렌더링 된 적이 있다면, 그것을 업데이트한 뒤 React 컴포넌트의 최신 상태를 반영하기 위해 꼭 필요한 만큼만 DOM을 변경합니다.
 

@@ -12,7 +12,7 @@ next: addons-ko-KR.html
 
 ### CDN-호스트 React
 
-[다운로드 페이지](/react/downloads.html)에서 React의 CDN 호스트 버전을 제공합니다. 이 미리 빌드된 파일들은 UMD 모듈 포맷을 사용합니다. 간단한 `<script>` 태그로 넣어보면 `React` 글로벌이 환경으로 주입(inject)될 것입니다. CommonJS와 AMD환경에서 별도의 작업 없이도 동작해야 합니다.
+[다운로드 페이지](/docs/downloads.md)에서 React의 CDN 호스트 버전을 제공합니다. 이 미리 빌드된 파일들은 UMD 모듈 포맷을 사용합니다. 간단한 `<script>` 태그로 넣어보면 `React` 글로벌이 환경으로 주입(inject)될 것입니다. CommonJS와 AMD환경에서 별도의 작업 없이도 동작해야 합니다.
 
 
 ### master 사용하기

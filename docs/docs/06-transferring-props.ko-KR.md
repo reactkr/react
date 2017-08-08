@@ -8,7 +8,7 @@ next: forms-ko-KR.html
 
 React에서는 컴포넌트를 감싸서 추상화하는 것이 일반적인 패턴입니다. 외부 컴포넌트에서는 간단한 프로퍼티만을 노출하여 복잡한 세부 구현을 감출 수 있습니다.
 
-[JSX 스프레드 어트리뷰트](/react/docs/jsx-spread-ko-KR.html)를 통해 props에 추가적인 값을 병합할 수 있습니다.
+[JSX 스프레드 어트리뷰트](/docs/docs/02.2-jsx-spread.ko-KR.md)를 통해 props에 추가적인 값을 병합할 수 있습니다.
 
 ```javascript
 <Component {...this.props} more="values" />
@@ -49,7 +49,7 @@ ReactDOM.render(
 
 > 주의:
 >
-> `...` 구문은 객체 잔여 스프레드 제안의 일부입니다. 이 제안은 표준화 과정에 있습니다. 더 자세한 내용은 밑의 [잔여 프로퍼티와 스프레드 프로퍼티 ...](/react/docs/transferring-props.html#rest-and-spread-properties-...) 부분을 참고하세요.
+> `...` 구문은 객체 잔여 스프레드 제안의 일부입니다. 이 제안은 표준화 과정에 있습니다. 더 자세한 내용은 밑의 [잔여 프로퍼티와 스프레드 프로퍼티 ...](/docs/docs/06-transferring-props.ko-KR.md#rest-and-spread-properties-...) 부분을 참고하세요.
 
 
 때로는 모든 프로퍼티를 일일이 전달 하는것은 지루하고 덧없는 작업입니다. 이 경우 [구조 해체 할당(destructuring assignment)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)을 다른 프로퍼티를 함께 사용해 미상의 프로퍼티를 추출할 수 있습니다.

@@ -7,4 +7,4 @@ prev: expose-component-functions-ko-KR.html
 next: children-undefined-ko-KR.html
 ---
 
-이 페이지는 이동되었습니다. [refs](/react/docs/more-about-refs-ko-KR.html)
+이 페이지는 이동되었습니다. [refs](/docs/docs/08.1-more-about-refs.ko-KR.md)

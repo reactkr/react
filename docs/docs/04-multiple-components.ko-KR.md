@@ -66,7 +66,7 @@ React 컴포넌트 인스턴스를 만들 때, 추가적인 React 컴포넌트�
 <Parent><Child /></Parent>
 ```
 
-`Parent`는 `this.props.children`라는 특수 prop으로 자식들을 읽을 수 있습니다. **`this.props.children` 는 불투명한 데이터 구조이며,** [React.Children 유틸리티](/react/docs/top-level-api-ko-KR.html#react.children)를 사용해 자식들을 관리합니다.
+`Parent`는 `this.props.children`라는 특수 prop으로 자식들을 읽을 수 있습니다. **`this.props.children` 는 불투명한 데이터 구조이며,** [React.Children 유틸리티](/docs/docs/ref-01-top-level-api.ko-KR.md#react.children)를 사용해 자식들을 관리합니다.
 
 ### 자식 Reconciliation (비교조정)
 
@@ -176,7 +176,7 @@ React에서 데이터는 위에서 말한 것처럼 `props`를 통해 소유자�
 
 소유자가 가지고 있는 노드의 수가 많아지면 데이터가 변화하는 비용이 증가할 것으로 생각할 수도 있습니다. 좋은 소식은 JavaScript의 속도는 빠르고 `render()` 메소드는 꽤 간단한 경향이 있어, 대부분 애플리케이션에서 매우 빠르다는 점입니다. 덧붙여, 대부분의 병목 현상은 JS 실행이 아닌 DOM 변경에서 일어나고, React는 배치와 탐지 변경을 이용해 최적화해 줍니다.
 
-하지만, 가끔 성능을 위해 정교하게 제어해야 할 때도 있습니다. 이런 경우, React가 서브트리의 처리를 건너 뛰도록 간단히 `shouldComponentUpdate()`를 오버라이드해 false를 리턴하게 할 수 있습니다. 좀 더 자세한 정보는 [React 참조 문서](/react/docs/component-specs-ko-KR.html)를 보세요.
+하지만, 가끔 성능을 위해 정교하게 제어해야 할 때도 있습니다. 이런 경우, React가 서브트리의 처리를 건너 뛰도록 간단히 `shouldComponentUpdate()`를 오버라이드해 false를 리턴하게 할 수 있습니다. 좀 더 자세한 정보는 [React 참조 문서](/docs/docs/ref-03-component-specs.ko-KR.md)를 보세요.
 
 > 주의:
 >
