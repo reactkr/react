@@ -71,11 +71,11 @@ React의 많은 뛰어난 점들 중 하나는 생각을 하면서 애플리케�
 
 이 단계의 결과, 자료 모델을 그리는 재활용 가능한 컴포넌트의 라이브러리를 갖게 되었습니다. 정적버전 이후로 컴포넌트들은 오직 `render()` 메소드만 갖고 있습니다. 계층구조상 가장 위의 컴포넌트 (`FilterableProductTable`)은 자료 모델을 prop으로 취할 것입니다. 자료 모델이 변했을 때, `ReactDOM.render()`를 다시 부르면 UI가 업데이트 됩니다. 어떻게 UI가 업데이트 되는지 참 알기 쉽습니다. 자료가 바뀌어도 처리해야 할 복잡한 일이 아무것도 없습니다. React의 **단일 방향 자료 흐름** (혹은 *단일방향 바인딩*)이 모든것을 모듈식으로, 추론하기 쉽게, 그리고 빠르게 유지해줍니다.
 
-이 단계를 진행하는 데에 도움이 필요하시다면, [React 문서](/docs/getting-started-ko-KR.html)를 참조하세요.
+이 단계를 진행하는 데에 도움이 필요하시다면, [React 문서](/docs/getting-started.ko-KR.md)를 참조하세요.
 
 ### 잠시만: props vs state
 
-React 에는 두가지 타입의 자료 "모델"이 있습니다: props 와 state. 두가지의 구분점을 이해하는데 매우 중요합니다; 혹시 차이점을 확신하지 못한다면 걷어내세요 [공식 문서](/docs/interactivity-and-dynamic-uis-ko-KR.html).
+React 에는 두가지 타입의 자료 "모델"이 있습니다: props 와 state. 두가지의 구분점을 이해하는데 매우 중요합니다; 혹시 차이점을 확신하지 못한다면 걷어내세요 [공식 문서](docs/03-interactivity-and-dynamic-uis.ko-KR.md).
 
 ## 3단계: UI state 의 표현을 작지만 완전하도록 확인하세요.
 
